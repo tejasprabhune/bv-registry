@@ -1,13 +1,13 @@
 [tool]
 id = "mmseqs2"
-version = "14.7564.0"
+version = "17.0.0"
 description = "MMseqs2: ultra-fast protein and nucleotide sequence search"
 homepage = "https://github.com/soedinglab/MMseqs2"
 license = "GPL-3.0"
 
 [tool.image]
 backend = "docker"
-reference = "quay.io/biocontainers/mmseqs2:14.7564--pl5321h6a68c12_3"
+reference = "quay.io/biocontainers/mmseqs2:17.b804f--hd6d6fdc_1"
 
 [tool.hardware]
 cpu_cores = 8
