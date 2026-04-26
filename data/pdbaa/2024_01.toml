@@ -1,0 +1,12 @@
+[data]
+id = "pdbaa"
+version = "2024_01"
+description = "PDB amino acid sequences as a preformatted BLAST database (~70 MB)"
+source_urls = [
+    "https://ftp.ncbi.nlm.nih.gov/blast/db/pdbaa.tar.gz",
+]
+sha256 = "sha256:aef9656e065df952e438ecad52920acc51a3e6e9dcb27b157fe167eba4f93d91"
+size_bytes = 70000000
+format = "tar"
+post_download_action = "extract"
+license = "public domain (NCBI)"

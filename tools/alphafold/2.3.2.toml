@@ -23,16 +23,22 @@ cuda_version = "11.8"
 id = "uniref90"
 version = "2023-01"
 required = true
+mount_path = "/data/uniref90"
+size_bytes = 68000000000
 
 [tool.reference_data.bfd]
 id = "bfd"
 version = "1.0"
 required = true
+mount_path = "/data/bfd"
+size_bytes = 1700000000000
 
 [tool.reference_data.pdb70]
 id = "pdb70"
 version = "2023-01"
 required = false
+mount_path = "/data/pdb70"
+size_bytes = 50000000000
 
 [[tool.io.inputs]]
 name = "fasta"
