@@ -1,0 +1,36 @@
+[tool]
+id = "blast"
+version = "2.15.0"
+description = "BLAST+ Basic Local Alignment Search Tool"
+homepage = "https://blast.ncbi.nlm.nih.gov/Blast.cgi"
+license = "Public Domain"
+
+[tool.image]
+backend = "docker"
+reference = "ncbi/blast:2.15.0"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 8.0
+disk_gb = 2.0
+
+[[tool.io.inputs]]
+name = "query"
+type = "fasta"
+required = true
+description = "Query sequences in FASTA format"
+
+[[tool.io.inputs]]
+name = "db"
+type = "blast_db"
+required = true
+description = "BLAST database path or name"
+
+[[tool.io.outputs]]
+name = "output"
+type = "blast_output"
+description = "BLAST alignment results"
+
+[tool.entrypoint]
+command = "blastn"
+args_template = "-query {query} -db {db} -out {output} -num_threads {cpu_cores}"
