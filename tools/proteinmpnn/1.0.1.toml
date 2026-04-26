@@ -1,0 +1,35 @@
+[tool]
+id = "proteinmpnn"
+version = "1.0.1"
+description = "ProteinMPNN: message passing neural network for protein sequence design"
+homepage = "https://github.com/dauparas/ProteinMPNN"
+license = "MIT"
+
+[tool.image]
+backend = "docker"
+reference = "ghcr.io/dauparas/proteinmpnn:v1.0.1"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 8.0
+disk_gb = 2.0
+
+[tool.hardware.gpu]
+required = true
+min_vram_gb = 4
+cuda_version = "11.0"
+
+[[tool.io.inputs]]
+name = "pdb"
+type = "pdb"
+required = true
+description = "Input protein structure(s)"
+
+[[tool.io.outputs]]
+name = "output_dir"
+type = "directory"
+description = "Designed sequences and scores"
+
+[tool.entrypoint]
+command = "python"
+args_template = "/app/protein_mpnn_run.py --pdb_path={pdb} --out_folder={output_dir}"

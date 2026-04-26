@@ -1,0 +1,50 @@
+[tool]
+id = "alphafold"
+version = "2.3.2"
+description = "AlphaFold 2: structure prediction from sequence"
+homepage = "https://github.com/google-deepmind/alphafold"
+license = "Apache-2.0"
+
+[tool.image]
+backend = "docker"
+reference = "ghcr.io/google-deepmind/alphafold:v2.3.2"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 24.0
+disk_gb = 10.0
+
+[tool.hardware.gpu]
+required = true
+min_vram_gb = 8
+cuda_version = "11.8"
+
+[tool.reference_data.uniref90]
+id = "uniref90"
+version = "2023-01"
+required = true
+
+[tool.reference_data.bfd]
+id = "bfd"
+version = "1.0"
+required = true
+
+[tool.reference_data.pdb70]
+id = "pdb70"
+version = "2023-01"
+required = false
+
+[[tool.io.inputs]]
+name = "fasta"
+type = "fasta"
+required = true
+description = "Input protein sequence(s)"
+
+[[tool.io.outputs]]
+name = "output_dir"
+type = "directory"
+description = "AlphaFold output directory with predicted structures"
+
+[tool.entrypoint]
+command = "python"
+args_template = "/app/alphafold/run_alphafold.py --fasta_paths={fasta} --output_dir={output_dir} --data_dir=/data"

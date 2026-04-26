@@ -1,0 +1,36 @@
+[tool]
+id = "hmmer"
+version = "3.3.2"
+description = "HMMER: biosequence analysis using profile hidden Markov models"
+homepage = "http://hmmer.org/"
+license = "BSD-3-Clause"
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/hmmer:3.3.2--h87f3376_2"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 4.0
+disk_gb = 1.0
+
+[[tool.io.inputs]]
+name = "query"
+type = "fasta"
+required = true
+description = "Query profile or sequence"
+
+[[tool.io.inputs]]
+name = "db"
+type = "fasta"
+required = true
+description = "Target database"
+
+[[tool.io.outputs]]
+name = "output"
+type = "hmmer_output"
+description = "HMMER search results"
+
+[tool.entrypoint]
+command = "hmmsearch"
+args_template = "--cpu {cpu_cores} {query} {db}"

@@ -1,0 +1,36 @@
+[tool]
+id = "mmseqs2"
+version = "14.7564.0"
+description = "MMseqs2: ultra-fast protein and nucleotide sequence search"
+homepage = "https://github.com/soedinglab/MMseqs2"
+license = "GPL-3.0"
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/mmseqs2:14.7564--pl5321h6a68c12_3"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 16.0
+disk_gb = 5.0
+
+[[tool.io.inputs]]
+name = "query"
+type = "fasta"
+required = true
+description = "Query sequences"
+
+[[tool.io.inputs]]
+name = "db"
+type = "mmseqs_db"
+required = true
+description = "Target MMseqs2 database"
+
+[[tool.io.outputs]]
+name = "output"
+type = "mmseqs_output"
+description = "Search results"
+
+[tool.entrypoint]
+command = "mmseqs"
+args_template = "easy-search {query} {db} {output} tmp --threads {cpu_cores}"
