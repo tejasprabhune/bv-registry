@@ -93,7 +93,7 @@ function openModal(t) {
 
   // reset copy button
   const copyBtn = document.getElementById('copy-btn');
-  copyBtn.textContent = 'copy';
+  copyBtn.innerHTML = '<i class="fi fi-rr-copy"></i>';
   copyBtn.classList.remove('copied');
   copyBtn.onclick = () => copyToClipboard(addCmd, copyBtn);
 
@@ -143,17 +143,33 @@ function closeModal() {
 }
 
 function copyToClipboard(text, btn) {
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = 'copied';
+  const onSuccess = () => {
+    btn.innerHTML = '<i class="fi fi-rr-check"></i>';
     btn.classList.add('copied');
     setTimeout(() => {
-      btn.textContent = 'copy';
+      btn.innerHTML = '<i class="fi fi-rr-copy"></i>';
       btn.classList.remove('copied');
     }, 1800);
-  }).catch(() => {
-    btn.textContent = 'failed';
-    setTimeout(() => { btn.textContent = 'copy'; }, 1800);
-  });
+  };
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(onSuccess).catch(() => fallbackCopy(text, onSuccess));
+  } else {
+    fallbackCopy(text, onSuccess);
+  }
+}
+
+function fallbackCopy(text, onSuccess) {
+  const el = document.createElement('textarea');
+  el.value = text;
+  el.style.cssText = 'position:fixed;opacity:0;pointer-events:none;';
+  document.body.appendChild(el);
+  el.select();
+  try {
+    document.execCommand('copy');
+    onSuccess();
+  } catch {}
+  document.body.removeChild(el);
 }
 
 function populateTypeFilter() {
