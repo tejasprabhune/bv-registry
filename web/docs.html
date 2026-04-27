@@ -486,7 +486,7 @@ bv publish . --no-push --no-pr           # dry run: build, print manifest, exit<
 
     <h4>what it pushes, and where</h4>
     <ol>
-      <li><strong>image</strong>: built and pushed to <code>ghcr.io/bv-registry/&lt;tool&gt;:&lt;version&gt;</code>. <code>bv</code> logs in to GHCR with your <code>GHCR_TOKEN</code> (or your <code>GITHUB_TOKEN</code> as a fallback). Multi-arch builds use <code>--platform</code>.</li>
+      <li><strong>image</strong>: built and pushed to <code>ghcr.io/&lt;your-github-username&gt;/&lt;tool&gt;:&lt;version&gt;</code> by default, so you don't need write access to any shared org: a normal GitHub token (with <code>write:packages</code> scope) is enough. Override the namespace with <code>--push-to &lt;org&gt;</code> if you want to push somewhere else, like a lab-shared GHCR org. <code>bv</code> logs in to GHCR with your <code>GHCR_TOKEN</code>, falling back to <code>GITHUB_TOKEN</code>. Multi-arch builds use <code>--platform</code>.</li>
       <li><strong>digest</strong>: resolved by <code>docker manifest inspect</code> immediately after the push and embedded in the manifest <code>[tool.image].digest</code> for reproducibility.</li>
       <li><strong>registry PR</strong>: a new branch <code>add-&lt;tool&gt;-&lt;version&gt;</code> is opened against <code>mlberkeley/bv-registry</code> (override with <code>--registry-repo owner/repo</code>), adding <code>tools/&lt;tool&gt;/&lt;version&gt;.toml</code>. The PR body links back to your source URL (the local path or <code>github.com/owner/repo</code>).</li>
     </ol>
