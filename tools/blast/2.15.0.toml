@@ -14,22 +14,23 @@ cpu_cores = 4
 ram_gb = 8.0
 disk_gb = 2.0
 
-[[tool.io.inputs]]
+[[tool.inputs]]
 name = "query"
 type = "fasta"
-required = true
+cardinality = "one"
 description = "Query sequences in FASTA format"
 
-[[tool.io.inputs]]
+[[tool.inputs]]
 name = "db"
 type = "blast_db"
-required = true
-description = "BLAST database path or name"
+cardinality = "one"
+description = "BLAST database directory"
 
-[[tool.io.outputs]]
+[[tool.outputs]]
 name = "output"
-type = "blast_output"
-description = "BLAST alignment results"
+type = "blast_tab"
+cardinality = "one"
+description = "Tabular BLAST alignment results (outfmt 6)"
 
 [tool.entrypoint]
 command = "blastn"

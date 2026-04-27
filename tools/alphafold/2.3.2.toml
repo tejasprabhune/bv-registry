@@ -40,15 +40,16 @@ required = false
 mount_path = "/data/pdb70"
 size_bytes = 50000000000
 
-[[tool.io.inputs]]
+[[tool.inputs]]
 name = "fasta"
-type = "fasta"
-required = true
+type = "fasta[protein]"
+cardinality = "one"
 description = "Input protein sequence(s)"
 
-[[tool.io.outputs]]
+[[tool.outputs]]
 name = "output_dir"
-type = "directory"
+type = "dir"
+cardinality = "one"
 description = "AlphaFold output directory with predicted structures"
 
 [tool.entrypoint]

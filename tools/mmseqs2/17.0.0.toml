@@ -14,22 +14,23 @@ cpu_cores = 8
 ram_gb = 16.0
 disk_gb = 5.0
 
-[[tool.io.inputs]]
+[[tool.inputs]]
 name = "query"
 type = "fasta"
-required = true
+cardinality = "one"
 description = "Query sequences"
 
-[[tool.io.inputs]]
+[[tool.inputs]]
 name = "db"
 type = "mmseqs_db"
-required = true
-description = "Target MMseqs2 database"
+cardinality = "one"
+description = "Target MMseqs2 database directory"
 
-[[tool.io.outputs]]
+[[tool.outputs]]
 name = "output"
 type = "mmseqs_output"
-description = "Search results"
+cardinality = "one"
+description = "MMseqs2 search results"
 
 [tool.entrypoint]
 command = "mmseqs"

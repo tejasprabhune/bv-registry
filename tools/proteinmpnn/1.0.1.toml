@@ -19,15 +19,16 @@ required = true
 min_vram_gb = 4
 cuda_version = "11.0"
 
-[[tool.io.inputs]]
+[[tool.inputs]]
 name = "pdb"
 type = "pdb"
-required = true
+cardinality = "one"
 description = "Input protein structure(s)"
 
-[[tool.io.outputs]]
+[[tool.outputs]]
 name = "output_dir"
-type = "directory"
+type = "dir"
+cardinality = "one"
 description = "Designed sequences and scores"
 
 [tool.entrypoint]

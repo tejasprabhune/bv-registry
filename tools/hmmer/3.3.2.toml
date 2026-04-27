@@ -14,21 +14,22 @@ cpu_cores = 4
 ram_gb = 4.0
 disk_gb = 1.0
 
-[[tool.io.inputs]]
+[[tool.inputs]]
 name = "query"
-type = "fasta"
-required = true
-description = "Query profile or sequence"
+type = "hmm_profile"
+cardinality = "one"
+description = "HMM profile to search with"
 
-[[tool.io.inputs]]
+[[tool.inputs]]
 name = "db"
 type = "fasta"
-required = true
-description = "Target database"
+cardinality = "one"
+description = "Target sequence database"
 
-[[tool.io.outputs]]
+[[tool.outputs]]
 name = "output"
 type = "hmmer_output"
+cardinality = "one"
 description = "HMMER search results"
 
 [tool.entrypoint]
