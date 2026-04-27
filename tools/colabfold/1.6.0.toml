@@ -1,6 +1,6 @@
 [tool]
 id = "colabfold"
-version = "1.6.1"
+version = "1.6.0"
 description = "ColabFold: fast protein structure prediction combining MMseqs2 MSA with AlphaFold2"
 homepage = "https://github.com/sokrypton/ColabFold"
 license = "MIT"
@@ -9,7 +9,7 @@ maintainers = ["github:sokrypton", "github:steineggerlab"]
 
 [tool.image]
 backend = "docker"
-reference = "ghcr.io/sokrypton/colabfold:1.6.1-cuda12"
+reference = "ghcr.io/sokrypton/colabfold:1.6.0-cuda12"
 
 [tool.hardware]
 cpu_cores = 8
