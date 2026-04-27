@@ -365,7 +365,6 @@ header .page-wrap {
 .copy-btn.copied { opacity: 1; }
 
 .modal-desc {
-  font-style: italic;
   font-size: 13px;
   opacity: 0.72;
   line-height: 1.55;
@@ -381,18 +380,16 @@ header .page-wrap {
 }
 
 .io-type {
-  font-style: italic;
   opacity: 0.55;
   min-width: 130px;
 }
 
-.io-empty { opacity: 0.35; font-size: 12px; font-style: italic; }
+.io-empty { opacity: 0.35; font-size: 12px; }
 
 .versions-row { display: flex; flex-wrap: wrap; gap: 7px; }
 
 .vpill {
   font-size: 13px;
-  font-style: italic;
   padding: 3px 9px;
   border: 1px solid var(--g);
   opacity: 0.5;

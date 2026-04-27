@@ -109,7 +109,7 @@ function openModal(t) {
   const homeSec = document.getElementById('modal-homepage-section');
   const homeEl  = document.getElementById('modal-homepage');
   if (t.homepage) {
-    homeEl.innerHTML = `<a href="${esc(t.homepage)}" target="_blank" rel="noopener" style="font-size:13px;font-style:italic;">${esc(t.homepage)}</a>`;
+    homeEl.innerHTML = `<a href="${esc(t.homepage)}" target="_blank" rel="noopener" style="font-size:13px;">${esc(t.homepage)}</a>`;
     homeSec.style.display = '';
   } else {
     homeSec.style.display = 'none';
@@ -128,7 +128,7 @@ function openModal(t) {
   document.getElementById('modal-maintainers').innerHTML =
     (t.maintainers || []).map(h => {
       const login = h.replace('github:', '');
-      return `<div class="io-row"><a href="https://github.com/${esc(login)}" target="_blank" rel="noopener" style="font-size:13px;font-style:italic;">@${esc(login)}</a></div>`;
+      return `<div class="io-row"><a href="https://github.com/${esc(login)}" target="_blank" rel="noopener" style="font-size:13px;">@${esc(login)}</a></div>`;
     }).join('') || '<div class="io-empty">none listed</div>';
 
   document.getElementById('modal-versions').innerHTML =
