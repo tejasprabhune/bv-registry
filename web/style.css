@@ -193,7 +193,6 @@ header .page-wrap {
 .tool-card:hover .tier-badge { opacity: 0.75; }
 
 .card-desc {
-  font-style: italic;
   font-size: 14px;
   opacity: 0.62;
   line-height: 1.45;
