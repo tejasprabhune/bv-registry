@@ -37,3 +37,6 @@ description = "Gene predictions in GFF/GenBank format"
 [tool.entrypoint]
 command = "prodigal"
 args_template = "-i {genome} -a {proteins} -f gff -o {genes}"
+
+[tool.binaries]
+exposed = ["prodigal"]

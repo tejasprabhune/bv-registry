@@ -31,3 +31,6 @@ description = "Summary statistics in text format"
 [tool.entrypoint]
 command = "NanoStat"
 args_template = "--threads {cpu_cores} --fastq {reads} > {report}"
+
+[tool.binaries]
+exposed = ["NanoStat"]

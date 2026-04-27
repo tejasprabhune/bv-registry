@@ -31,3 +31,6 @@ description = "Nextclade results including clade calls and alignment"
 [tool.entrypoint]
 command = "nextclade"
 args_template = "run --jobs {cpu_cores} --dataset-name sars-cov-2 --output-all {output_dir} {sequences}"
+
+[tool.binaries]
+exposed = ["nextclade"]

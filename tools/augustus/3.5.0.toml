@@ -31,3 +31,6 @@ description = "Gene predictions in GFF3 format"
 [tool.entrypoint]
 command = "augustus"
 args_template = "--species=human --gff3=on {genome} > {predictions}"
+
+[tool.binaries]
+exposed = ["augustus", "etraining", "fastBlockSearch", "filterBam", "prepareAlign"]

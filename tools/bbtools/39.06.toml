@@ -43,3 +43,10 @@ description = "Processed reverse reads"
 [tool.entrypoint]
 command = "bbduk.sh"
 args_template = "threads={cpu_cores} in={reads_r1} in2={reads_r2} out={out_r1} out2={out_r2} ref=/opt/conda/opt/bbtools/resources/adapters.fa ktrim=r k=23 mink=11 hdist=1 tpe tbo"
+
+[tool.binaries]
+exposed = [
+  "bbduk.sh", "bbmerge.sh", "bbmap.sh", "bbnorm.sh",
+  "bbsplit.sh", "bbcountunique.sh", "reformat.sh",
+  "dedupe.sh", "tadpole.sh", "bbwrap.sh",
+]

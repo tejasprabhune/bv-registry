@@ -31,3 +31,6 @@ description = "Functional annotations in TSV/GFF3/XML format"
 [tool.entrypoint]
 command = "interproscan.sh"
 args_template = "--cpu {cpu_cores} -i {proteins} -o {output} -f TSV"
+
+[tool.binaries]
+exposed = ["interproscan.sh"]

@@ -31,3 +31,6 @@ description = "Output prefix for filtered files"
 [tool.entrypoint]
 command = "vcftools"
 args_template = "--vcf {input} --out {output_prefix} --recode"
+
+[tool.binaries]
+exposed = ["vcftools"]

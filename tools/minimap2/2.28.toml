@@ -37,3 +37,6 @@ description = "Alignment in SAM format"
 [tool.entrypoint]
 command = "minimap2"
 args_template = "-ax map-ont -t {cpu_cores} {reference} {reads} > {alignment}"
+
+[tool.binaries]
+exposed = ["minimap2"]

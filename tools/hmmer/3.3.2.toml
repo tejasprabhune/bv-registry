@@ -37,3 +37,10 @@ description = "HMMER search results"
 [tool.entrypoint]
 command = "hmmsearch"
 args_template = "--cpu {cpu_cores} {query} {db}"
+
+[tool.binaries]
+exposed = [
+  "hmmbuild", "hmmsearch", "hmmscan", "hmmalign",
+  "hmmpress", "jackhmmer", "phmmer",
+  "hmmconvert", "hmmemit", "hmmfetch", "hmmstat",
+]

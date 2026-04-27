@@ -37,3 +37,6 @@ description = "Genomic interval results"
 [tool.entrypoint]
 command = "bedtools"
 args_template = "intersect -a {a} -b {b} > {output}"
+
+[tool.binaries]
+exposed = ["bedtools"]

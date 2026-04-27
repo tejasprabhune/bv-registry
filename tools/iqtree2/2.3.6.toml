@@ -31,3 +31,6 @@ description = "Output prefix for tree files (.treefile, .log, etc.)"
 [tool.entrypoint]
 command = "iqtree2"
 args_template = "-s {alignment} -nt {cpu_cores} -bb 1000 -pre {output_prefix}"
+
+[tool.binaries]
+exposed = ["iqtree2"]

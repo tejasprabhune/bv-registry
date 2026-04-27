@@ -31,3 +31,6 @@ description = "Processed VCF or BCF file"
 [tool.entrypoint]
 command = "bcftools"
 args_template = "view --threads {cpu_cores} -o {output} {input}"
+
+[tool.binaries]
+exposed = ["bcftools"]

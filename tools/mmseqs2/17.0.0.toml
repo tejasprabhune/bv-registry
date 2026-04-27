@@ -37,3 +37,6 @@ description = "MMseqs2 search results"
 [tool.entrypoint]
 command = "mmseqs"
 args_template = "easy-search {query} {db} {output} tmp --threads {cpu_cores}"
+
+[tool.binaries]
+exposed = ["mmseqs"]

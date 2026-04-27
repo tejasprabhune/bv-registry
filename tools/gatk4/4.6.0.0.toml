@@ -37,3 +37,6 @@ description = "Raw variant calls in GVCF/VCF format"
 [tool.entrypoint]
 command = "gatk"
 args_template = "HaplotypeCaller -R {reference} -I {bam} -O {vcf}"
+
+[tool.binaries]
+exposed = ["gatk"]

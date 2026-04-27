@@ -31,3 +31,6 @@ description = "Output prefix for haplotype GFA/FASTA files"
 [tool.entrypoint]
 command = "hifiasm"
 args_template = "-o {output_prefix} -t {cpu_cores} {reads}"
+
+[tool.binaries]
+exposed = ["hifiasm"]

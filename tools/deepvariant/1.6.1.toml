@@ -40,5 +40,8 @@ cardinality = "one"
 description = "Called variants in VCF format"
 
 [tool.entrypoint]
-command = "/opt/deepvariant/bin/run_deepvariant"
+command = "run_deepvariant"
 args_template = "--model_type=WGS --ref={reference} --reads={bam} --output_vcf={vcf} --num_shards={cpu_cores}"
+
+[tool.binaries]
+exposed = ["run_deepvariant"]

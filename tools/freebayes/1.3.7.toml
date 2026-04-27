@@ -37,3 +37,6 @@ description = "Called variants in VCF format"
 [tool.entrypoint]
 command = "freebayes"
 args_template = "-f {reference} {bam} > {vcf}"
+
+[tool.binaries]
+exposed = ["freebayes", "bamleftalign", "freebayes-parallel"]

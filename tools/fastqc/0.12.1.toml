@@ -31,3 +31,6 @@ description = "HTML and zip QC reports"
 [tool.entrypoint]
 command = "fastqc"
 args_template = "--threads {cpu_cores} --outdir {report_dir} {reads}"
+
+[tool.binaries]
+exposed = ["fastqc"]

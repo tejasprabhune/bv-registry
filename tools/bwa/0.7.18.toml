@@ -43,3 +43,6 @@ description = "Aligned reads in SAM format"
 [tool.entrypoint]
 command = "bwa"
 args_template = "mem -t {cpu_cores} {reference} {reads_r1} {reads_r2} > {alignment}"
+
+[tool.binaries]
+exposed = ["bwa"]

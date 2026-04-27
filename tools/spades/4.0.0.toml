@@ -37,3 +37,6 @@ description = "Assembly output directory with contigs.fasta and scaffolds.fasta"
 [tool.entrypoint]
 command = "spades.py"
 args_template = "--threads {cpu_cores} --memory {ram_gb} -1 {reads_r1} -2 {reads_r2} -o {output_dir}"
+
+[tool.binaries]
+exposed = ["spades.py", "metaspades.py", "plasmidspades.py", "rnaspades.py", "rnaviralspades.py"]

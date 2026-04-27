@@ -31,3 +31,6 @@ description = "Output prefix for RAxML result files"
 [tool.entrypoint]
 command = "raxml-ng"
 args_template = "--all --msa {alignment} --model GTR+G --threads {cpu_cores} --prefix {output_prefix} --bs-trees 100"
+
+[tool.binaries]
+exposed = ["raxml-ng"]

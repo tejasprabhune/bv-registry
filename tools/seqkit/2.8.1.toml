@@ -31,3 +31,6 @@ description = "Processed sequences"
 [tool.entrypoint]
 command = "seqkit"
 args_template = "stats --threads {cpu_cores} {input}"
+
+[tool.binaries]
+exposed = ["seqkit"]

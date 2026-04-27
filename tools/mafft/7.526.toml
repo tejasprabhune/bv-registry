@@ -36,3 +36,9 @@ args_template = "--auto --thread {cpu_cores} --out {alignment} {sequences}"
 inputs = { sequences = "test://fasta-protein-multi" }
 expected_outputs = ["alignment"]
 timeout_seconds = 120
+
+[tool.binaries]
+exposed = [
+  "mafft", "mafft-linsi", "mafft-ginsi", "mafft-einsi",
+  "mafft-fftnsi", "mafft-fftns", "mafft-nwnsi", "mafft-nwns",
+]

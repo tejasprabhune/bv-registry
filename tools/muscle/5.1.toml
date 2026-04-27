@@ -36,3 +36,6 @@ args_template = "-align {sequences} -output {alignment} -threads {cpu_cores}"
 inputs = { sequences = "test://fasta-protein-multi" }
 expected_outputs = ["alignment"]
 timeout_seconds = 120
+
+[tool.binaries]
+exposed = ["muscle"]

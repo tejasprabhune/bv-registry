@@ -43,3 +43,6 @@ description = "Per-read classification results"
 [tool.entrypoint]
 command = "kraken2"
 args_template = "--threads {cpu_cores} --db /workspace/kraken2_db --paired --report {report} --output {output} {reads_r1} {reads_r2}"
+
+[tool.binaries]
+exposed = ["kraken2", "kraken2-build", "kraken2-inspect"]

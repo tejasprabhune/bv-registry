@@ -43,3 +43,6 @@ description = "Trimmed paired reverse reads"
 [tool.entrypoint]
 command = "trimmomatic"
 args_template = "PE -threads {cpu_cores} {reads_r1} {reads_r2} {out_r1} /dev/null {out_r2} /dev/null ILLUMINACLIP:/opt/conda/share/trimmomatic/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36"
+
+[tool.binaries]
+exposed = ["trimmomatic"]

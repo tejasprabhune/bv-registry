@@ -42,3 +42,6 @@ description = "Polished consensus sequences"
 [tool.entrypoint]
 command = "medaka_consensus"
 args_template = "-i {reads} -d {draft} -o {output_dir} -t {cpu_cores}"
+
+[tool.binaries]
+exposed = ["medaka_consensus", "medaka", "medaka_haploid_variant", "medaka_variant"]

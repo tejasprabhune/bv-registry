@@ -31,3 +31,6 @@ description = "Assembled transcripts in GTF format with expression estimates"
 [tool.entrypoint]
 command = "stringtie"
 args_template = "-p {cpu_cores} -o {gtf} {bam}"
+
+[tool.binaries]
+exposed = ["stringtie"]

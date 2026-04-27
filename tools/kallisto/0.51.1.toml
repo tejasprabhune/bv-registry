@@ -37,3 +37,6 @@ description = "Quantification output with abundance.tsv"
 [tool.entrypoint]
 command = "kallisto"
 args_template = "quant --threads {cpu_cores} -i /workspace/index.idx -o {quant_dir} {reads_r1} {reads_r2}"
+
+[tool.binaries]
+exposed = ["kallisto"]

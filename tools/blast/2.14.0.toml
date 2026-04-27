@@ -37,3 +37,13 @@ description = "Tabular BLAST alignment results (outfmt 6)"
 [tool.entrypoint]
 command = "blastn"
 args_template = "-query {query} -db {db} -out {output} -num_threads {cpu_cores}"
+
+[tool.binaries]
+exposed = [
+  "blastn", "blastp", "tblastn", "tblastx", "psiblast",
+  "rpsblast", "rpstblastn", "deltablast",
+  "makeblastdb", "makembindex", "makeprofiledb",
+  "blastdbcmd", "blastdb_aliastool", "blastdbcheck",
+  "blast_formatter", "convert2blastmask", "dustmasker",
+  "segmasker", "windowmasker",
+]

@@ -31,3 +31,6 @@ description = "Newick format phylogenetic tree"
 [tool.entrypoint]
 command = "FastTree"
 args_template = "-nt -gtr {alignment} > {tree}"
+
+[tool.binaries]
+exposed = ["FastTree", "FastTreeMP"]

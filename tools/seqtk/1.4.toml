@@ -31,3 +31,6 @@ description = "Processed sequences"
 [tool.entrypoint]
 command = "seqtk"
 args_template = "sample {input} 1000000 > {output}"
+
+[tool.binaries]
+exposed = ["seqtk"]

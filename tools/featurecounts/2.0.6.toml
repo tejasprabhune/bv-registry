@@ -31,3 +31,6 @@ description = "Read counts per feature"
 [tool.entrypoint]
 command = "featureCounts"
 args_template = "-T {cpu_cores} -a /workspace/annotation.gtf -o {counts} {bam}"
+
+[tool.binaries]
+exposed = ["featureCounts"]

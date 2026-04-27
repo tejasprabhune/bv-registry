@@ -31,3 +31,6 @@ description = "Assembly output directory with assembly.fasta"
 [tool.entrypoint]
 command = "flye"
 args_template = "--nano-raw {reads} --out-dir {output_dir} --threads {cpu_cores}"
+
+[tool.binaries]
+exposed = ["flye"]

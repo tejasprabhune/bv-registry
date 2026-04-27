@@ -37,3 +37,6 @@ description = "Aligned reads in SAM format"
 [tool.entrypoint]
 command = "hisat2"
 args_template = "-p {cpu_cores} -x /workspace/index -1 {reads_r1} -2 {reads_r2} -S {alignment}"
+
+[tool.binaries]
+exposed = ["hisat2", "hisat2-build", "hisat2-inspect"]

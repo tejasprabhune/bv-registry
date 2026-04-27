@@ -36,3 +36,6 @@ args_template = "--threads={cpu_cores} -i {sequences} -o {alignment} --outfmt=fa
 inputs = { sequences = "test://fasta-protein-multi" }
 expected_outputs = ["alignment"]
 timeout_seconds = 120
+
+[tool.binaries]
+exposed = ["clustalo"]

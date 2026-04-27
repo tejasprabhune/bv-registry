@@ -37,3 +37,6 @@ description = "Alignment results in tabular format"
 [tool.entrypoint]
 command = "diamond"
 args_template = "blastp --threads {cpu_cores} --query {query} --db {db} --out {output} --outfmt 6"
+
+[tool.binaries]
+exposed = ["diamond"]

@@ -31,3 +31,6 @@ description = "Bracken abundance estimation report"
 [tool.entrypoint]
 command = "bracken"
 args_template = "-d /workspace/kraken2_db -i {kraken_report} -o {bracken_report} -r 150 -l S"
+
+[tool.binaries]
+exposed = ["bracken", "bracken-build", "est_abundance.py"]

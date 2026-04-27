@@ -37,3 +37,6 @@ description = "Trimmed reads and QC reports"
 [tool.entrypoint]
 command = "trim_galore"
 args_template = "--cores {cpu_cores} --paired --output_dir {output_dir} {reads_r1} {reads_r2}"
+
+[tool.binaries]
+exposed = ["trim_galore", "cutadapt"]

@@ -31,3 +31,6 @@ description = "QUAST reports (HTML, text, PDF)"
 [tool.entrypoint]
 command = "quast"
 args_template = "--threads {cpu_cores} -o {report_dir} {assembly}"
+
+[tool.binaries]
+exposed = ["quast", "metaquast.py", "icarus.py"]

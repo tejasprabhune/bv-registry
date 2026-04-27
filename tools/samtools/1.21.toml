@@ -31,3 +31,6 @@ description = "Processed alignment file"
 [tool.entrypoint]
 command = "samtools"
 args_template = "sort -@ {cpu_cores} -o {output} {input}"
+
+[tool.binaries]
+exposed = ["samtools"]

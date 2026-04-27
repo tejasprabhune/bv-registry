@@ -31,3 +31,6 @@ description = "Taxonomic abundance profile"
 [tool.entrypoint]
 command = "metaphlan"
 args_template = "{reads} --input_type fastq --nproc {cpu_cores} -o {profile}"
+
+[tool.binaries]
+exposed = ["metaphlan", "merge_metaphlan_tables.py", "strainphlan"]

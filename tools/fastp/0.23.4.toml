@@ -43,3 +43,6 @@ description = "Trimmed reverse reads (paired-end)"
 [tool.entrypoint]
 command = "fastp"
 args_template = "--thread {cpu_cores} -i {reads_r1} -I {reads_r2} -o {out_r1} -O {out_r2}"
+
+[tool.binaries]
+exposed = ["fastp"]

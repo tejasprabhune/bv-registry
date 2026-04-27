@@ -43,3 +43,13 @@ inputs = { query = "test://fasta-nucleotide" }
 expected_outputs = ["output"]
 extra_args = ["-task", "blastn-short"]
 timeout_seconds = 60
+
+[tool.binaries]
+exposed = [
+  "blastn", "blastp", "tblastn", "tblastx", "psiblast",
+  "rpsblast", "rpstblastn", "deltablast",
+  "makeblastdb", "makembindex", "makeprofiledb",
+  "blastdbcmd", "blastdb_aliastool", "blastdbcheck",
+  "blast_formatter", "convert2blastmask", "dustmasker",
+  "segmasker", "windowmasker",
+]

@@ -31,3 +31,6 @@ description = "PLINK binary format output prefix"
 [tool.entrypoint]
 command = "plink"
 args_template = "--vcf {vcf} --out {output_prefix} --make-bed --threads {cpu_cores}"
+
+[tool.binaries]
+exposed = ["plink"]

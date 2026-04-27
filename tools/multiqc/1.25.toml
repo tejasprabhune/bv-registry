@@ -31,3 +31,6 @@ description = "MultiQC HTML report and data directory"
 [tool.entrypoint]
 command = "multiqc"
 args_template = "{analysis_dir} --outdir {report_dir}"
+
+[tool.binaries]
+exposed = ["multiqc"]
