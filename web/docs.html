@@ -7,6 +7,11 @@
   <link rel="stylesheet" href="https://use.typekit.net/bsk0vur.css">
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-toml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
   <style>
     :root {
       --doc-max: 1100px;
@@ -89,10 +94,19 @@
     main.doc h3 {
       font-family: "calling-code", sans-serif;
       font-weight: 400;
-      font-size: 15px;
-      letter-spacing: 0;
-      margin: 26px 0 8px;
-      opacity: 0.85;
+      font-size: 18px;
+      letter-spacing: -0.005em;
+      margin: 32px 0 12px;
+      padding: 6px 0 6px 14px;
+      border-left: 3px solid var(--g);
+      color: var(--g);
+      opacity: 1;
+      background: linear-gradient(to right, var(--g08), transparent 60%);
+    }
+    main.doc h3::before {
+      content: "# ";
+      opacity: 0.4;
+      font-style: italic;
     }
     main.doc p, main.doc li {
       font-size: 15px;
@@ -175,6 +189,50 @@
     .header-links a { opacity: 0.55; text-decoration: none; }
     .header-links a:hover { opacity: 1; }
 
+    /* Prism theme: green-on-white, tuned to match the rest of the site. */
+    main.doc pre[class*="language-"],
+    main.doc code[class*="language-"] {
+      color: var(--g);
+      font-family: "calling-code", sans-serif;
+      font-size: 13px;
+      line-height: 1.55;
+      tab-size: 2;
+    }
+    main.doc :not(pre) > code[class*="language-"] {
+      background: var(--g08);
+      border: 1px solid var(--g15);
+      padding: 1px 5px;
+    }
+    main.doc .token.comment,
+    main.doc .token.prolog,
+    main.doc .token.cdata { color: var(--g); opacity: 0.42; font-style: italic; }
+    main.doc .token.punctuation { color: var(--g); opacity: 0.55; }
+    main.doc .token.namespace { opacity: 0.7; }
+    main.doc .token.string,
+    main.doc .token.attr-value,
+    main.doc .token.url { color: #2d6a4f; }                /* deeper green */
+    main.doc .token.number,
+    main.doc .token.boolean,
+    main.doc .token.constant { color: #6a994e; font-style: italic; }
+    main.doc .token.keyword,
+    main.doc .token.builtin,
+    main.doc .token.tag,
+    main.doc .token.class-name { color: var(--g); font-weight: 500; }
+    main.doc .token.function { color: var(--g); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; text-decoration-color: var(--g35); }
+    main.doc .token.operator,
+    main.doc .token.entity { color: var(--g); opacity: 0.75; }
+    main.doc .token.variable,
+    main.doc .token.parameter { color: #386641; font-style: italic; }
+    main.doc .token.attr-name,
+    main.doc .token.property,
+    main.doc .token.key { color: var(--g); font-weight: 500; }
+    main.doc .token.section { color: var(--g); font-weight: 500; }    /* TOML [headers] */
+    main.doc .token.table { color: var(--g); font-weight: 500; }
+    main.doc .token.deleted { background: rgba(170, 0, 0, 0.08); }
+    main.doc .token.inserted { background: var(--g08); }
+    main.doc .token.italic { font-style: italic; }
+    main.doc .token.bold { font-weight: 600; }
+
     @media (max-width: 820px) {
       .docs-shell { grid-template-columns: 1fr; gap: 0; }
       aside.toc {
@@ -245,7 +303,7 @@
     <span class="audience-tag">running tools in your project</span>
 
     <h3 id="user-tldr">tl;dr</h3>
-<pre><code># 1. install a runtime (pick one)
+<pre class="language-bash"><code class="language-bash"># 1. install a runtime (pick one)
 curl -fsSL https://get.docker.com/rootless | sh        # docker, on a laptop
 conda install -c conda-forge apptainer                 # apptainer, on HPC
 
@@ -266,7 +324,7 @@ bv sync</code></pre>
     <p><strong>Docker</strong> is typical on a laptop. Use the rootless installer when you can; on a GPU box install <code>nvidia-container-toolkit</code> too.</p>
     <p><strong>Apptainer</strong> is typical on shared HPC nodes since it does not need a daemon or root. Install with conda: <code>conda install -c conda-forge apptainer</code>.</p>
     <p>Then install bv itself:</p>
-<pre><code>curl -fsSL https://raw.githubusercontent.com/mlberkeley/bv/main/install.sh | sh
+<pre class="language-bash"><code class="language-bash">curl -fsSL https://raw.githubusercontent.com/mlberkeley/bv/main/install.sh | sh
 # or, with cargo:
 cargo install biov</code></pre>
     <p>Verify with <code>bv doctor</code>, which prints the runtimes it can see and any missing pieces.</p>
@@ -288,7 +346,7 @@ cargo install biov</code></pre>
 
     <h3 id="user-project">bv.toml &amp; bv.lock</h3>
     <p><code>bv.toml</code> is what you wrote (or what <code>bv add</code> wrote for you). <code>bv.lock</code> is the resolved, pinned state. Commit both. <code>.bv/</code> (generated shim directory) is gitignored automatically.</p>
-<pre><code># bv.toml
+<pre class="language-toml"><code class="language-toml"># bv.toml
 [project]
 name = "myproj"
 
@@ -302,7 +360,7 @@ id = "hmmer"
 [runtime]
 backend = "auto"      # docker | apptainer | auto (default)</code></pre>
     <p>If two tools expose the same binary name, <code>bv lock</code> fails with a clear error. Resolve it with <code>[binary_overrides]</code>:</p>
-<pre><code>[binary_overrides]
+<pre class="language-toml"><code class="language-toml">[binary_overrides]
 samtools = "samtools"   # this tool wins for the `samtools` shim</code></pre>
 
     <h3 id="user-caches">caches</h3>
@@ -313,7 +371,7 @@ samtools = "samtools"   # this tool wins for the `samtools` shim</code></pre>
       <li><strong>Apptainer fallbacks</strong> : for tools that haven't declared cache paths yet, bv auto-binds <code>/cache</code> and <code>/root/.cache</code>.</li>
     </ol>
     <p>Default host path: <code>~/.cache/bv/&lt;tool&gt;/&lt;slug&gt;</code>. Docker skips the apptainer fallbacks because its writable upper layer already covers them; manifest and user entries apply on both backends.</p>
-<pre><code># bv.toml : redirect colabfold weights to a shared NFS cache
+<pre class="language-toml"><code class="language-toml"># bv.toml : redirect colabfold weights to a shared NFS cache
 [[cache]]
 match = "colabfold"
 container_path = "/cache/colabfold"
@@ -338,7 +396,7 @@ host_path = "~/.cache/bv/{tool}/scratch"</code></pre>
 
     <h3 id="user-data">reference data</h3>
     <p>Some tools need large reference databases (<code>kraken2</code>, <code>blast pdbaa</code>, etc.). The manifest declares them; <code>bv add</code> tells you what's needed; <code>bv data fetch</code> downloads.</p>
-<pre><code>bv add kraken2
+<pre class="language-bash"><code class="language-bash">bv add kraken2
 bv data fetch pdbaa --yes
 bv run kraken2 ...      # bv mounts the data directory automatically</code></pre>
 
@@ -354,7 +412,7 @@ bv run kraken2 ...      # bv mounts the data directory automatically</code></pre
     <span class="audience-tag">adding your tool to the registry</span>
 
     <h3 id="pub-tldr">tl;dr</h3>
-<pre><code># in a directory with a Dockerfile (or pointing at a github repo)
+<pre class="language-bash"><code class="language-bash"># in a directory with a Dockerfile (or pointing at a github repo)
 bv publish .
 # or:
 bv publish github:user/repo@v1.0.0
@@ -364,7 +422,7 @@ bv publish github:user/repo@v1.0.0
 
     <h3 id="pub-schema">manifest schema</h3>
     <p>A manifest lives at <code>tools/&lt;id&gt;/&lt;version&gt;.toml</code> in <a href="https://github.com/mlberkeley/bv-registry">bv-registry</a>. The full reference is in <a href="https://github.com/mlberkeley/bv-registry/blob/main/SCHEMA.md">SCHEMA.md</a>; below is the cheat sheet.</p>
-<pre><code>[tool]
+<pre class="language-toml"><code class="language-toml">[tool]
 id          = "colabfold"
 version     = "1.6.0"
 description = "ColabFold: fast protein structure prediction"
@@ -417,12 +475,12 @@ exposed = ["colabfold_batch"]</code></pre>
 
     <h3 id="pub-publish">bv publish</h3>
     <p><code>bv publish</code> handles building, pushing to <code>ghcr.io/bv-registry/&lt;tool&gt;</code>, and opening the registry PR. It can run interactively or read a <code>bv-publish.toml</code> config:</p>
-<pre><code>bv publish ./my-tool                     # interactive
+<pre class="language-bash"><code class="language-bash">bv publish ./my-tool                     # interactive
 bv publish github:user/repo@v2.1.0       # auto-clone
 bv publish . --non-interactive           # CI mode (reads bv-publish.toml)
 bv publish . --no-push --no-pr           # dry run: build and inspect manifest</code></pre>
     <p>For a release-on-tag GitHub Action, drop this into <code>.github/workflows/bv-publish.yml</code>:</p>
-<pre><code>on:
+<pre class="language-yaml"><code class="language-yaml">on:
   release:
     types: [published]
 jobs:
@@ -436,12 +494,12 @@ jobs:
 
     <h3 id="pub-conformance">conformance tests</h3>
     <p>Add a <code>[tool.test]</code> block so reviewers (and CI) can verify the tool runs on canonical inputs and the binaries you declared actually respond:</p>
-<pre><code>[tool.test]
+<pre class="language-toml"><code class="language-toml">[tool.test]
 inputs           = { query = "test://fasta-nucleotide" }
 expected_outputs = ["output"]
 timeout_seconds  = 60</code></pre>
     <p>Run it locally before opening the PR:</p>
-<pre><code>bv conformance my-tool
+<pre class="language-bash"><code class="language-bash">bv conformance my-tool
 bv conformance my-tool --backend apptainer</code></pre>
     <p>Conformance runs in CI on every registry PR; <code>core</code> promotion requires it pass on both backends.</p>
 
@@ -461,7 +519,7 @@ bv conformance my-tool --backend apptainer</code></pre>
     <span class="audience-tag">running bv-ingest, reviewing PRs, promoting tools</span>
 
     <h3 id="m-tldr">tl;dr</h3>
-<pre><code># nightly auto-ingestion (also runs from .github/workflows/)
+<pre class="language-bash"><code class="language-bash"># nightly auto-ingestion (also runs from .github/workflows/)
 bv-ingest run --limit 50
 
 # review the staging PRs that need typed I/O
@@ -495,7 +553,7 @@ bv-ingest promote samtools 1.20 --staging-dir ./bv-registry-staging</code></pre>
       <tr><td><code>bv-ingest status --staging-dir &lt;path&gt;</code></td><td>count of staged, reviewed, and promoted manifests.</td></tr>
     </table>
     <p>Common env vars:</p>
-<pre><code>BV_STAGING_REPO   = "mlberkeley/bv-registry-staging"
+<pre class="language-bash"><code class="language-bash">BV_STAGING_REPO   = "mlberkeley/bv-registry-staging"
 BV_REGISTRY_REPO  = "mlberkeley/bv-registry"
 BV_BIOCONDA_CACHE = "/var/tmp/bioconda-recipes"   # local clone, optional
 GITHUB_TOKEN      = ...                            # falls back to `gh auth token`</code></pre>
