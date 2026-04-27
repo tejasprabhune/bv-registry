@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>about — bv</title>
+  <link rel="stylesheet" href="https://use.typekit.net/bsk0vur.css">
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .about-wrap { padding: 48px 24px 80px; max-width: var(--max); margin: 0 auto; }
+    .about-section { margin-bottom: 36px; }
+    .about-section h2 {
+      font-family: "calling-code", sans-serif;
+      font-weight: 400;
+      font-size: 13px;
+      font-style: italic;
+      opacity: 0.45;
+      letter-spacing: 0.07em;
+      margin-bottom: 10px;
+    }
+    .about-section p { font-size: 15px; line-height: 1.6; opacity: 0.82; margin-bottom: 10px; }
+    pre.code-block {
+      background: var(--g08);
+      border: 1px solid var(--g15);
+      padding: 16px 18px;
+      font-family: "calling-code", sans-serif;
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--g);
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .links-row { display: flex; gap: 18px; flex-wrap: wrap; }
+    .links-row a {
+      font-size: 14px;
+      padding: 8px 14px;
+      border: 1px solid var(--g);
+      text-decoration: none;
+      transition: background var(--t), color var(--t);
+    }
+    .links-row a:hover { background: var(--g); color: var(--w); opacity: 1; }
+    .header-links { margin-top: 14px; display: flex; gap: 16px; font-size: 13px; font-style: italic; }
+    .header-links a { opacity: 0.55; text-decoration: none; }
+    .header-links a:hover { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="page-wrap">
+    <h1 class="site-title">bv</h1>
+    <p class="site-subtitle">a uv-style tool manager for bioinformatics</p>
+    <div class="header-links">
+      <a href="index.html">browse registry</a>
+      <a href="https://github.com/mlberkeley/bv">bv repo</a>
+      <a href="https://github.com/mlberkeley/bv-registry">registry repo</a>
+    </div>
+  </div>
+</header>
+
+<div class="about-wrap">
+
+  <div class="about-section">
+    <h2>what it is</h2>
+    <p>
+      <code>bv</code> installs bioinformatics tools as containers, pins them to exact image
+      digests in a lockfile, and reproduces any analysis environment with a single
+      <code>bv sync</code>. Same manifest, same lockfile, on Docker or Apptainer.
+    </p>
+    <p>
+      No conda solver thrash, no per-tool install instructions, no "works on my machine"
+      drift between a laptop and an HPC node. Every binary a tool exposes is on PATH
+      automatically; pipelines just call <code>blastn</code> or <code>colabfold_batch</code>
+      and bv routes to the right container.
+    </p>
+  </div>
+
+  <div class="about-section">
+    <h2>tl;dr</h2>
+<pre class="code-block"># 1. install a container runtime (pick one)
+curl -fsSL https://get.docker.com/rootless | sh           # docker, on a laptop
+conda install -c conda-forge apptainer                    # apptainer, on HPC
+
+# 2. install bv
+curl -fsSL https://raw.githubusercontent.com/mlberkeley/bv/main/install.sh | sh
+# or: cargo install biov
+
+# 3. fold a protein in 3 minutes (needs an NVIDIA GPU)
+mkdir protein-demo && cd protein-demo
+bv add colabfold
+
+cat > fold.py &lt;&lt; 'EOF'
+import subprocess, json, shutil
+from pathlib import Path
+
+Path("trpcage.fasta").write_text("&gt;trp-cage\nNLYIQWLKDGGPSSGRPPPS\n")
+Path("output").mkdir(exist_ok=True)
+
+cmd = ["colabfold_batch"] if shutil.which("colabfold_batch") else ["bv", "run", "colabfold_batch"]
+subprocess.run(cmd + ["--num-recycle", "3", "/workspace/trpcage.fasta", "/workspace/output"], check=True)
+
+scores = sorted(Path("output").glob("*scores*.json"))[0]
+plddt = json.loads(scores.read_text())["plddt"]
+print(f"mean pLDDT: {sum(plddt)/len(plddt):.1f}")
+EOF
+
+bv exec python3 fold.py
+
+# 4. commit and reproduce anywhere
+git add bv.toml bv.lock
+git commit -m "pin analysis environment"
+# on any other machine: `bv sync` pulls the exact same images by digest</pre>
+  </div>
+
+  <div class="about-section">
+    <h2>links</h2>
+    <div class="links-row">
+      <a href="index.html">browse the registry</a>
+      <a href="https://github.com/mlberkeley/bv">github.com/mlberkeley/bv</a>
+      <a href="https://github.com/mlberkeley/bv-registry">github.com/mlberkeley/bv-registry</a>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

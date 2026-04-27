@@ -68,6 +68,16 @@ header .page-wrap {
   letter-spacing: 0.01em;
 }
 
+.header-links {
+  margin-top: 14px;
+  display: flex;
+  gap: 16px;
+  font-size: 13px;
+  font-style: italic;
+}
+.header-links a { opacity: 0.55; text-decoration: none; }
+.header-links a:hover { opacity: 1; }
+
 /* sticky controls */
 
 .controls-wrap {
