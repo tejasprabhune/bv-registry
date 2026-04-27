@@ -11,6 +11,9 @@ version = "2.15.0"
 description = "..."
 homepage = "..."
 license = "..."
+tier = "community"          # core | community | experimental (default: community)
+maintainers = ["github:alice", "github:bob"]   # optional
+deprecated = false          # omit when false
 
 [tool.image]
 backend = "docker"
@@ -84,11 +87,22 @@ dir
 
 Use `bv show <tool>` to see a tool's declared types, or `bv show <tool> --json` for machine-readable output.
 
+## Tier and governance fields
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `tier` | enum | `community` | `core`, `community`, or `experimental`. See [GOVERNANCE.md](GOVERNANCE.md). |
+| `maintainers` | list of strings | `[]` | GitHub handles, e.g. `"github:alice"`. |
+| `deprecated` | bool | `false` | Set to `true` when a tool is superseded. |
+
+New submissions land as `community`. Promotion to `core` requires a separate PR from a registry maintainer. See [GOVERNANCE.md](GOVERNANCE.md) for full criteria.
+
 ## Adding a new tool
 
 1. Create `tools/<id>/<version>.toml` following the structure above.
 2. All TypeRefs must exist in the bv-types vocabulary. Unknown types produce an error with a suggestion.
 3. Commit and push; `bv add` fetches via `git pull`.
+4. Use `bv publish` to automate steps 1-3 and open a PR.
 
 ## Example: BLAST
 

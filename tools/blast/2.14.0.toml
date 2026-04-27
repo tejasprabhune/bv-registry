@@ -3,6 +3,8 @@ id = "blast"
 version = "2.14.0"
 description = "BLAST+ Basic Local Alignment Search Tool"
 homepage = "https://blast.ncbi.nlm.nih.gov/Blast.cgi"
+tier = "core"
+maintainers = ["github:ncbi"]
 license = "Public Domain"
 
 [tool.image]

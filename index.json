@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-04-27T08:27:14.337656+00:00",
+  "tools": [
+    {
+      "id": "alphafold",
+      "version": "2.3.2",
+      "versions": [
+        "2.3.2"
+      ],
+      "description": "AlphaFold 2: structure prediction from sequence",
+      "tier": "core",
+      "maintainers": [
+        "github:google-deepmind"
+      ],
+      "homepage": "https://github.com/google-deepmind/alphafold",
+      "license": "Apache-2.0",
+      "input_types": [
+        "fasta[protein]"
+      ],
+      "output_types": [
+        "dir"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "blast",
+      "version": "2.15.0",
+      "versions": [
+        "2.14.0",
+        "2.15.0"
+      ],
+      "description": "BLAST+ Basic Local Alignment Search Tool",
+      "tier": "core",
+      "maintainers": [
+        "github:ncbi"
+      ],
+      "homepage": "https://blast.ncbi.nlm.nih.gov/Blast.cgi",
+      "license": "Public Domain",
+      "input_types": [
+        "fasta",
+        "blast_db"
+      ],
+      "output_types": [
+        "blast_tab"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "hmmer",
+      "version": "3.3.2",
+      "versions": [
+        "3.3.2"
+      ],
+      "description": "HMMER: biosequence analysis using profile hidden Markov models",
+      "tier": "core",
+      "maintainers": [
+        "github:EddyRivasLab"
+      ],
+      "homepage": "http://hmmer.org/",
+      "license": "BSD-3-Clause",
+      "input_types": [
+        "hmm_profile",
+        "fasta"
+      ],
+      "output_types": [
+        "hmmer_output"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "mmseqs2",
+      "version": "17.0.0",
+      "versions": [
+        "17.0.0"
+      ],
+      "description": "MMseqs2: ultra-fast protein and nucleotide sequence search",
+      "tier": "core",
+      "maintainers": [
+        "github:steineggerlab"
+      ],
+      "homepage": "https://github.com/soedinglab/MMseqs2",
+      "license": "GPL-3.0",
+      "input_types": [
+        "fasta",
+        "mmseqs_db"
+      ],
+      "output_types": [
+        "mmseqs_output"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "proteinmpnn",
+      "version": "1.0.1",
+      "versions": [
+        "1.0.1"
+      ],
+      "description": "ProteinMPNN: message passing neural network for protein sequence design",
+      "tier": "community",
+      "maintainers": [
+        "github:dauparas"
+      ],
+      "homepage": "https://github.com/dauparas/ProteinMPNN",
+      "license": "MIT",
+      "input_types": [
+        "pdb"
+      ],
+      "output_types": [
+        "dir"
+      ],
+      "deprecated": false
+    }
+  ]
+}

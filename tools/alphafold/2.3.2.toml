@@ -4,6 +4,8 @@ version = "2.3.2"
 description = "AlphaFold 2: structure prediction from sequence"
 homepage = "https://github.com/google-deepmind/alphafold"
 license = "Apache-2.0"
+tier = "core"
+maintainers = ["github:google-deepmind"]
 
 [tool.image]
 backend = "docker"

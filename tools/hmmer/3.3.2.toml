@@ -3,6 +3,8 @@ id = "hmmer"
 version = "3.3.2"
 description = "HMMER: biosequence analysis using profile hidden Markov models"
 homepage = "http://hmmer.org/"
+tier = "core"
+maintainers = ["github:EddyRivasLab"]
 license = "BSD-3-Clause"
 
 [tool.image]

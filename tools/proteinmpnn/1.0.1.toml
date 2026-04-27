@@ -4,6 +4,8 @@ version = "1.0.1"
 description = "ProteinMPNN: message passing neural network for protein sequence design"
 homepage = "https://github.com/dauparas/ProteinMPNN"
 license = "MIT"
+tier = "community"
+maintainers = ["github:dauparas"]
 
 [tool.image]
 backend = "docker"

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bv registry</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>bv registry</h1>
+    <div class="subtitle">reproducible bioinformatics tools</div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="controls">
+    <input type="search" id="search" placeholder="Search tools, types, descriptions..." autocomplete="off">
+    <select id="tier-filter">
+      <option value="all">All tiers</option>
+      <option value="core">Core</option>
+      <option value="community">Community</option>
+      <option value="experimental">Experimental</option>
+    </select>
+    <select id="type-filter">
+      <option value="">All types</option>
+    </select>
+  </div>
+  <div class="results-count" id="results-count"></div>
+  <div class="tool-grid" id="tool-grid">
+    <p class="empty">Loading...</p>
+  </div>
+</main>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" id="modal-close">&times;</button>
+    <h2 id="modal-title"></h2>
+    <p class="meta" id="modal-meta"></p>
+    <p id="modal-desc" style="margin-bottom:16px; color:var(--text-dim); font-size:13px;"></p>
+
+    <section>
+      <h3>Homepage</h3>
+      <p id="modal-homepage" style="font-size:13px;"></p>
+    </section>
+
+    <section>
+      <h3>Inputs</h3>
+      <table class="io-table">
+        <thead><tr><th>Type</th></tr></thead>
+        <tbody id="modal-inputs"></tbody>
+      </table>
+    </section>
+
+    <section>
+      <h3>Outputs</h3>
+      <table class="io-table">
+        <thead><tr><th>Type</th></tr></thead>
+        <tbody id="modal-outputs"></tbody>
+      </table>
+    </section>
+
+    <section>
+      <h3>Versions</h3>
+      <div class="versions-list" id="modal-versions"></div>
+    </section>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

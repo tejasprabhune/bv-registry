@@ -4,6 +4,8 @@ version = "2.15.0"
 description = "BLAST+ Basic Local Alignment Search Tool"
 homepage = "https://blast.ncbi.nlm.nih.gov/Blast.cgi"
 license = "Public Domain"
+tier = "core"
+maintainers = ["github:ncbi"]
 
 [tool.image]
 backend = "docker"

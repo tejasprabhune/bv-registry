@@ -3,6 +3,8 @@ id = "mmseqs2"
 version = "17.0.0"
 description = "MMseqs2: ultra-fast protein and nucleotide sequence search"
 homepage = "https://github.com/soedinglab/MMseqs2"
+tier = "core"
+maintainers = ["github:steineggerlab"]
 license = "GPL-3.0"
 
 [tool.image]
