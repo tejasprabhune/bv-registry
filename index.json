@@ -1,28 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-27T17:57:34.554108+00:00",
+  "generated_at": "2026-04-27T19:10:02.164248+00:00",
   "tools": [
-    {
-      "id": "alphafold",
-      "version": "2.3.2",
-      "versions": [
-        "2.3.2"
-      ],
-      "description": "AlphaFold 2: structure prediction from sequence",
-      "tier": "core",
-      "maintainers": [
-        "github:google-deepmind"
-      ],
-      "homepage": "https://github.com/google-deepmind/alphafold",
-      "license": "Apache-2.0",
-      "input_types": [
-        "fasta[protein]"
-      ],
-      "output_types": [
-        "dir"
-      ],
-      "deprecated": false
-    },
     {
       "id": "augustus",
       "version": "3.5.0",
@@ -266,9 +245,9 @@
     },
     {
       "id": "colabfold",
-      "version": "1.6.1",
+      "version": "1.6.0",
       "versions": [
-        "1.6.1"
+        "1.6.0"
       ],
       "description": "ColabFold: fast protein structure prediction combining MMseqs2 MSA with AlphaFold2",
       "tier": "core",
