@@ -87,6 +87,16 @@ dir
 
 Use `bv show <tool>` to see a tool's declared types, or `bv show <tool> --json` for machine-readable output.
 
+## `cache_paths`
+
+Container paths the tool writes to during normal execution and that need writable backing. Critical on apptainer (its SIF root is read-only); useful on docker too because it lets caches persist across `docker rm` invocations.
+
+```toml
+cache_paths = ["/cache/colabfold"]
+```
+
+bv binds each path to `~/.cache/bv/<tool>/<slug>` on the host by default. Users override the host side with `[[cache]]` entries in their project `bv.toml`. Skip this section for tools that don't write inside the image (e.g. blast).
+
 ## Tier and governance fields
 
 | Field | Type | Default | Description |

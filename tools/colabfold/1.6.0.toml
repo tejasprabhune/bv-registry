@@ -37,5 +37,11 @@ description = "Predicted structures and confidence scores"
 command = "colabfold_batch"
 args_template = "--num-recycle 3 {fasta} {output_dir}"
 
+# Model weights (~3.5 GB) download into /cache/colabfold on first run.
+# bv binds a writable host directory there so apptainer's read-only SIF
+# does not block the download. Users can redirect to a shared cache via
+# [[cache]] in bv.toml.
+cache_paths = ["/cache/colabfold"]
+
 [tool.binaries]
 exposed = ["colabfold_batch"]
