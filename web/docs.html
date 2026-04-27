@@ -108,6 +108,15 @@
       opacity: 0.4;
       font-style: italic;
     }
+    main.doc h4 {
+      font-family: "calling-code", sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      font-style: italic;
+      margin: 22px 0 8px;
+      opacity: 0.72;
+      letter-spacing: 0.01em;
+    }
     main.doc p, main.doc li {
       font-size: 15px;
       line-height: 1.6;
@@ -189,49 +198,12 @@
     .header-links a { opacity: 0.55; text-decoration: none; }
     .header-links a:hover { opacity: 1; }
 
-    /* Prism theme: green-on-white, tuned to match the rest of the site. */
+    /* Prism token colors live in style.css; only local sizing here. */
     main.doc pre[class*="language-"],
     main.doc code[class*="language-"] {
-      color: var(--g);
-      font-family: "calling-code", sans-serif;
       font-size: 13px;
       line-height: 1.55;
-      tab-size: 2;
     }
-    main.doc :not(pre) > code[class*="language-"] {
-      background: var(--g08);
-      border: 1px solid var(--g15);
-      padding: 1px 5px;
-    }
-    main.doc .token.comment,
-    main.doc .token.prolog,
-    main.doc .token.cdata { color: var(--g); opacity: 0.42; font-style: italic; }
-    main.doc .token.punctuation { color: var(--g); opacity: 0.55; }
-    main.doc .token.namespace { opacity: 0.7; }
-    main.doc .token.string,
-    main.doc .token.attr-value,
-    main.doc .token.url { color: #2d6a4f; }                /* deeper green */
-    main.doc .token.number,
-    main.doc .token.boolean,
-    main.doc .token.constant { color: #6a994e; font-style: italic; }
-    main.doc .token.keyword,
-    main.doc .token.builtin,
-    main.doc .token.tag,
-    main.doc .token.class-name { color: var(--g); font-weight: 500; }
-    main.doc .token.function { color: var(--g); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; text-decoration-color: var(--g35); }
-    main.doc .token.operator,
-    main.doc .token.entity { color: var(--g); opacity: 0.75; }
-    main.doc .token.variable,
-    main.doc .token.parameter { color: #386641; font-style: italic; }
-    main.doc .token.attr-name,
-    main.doc .token.property,
-    main.doc .token.key { color: var(--g); font-weight: 500; }
-    main.doc .token.section { color: var(--g); font-weight: 500; }    /* TOML [headers] */
-    main.doc .token.table { color: var(--g); font-weight: 500; }
-    main.doc .token.deleted { background: rgba(170, 0, 0, 0.08); }
-    main.doc .token.inserted { background: var(--g08); }
-    main.doc .token.italic { font-style: italic; }
-    main.doc .token.bold { font-weight: 600; }
 
     @media (max-width: 820px) {
       .docs-shell { grid-template-columns: 1fr; gap: 0; }
@@ -474,11 +446,52 @@ exposed = ["colabfold_batch"]</code></pre>
     </div>
 
     <h3 id="pub-publish">bv publish</h3>
-    <p><code>bv publish</code> handles building, pushing to <code>ghcr.io/bv-registry/&lt;tool&gt;</code>, and opening the registry PR. It can run interactively or read a <code>bv-publish.toml</code> config:</p>
-<pre class="language-bash"><code class="language-bash">bv publish ./my-tool                     # interactive
-bv publish github:user/repo@v2.1.0       # auto-clone
+    <p><code>bv publish</code> handles fetching the source, generating a Dockerfile if you don't have one, building the image, pushing to GHCR, and opening the registry PR. It can run interactively or read a <code>bv-publish.toml</code> config.</p>
+<pre class="language-bash"><code class="language-bash">bv publish ./my-tool                     # local directory, interactive
+bv publish github:user/repo@v2.1.0       # github source, clones at the tag
 bv publish . --non-interactive           # CI mode (reads bv-publish.toml)
-bv publish . --no-push --no-pr           # dry run: build and inspect manifest</code></pre>
+bv publish . --no-push --no-pr           # dry run: build, print manifest, exit</code></pre>
+
+    <h4>sources it accepts</h4>
+    <ul>
+      <li><strong>local directory</strong>: <code>bv publish ./my-tool</code> uses the directory as-is. The directory name becomes the tool-name hint; <code>git describe --tags</code> in that directory becomes the version hint.</li>
+      <li><strong>github</strong>: <code>bv publish github:owner/repo[@ref]</code> shallow-clones the repo into a tempdir. <code>repo</code> becomes the tool-name hint. The version hint comes from the <code>@ref</code> (with leading <code>v</code> stripped) or, if omitted, the latest tag in the clone.</li>
+    </ul>
+
+    <h4>build systems it knows about</h4>
+    <p>If your repo doesn't ship a <code>Dockerfile</code>, bv generates a <code>Dockerfile.bv</code> based on whichever of these it finds first (in order):</p>
+    <table>
+      <tr><th>looks for</th><th>base image</th><th>generated build step</th></tr>
+      <tr><td><code>Dockerfile</code></td><td>(used as-is)</td><td>no generation</td></tr>
+      <tr><td><code>environment.yml</code> / <code>environment.yaml</code></td><td><code>mambaorg/micromamba:1.5</code></td><td><code>micromamba install -y -n base -f env.yml</code></td></tr>
+      <tr><td><code>pyproject.toml</code> with <code>[build-system]</code></td><td><code>python:3.11-slim</code></td><td><code>pip install --no-cache-dir .</code></td></tr>
+      <tr><td><code>requirements.txt</code></td><td><code>python:3.11-slim</code></td><td><code>pip install --no-cache-dir -r requirements.txt</code></td></tr>
+      <tr><td><code>Cargo.toml</code></td><td><code>rust:1.75</code> &rarr; <code>debian:bookworm-slim</code></td><td>multi-stage: <code>cargo build --release</code>, copy binaries to <code>/usr/local/bin</code></td></tr>
+      <tr><td><code>Makefile</code></td><td><code>debian:bookworm-slim</code> + <code>build-essential</code></td><td><code>make</code></td></tr>
+    </table>
+    <p>If none match and there's no <code>Dockerfile</code>, <code>bv publish</code> fails with a clear error: add a <code>Dockerfile</code> or write a <code>bv-publish.toml</code>. The generated <code>Dockerfile.bv</code> is left in your working directory; commit it (or replace it with your own) before re-running.</p>
+
+    <h4>where it gets the manifest fields</h4>
+    <table>
+      <tr><th>manifest field</th><th>source</th></tr>
+      <tr><td><code>id</code> (tool name)</td><td>directory name or repo name; overridable with <code>--tool-name</code> or the interactive prompt.</td></tr>
+      <tr><td><code>version</code></td><td><code>--tool-version</code> &rarr; git tag from <code>@ref</code> &rarr; <code>git describe --tags</code> &rarr; prompt.</td></tr>
+      <tr><td><code>description</code>, <code>homepage</code>, <code>license</code></td><td>prompts in interactive mode; from <code>bv-publish.toml</code> in non-interactive.</td></tr>
+      <tr><td><code>[[tool.inputs]]</code> / <code>[[tool.outputs]]</code></td><td>prompts (one I/O per add); types must be in the <code>bv-types</code> vocabulary.</td></tr>
+      <tr><td><code>[tool.hardware]</code></td><td>prompts for cpu / ram / disk / GPU; sensible defaults filled in.</td></tr>
+      <tr><td><code>[tool.entrypoint]</code></td><td>prompted; usually the binary name your Dockerfile installs.</td></tr>
+      <tr><td><code>tier</code></td><td>always starts as <code>community</code>. Promotion is a separate registry PR.</td></tr>
+      <tr><td><code>[tool.image].digest</code></td><td>computed automatically from <code>docker manifest inspect</code> after the push.</td></tr>
+    </table>
+
+    <h4>what it pushes, and where</h4>
+    <ol>
+      <li><strong>image</strong>: built and pushed to <code>ghcr.io/bv-registry/&lt;tool&gt;:&lt;version&gt;</code>. <code>bv</code> logs in to GHCR with your <code>GHCR_TOKEN</code> (or your <code>GITHUB_TOKEN</code> as a fallback). Multi-arch builds use <code>--platform</code>.</li>
+      <li><strong>digest</strong>: resolved by <code>docker manifest inspect</code> immediately after the push and embedded in the manifest <code>[tool.image].digest</code> for reproducibility.</li>
+      <li><strong>registry PR</strong>: a new branch <code>add-&lt;tool&gt;-&lt;version&gt;</code> is opened against <code>mlberkeley/bv-registry</code> (override with <code>--registry-repo owner/repo</code>), adding <code>tools/&lt;tool&gt;/&lt;version&gt;.toml</code>. The PR body links back to your source URL (the local path or <code>github.com/owner/repo</code>).</li>
+    </ol>
+    <p>Skip stages with flags: <code>--no-push</code> stops after building (manifest is printed; no GHCR write); <code>--no-pr</code> pushes the image but doesn't open the PR; passing both is a useful dry run.</p>
+
     <p>For a release-on-tag GitHub Action, drop this into <code>.github/workflows/bv-publish.yml</code>:</p>
 <pre class="language-yaml"><code class="language-yaml">on:
   release:

@@ -78,6 +78,48 @@ header .page-wrap {
 .header-links a { opacity: 0.55; text-decoration: none; }
 .header-links a:hover { opacity: 1; }
 
+/* Prism syntax theme: shared by docs.html and about.html.
+   Only token colors live here; surrounding `pre`/`code` boxes are styled per-page. */
+pre[class*="language-"],
+code[class*="language-"] {
+  color: var(--g);
+  font-family: "calling-code", sans-serif;
+  tab-size: 2;
+}
+.token.comment, .token.prolog, .token.cdata { color: var(--g); opacity: 0.42; font-style: italic; }
+.token.punctuation { color: var(--g); opacity: 0.55; }
+.token.namespace { opacity: 0.7; }
+.token.string,
+.token.attr-value,
+.token.url { color: #2d6a4f; }
+.token.number,
+.token.boolean,
+.token.constant { color: #6a994e; font-style: italic; }
+.token.keyword,
+.token.builtin,
+.token.tag,
+.token.class-name { color: var(--g); font-weight: 500; }
+.token.function {
+  color: var(--g);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--g35);
+}
+.token.operator,
+.token.entity { color: var(--g); opacity: 0.75; }
+.token.variable,
+.token.parameter { color: #386641; font-style: italic; }
+.token.attr-name,
+.token.property,
+.token.key,
+.token.section,
+.token.table { color: var(--g); font-weight: 500; }
+.token.deleted { background: rgba(170, 0, 0, 0.08); }
+.token.inserted { background: var(--g08); }
+.token.italic { font-style: italic; }
+.token.bold { font-weight: 600; }
+
 /* sticky controls */
 
 .controls-wrap {

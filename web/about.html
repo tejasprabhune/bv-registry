@@ -7,6 +7,10 @@
   <link rel="stylesheet" href="https://use.typekit.net/bsk0vur.css">
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-toml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
   <style>
     .about-wrap { padding: 48px 24px 80px; max-width: var(--max); margin: 0 auto; }
     .about-section { margin-bottom: 36px; }
@@ -79,7 +83,7 @@
 
   <div class="about-section">
     <h2>tl;dr</h2>
-<pre class="code-block"># 1. install a container runtime (pick one)
+<pre class="code-block language-bash"><code class="language-bash"># 1. install a container runtime (pick one)
 curl -fsSL https://get.docker.com/rootless | sh           # docker, on a laptop
 conda install -c conda-forge apptainer                    # apptainer, on HPC
 
@@ -111,7 +115,7 @@ bv exec python3 fold.py
 # 4. commit and reproduce anywhere
 git add bv.toml bv.lock
 git commit -m "pin analysis environment"
-# on any other machine: `bv sync` pulls the exact same images by digest</pre>
+# on any other machine: `bv sync` pulls the exact same images by digest</code></pre>
   </div>
 
   <div class="about-section">
