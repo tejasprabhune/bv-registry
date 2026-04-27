@@ -1,0 +1,11 @@
+[data]
+id = "uniref90"
+version = "2024_06"
+description = "UniRef90: clustered UniProt sequences at 90% identity; used for MSA generation in structure prediction (~68 GB compressed)"
+source_urls = [
+    "https://ftp.uniprot.org/pub/databases/uniprot/uniref/uniref90/uniref90.fasta.gz",
+]
+size_bytes = 230000000000
+format = "gz"
+post_download_action = "decompress"
+license = "CC-BY 4.0 (UniProt)"

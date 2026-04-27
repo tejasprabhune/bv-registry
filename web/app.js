@@ -55,10 +55,13 @@ function render() {
     return;
   }
 
-  grid.innerHTML = filteredTools.map((t, i) => toolCard(t, i)).join('');
+  grid.innerHTML = filteredTools.map(toolCard).join('');
 
   grid.querySelectorAll('.tool-card').forEach((card, i) => {
     card.addEventListener('click', () => openModal(filteredTools[i]));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') openModal(filteredTools[i]);
+    });
   });
 }
 
@@ -84,12 +87,29 @@ function openModal(t) {
   const meta = [t.version, t.tier, t.license].filter(Boolean).join(' · ');
   document.getElementById('modal-meta').textContent = meta;
 
-  document.getElementById('modal-desc').textContent = t.description || '';
+  // bv add command
+  const addCmd = `bv add ${t.id}@${t.version}`;
+  document.getElementById('modal-bv-add').textContent = addCmd;
+
+  // reset copy button
+  const copyBtn = document.getElementById('copy-btn');
+  copyBtn.textContent = 'copy';
+  copyBtn.classList.remove('copied');
+  copyBtn.onclick = () => copyToClipboard(addCmd, copyBtn);
+
+  const descEl = document.getElementById('modal-desc');
+  const descSec = document.getElementById('modal-desc-section');
+  if (t.description) {
+    descEl.textContent = t.description;
+    descSec.style.display = '';
+  } else {
+    descSec.style.display = 'none';
+  }
 
   const homeSec = document.getElementById('modal-homepage-section');
   const homeEl  = document.getElementById('modal-homepage');
   if (t.homepage) {
-    homeEl.innerHTML = `<a href="${esc(t.homepage)}" target="_blank" rel="noopener">${esc(t.homepage)}</a>`;
+    homeEl.innerHTML = `<a href="${esc(t.homepage)}" target="_blank" rel="noopener" style="font-size:13px;font-style:italic;">${esc(t.homepage)}</a>`;
     homeSec.style.display = '';
   } else {
     homeSec.style.display = 'none';
@@ -98,18 +118,18 @@ function openModal(t) {
   document.getElementById('modal-inputs').innerHTML =
     (t.input_types || []).map(ty =>
       `<div class="io-row"><span class="io-type">${esc(ty)}</span></div>`
-    ).join('') || '<div class="io-row io-card">none declared</div>';
+    ).join('') || '<div class="io-empty">none declared</div>';
 
   document.getElementById('modal-outputs').innerHTML =
     (t.output_types || []).map(ty =>
       `<div class="io-row"><span class="io-type">${esc(ty)}</span></div>`
-    ).join('') || '<div class="io-row io-card">none declared</div>';
+    ).join('') || '<div class="io-empty">none declared</div>';
 
   document.getElementById('modal-maintainers').innerHTML =
     (t.maintainers || []).map(h => {
       const login = h.replace('github:', '');
-      return `<div class="io-row"><a href="https://github.com/${esc(login)}" target="_blank" rel="noopener">@${esc(login)}</a></div>`;
-    }).join('') || '<div class="io-row io-card">none listed</div>';
+      return `<div class="io-row"><a href="https://github.com/${esc(login)}" target="_blank" rel="noopener" style="font-size:13px;font-style:italic;">@${esc(login)}</a></div>`;
+    }).join('') || '<div class="io-empty">none listed</div>';
 
   document.getElementById('modal-versions').innerHTML =
     [...(t.versions || [t.version])].reverse()
@@ -120,6 +140,20 @@ function openModal(t) {
 
 function closeModal() {
   document.getElementById('modal').classList.remove('open');
+}
+
+function copyToClipboard(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'copied';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'copy';
+      btn.classList.remove('copied');
+    }, 1800);
+  }).catch(() => {
+    btn.textContent = 'failed';
+    setTimeout(() => { btn.textContent = 'copy'; }, 1800);
+  });
 }
 
 function populateTypeFilter() {
@@ -154,11 +188,6 @@ document.getElementById('modal').addEventListener('click', e => {
 });
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
-});
-document.querySelectorAll('.tool-card').forEach(card => {
-  card.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') card.click();
-  });
 });
 
 init();

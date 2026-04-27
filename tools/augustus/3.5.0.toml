@@ -1,0 +1,33 @@
+[tool]
+id = "augustus"
+version = "3.5.0"
+description = "Ab initio eukaryotic gene prediction using a generalized hidden Markov model"
+homepage = "https://github.com/Gaius-Augustus/Augustus"
+license = "Artistic-2.0"
+tier = "community"
+maintainers = ["github:Gaius-Augustus"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/augustus:3.5.0--pl5321h700735d_3"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 8.0
+disk_gb = 5.0
+
+[[tool.inputs]]
+name = "genome"
+type = "fasta"
+cardinality = "one"
+description = "Eukaryotic genome sequence"
+
+[[tool.outputs]]
+name = "predictions"
+type = "file"
+cardinality = "one"
+description = "Gene predictions in GFF3 format"
+
+[tool.entrypoint]
+command = "augustus"
+args_template = "--species=human --gff3=on {genome} > {predictions}"

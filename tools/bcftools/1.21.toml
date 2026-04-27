@@ -1,0 +1,33 @@
+[tool]
+id = "bcftools"
+version = "1.21"
+description = "Utilities for variant calling and manipulating VCF/BCF files"
+homepage = "http://www.htslib.org/doc/bcftools.html"
+license = "MIT"
+tier = "core"
+maintainers = ["github:samtools"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/bcftools:1.21--h8b25389_0"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 8.0
+disk_gb = 2.0
+
+[[tool.inputs]]
+name = "input"
+type = "vcf"
+cardinality = "one"
+description = "Input VCF or BCF file"
+
+[[tool.outputs]]
+name = "output"
+type = "vcf"
+cardinality = "one"
+description = "Processed VCF or BCF file"
+
+[tool.entrypoint]
+command = "bcftools"
+args_template = "view --threads {cpu_cores} -o {output} {input}"

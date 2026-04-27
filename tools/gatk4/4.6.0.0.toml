@@ -1,0 +1,39 @@
+[tool]
+id = "gatk4"
+version = "4.6.0.0"
+description = "GATK4: genome analysis toolkit for variant discovery in high-throughput sequencing data"
+homepage = "https://gatk.broadinstitute.org/"
+license = "BSD-3-Clause"
+tier = "core"
+maintainers = ["github:broadinstitute"]
+
+[tool.image]
+backend = "docker"
+reference = "broadinstitute/gatk:4.6.0.0"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 16.0
+disk_gb = 10.0
+
+[[tool.inputs]]
+name = "bam"
+type = "bam"
+cardinality = "one"
+description = "Aligned and sorted BAM file"
+
+[[tool.inputs]]
+name = "reference"
+type = "fasta"
+cardinality = "one"
+description = "Reference genome FASTA (must be indexed)"
+
+[[tool.outputs]]
+name = "vcf"
+type = "vcf"
+cardinality = "one"
+description = "Raw variant calls in GVCF/VCF format"
+
+[tool.entrypoint]
+command = "gatk"
+args_template = "HaplotypeCaller -R {reference} -I {bam} -O {vcf}"

@@ -1,0 +1,38 @@
+[tool]
+id = "solenoid"
+version = "1.0.0"
+description = "SOLeNNoID: de novo design of solenoid repeat proteins using graph neural networks"
+homepage = "https://github.com/wells-wood-research/solenoid"
+license = "MIT"
+tier = "experimental"
+maintainers = ["github:wells-wood-research"]
+
+[tool.image]
+backend = "docker"
+reference = "ghcr.io/wells-wood-research/solenoid:1.0.0"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 16.0
+disk_gb = 5.0
+
+[tool.hardware.gpu]
+required = true
+min_vram_gb = 8
+cuda_version = "11.8"
+
+[[tool.inputs]]
+name = "config"
+type = "file"
+cardinality = "one"
+description = "JSON design configuration specifying repeat unit geometry and count"
+
+[[tool.outputs]]
+name = "output_dir"
+type = "dir"
+cardinality = "one"
+description = "Designed solenoid structures in PDB format with scores"
+
+[tool.entrypoint]
+command = "python"
+args_template = "/app/solenoid/design.py --config {config} --output {output_dir}"

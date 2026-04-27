@@ -1,0 +1,11 @@
+[data]
+id = "uniprot-swissprot"
+version = "2024_06"
+description = "UniProt/Swiss-Prot: manually reviewed and annotated protein sequences (~570k entries, ~820 MB)"
+source_urls = [
+    "https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.fasta.gz",
+]
+size_bytes = 820000000
+format = "gz"
+post_download_action = "decompress"
+license = "CC-BY 4.0 (UniProt)"

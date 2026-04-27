@@ -1,0 +1,39 @@
+[tool]
+id = "spades"
+version = "4.0.0"
+description = "SPAdes: de Bruijn graph assembler for Illumina, PacBio, and hybrid assemblies"
+homepage = "https://github.com/ablab/spades"
+license = "GPL-2.0"
+tier = "core"
+maintainers = ["github:ablab"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/spades:4.0.0--h5ef7509_1"
+
+[tool.hardware]
+cpu_cores = 16
+ram_gb = 32.0
+disk_gb = 50.0
+
+[[tool.inputs]]
+name = "reads_r1"
+type = "fastq"
+cardinality = "one"
+description = "Forward reads"
+
+[[tool.inputs]]
+name = "reads_r2"
+type = "fastq"
+cardinality = "optional"
+description = "Reverse reads (paired-end)"
+
+[[tool.outputs]]
+name = "output_dir"
+type = "dir"
+cardinality = "one"
+description = "Assembly output directory with contigs.fasta and scaffolds.fasta"
+
+[tool.entrypoint]
+command = "spades.py"
+args_template = "--threads {cpu_cores} --memory {ram_gb} -1 {reads_r1} -2 {reads_r2} -o {output_dir}"

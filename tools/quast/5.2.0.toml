@@ -1,0 +1,33 @@
+[tool]
+id = "quast"
+version = "5.2.0"
+description = "Quality assessment tool for genome assemblies"
+homepage = "https://github.com/ablab/quast"
+license = "GPL-2.0"
+tier = "community"
+maintainers = ["github:ablab"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/quast:5.2.0--py39pl5321h2add14b_1"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 4.0
+disk_gb = 2.0
+
+[[tool.inputs]]
+name = "assembly"
+type = "fasta"
+cardinality = "many"
+description = "Assembly FASTA file(s) to assess"
+
+[[tool.outputs]]
+name = "report_dir"
+type = "dir"
+cardinality = "one"
+description = "QUAST reports (HTML, text, PDF)"
+
+[tool.entrypoint]
+command = "quast"
+args_template = "--threads {cpu_cores} -o {report_dir} {assembly}"

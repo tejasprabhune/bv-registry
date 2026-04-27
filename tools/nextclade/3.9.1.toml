@@ -1,0 +1,33 @@
+[tool]
+id = "nextclade"
+version = "3.9.1"
+description = "Viral sequence quality control, clade assignment, and mutation calling"
+homepage = "https://clades.nextstrain.org/"
+license = "MIT"
+tier = "community"
+maintainers = ["github:nextstrain"]
+
+[tool.image]
+backend = "docker"
+reference = "nextstrain/nextclade:3.9.1"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 4.0
+disk_gb = 2.0
+
+[[tool.inputs]]
+name = "sequences"
+type = "fasta"
+cardinality = "one"
+description = "Input viral sequences"
+
+[[tool.outputs]]
+name = "output_dir"
+type = "dir"
+cardinality = "one"
+description = "Nextclade results including clade calls and alignment"
+
+[tool.entrypoint]
+command = "nextclade"
+args_template = "run --jobs {cpu_cores} --dataset-name sars-cov-2 --output-all {output_dir} {sequences}"

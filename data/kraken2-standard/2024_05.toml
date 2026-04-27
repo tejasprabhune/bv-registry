@@ -1,0 +1,11 @@
+[data]
+id = "kraken2-standard"
+version = "2024_05"
+description = "Kraken2 standard k-mer database: bacteria, archaea, viruses, plasmids, human, UniVec (~85 GB)"
+source_urls = [
+    "https://genome-idx.s3.amazonaws.com/kraken/k2_standard_20240605.tar.gz",
+]
+size_bytes = 85000000000
+format = "tar"
+post_download_action = "extract"
+license = "public domain (derived from NCBI RefSeq)"

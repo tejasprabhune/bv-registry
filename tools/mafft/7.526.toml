@@ -1,0 +1,38 @@
+[tool]
+id = "mafft"
+version = "7.526"
+description = "Multiple sequence alignment using Fast Fourier Transform"
+homepage = "https://mafft.cbrc.jp/alignment/software/"
+license = "BSD-3-Clause"
+tier = "core"
+maintainers = ["github:GSLBiotech"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/mafft:7.526--h031d066_0"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 4.0
+disk_gb = 1.0
+
+[[tool.inputs]]
+name = "sequences"
+type = "fasta"
+cardinality = "one"
+description = "Unaligned input sequences"
+
+[[tool.outputs]]
+name = "alignment"
+type = "msa"
+cardinality = "one"
+description = "Multiple sequence alignment in FASTA format"
+
+[tool.entrypoint]
+command = "mafft"
+args_template = "--auto --thread {cpu_cores} --out {alignment} {sequences}"
+
+[tool.test]
+inputs = { sequences = "test://fasta-protein-multi" }
+expected_outputs = ["alignment"]
+timeout_seconds = 120

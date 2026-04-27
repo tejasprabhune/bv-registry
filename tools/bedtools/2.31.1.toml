@@ -1,0 +1,39 @@
+[tool]
+id = "bedtools"
+version = "2.31.1"
+description = "Swiss-army knife for genome arithmetic: intersect, merge, and manipulate genomic intervals"
+homepage = "https://bedtools.readthedocs.io/"
+license = "GPL-2.0"
+tier = "core"
+maintainers = ["github:arq5x"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/bedtools:2.31.1--hf5e1c6e_3"
+
+[tool.hardware]
+cpu_cores = 2
+ram_gb = 8.0
+disk_gb = 2.0
+
+[[tool.inputs]]
+name = "a"
+type = "bam"
+cardinality = "one"
+description = "Primary input file (BAM, BED, GFF, VCF)"
+
+[[tool.inputs]]
+name = "b"
+type = "file"
+cardinality = "optional"
+description = "Secondary file for interval operations"
+
+[[tool.outputs]]
+name = "output"
+type = "file"
+cardinality = "one"
+description = "Genomic interval results"
+
+[tool.entrypoint]
+command = "bedtools"
+args_template = "intersect -a {a} -b {b} > {output}"

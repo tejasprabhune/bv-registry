@@ -1,0 +1,39 @@
+[tool]
+id = "diamond"
+version = "2.1.9"
+description = "DIAMOND: fast protein/translated DNA alignment against large databases"
+homepage = "https://github.com/bbuchfink/diamond"
+license = "GPL-3.0"
+tier = "core"
+maintainers = ["github:bbuchfink"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/diamond:2.1.9--h43eeafb_0"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 16.0
+disk_gb = 5.0
+
+[[tool.inputs]]
+name = "query"
+type = "fasta"
+cardinality = "one"
+description = "Query sequences (protein or nucleotide)"
+
+[[tool.inputs]]
+name = "db"
+type = "dir"
+cardinality = "one"
+description = "DIAMOND database (built with diamond makedb)"
+
+[[tool.outputs]]
+name = "output"
+type = "blast_tab"
+cardinality = "one"
+description = "Alignment results in tabular format"
+
+[tool.entrypoint]
+command = "diamond"
+args_template = "blastp --threads {cpu_cores} --query {query} --db {db} --out {output} --outfmt 6"

@@ -1,0 +1,33 @@
+[tool]
+id = "flye"
+version = "2.9.4"
+description = "De novo assembler for single-molecule sequencing reads (PacBio, Nanopore)"
+homepage = "https://github.com/mikolmogorov/Flye"
+license = "BSD-3-Clause"
+tier = "core"
+maintainers = ["github:mikolmogorov"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/flye:2.9.4--py39hd65a603_1"
+
+[tool.hardware]
+cpu_cores = 16
+ram_gb = 32.0
+disk_gb = 50.0
+
+[[tool.inputs]]
+name = "reads"
+type = "fastq"
+cardinality = "one"
+description = "Long reads (Nanopore or PacBio)"
+
+[[tool.outputs]]
+name = "output_dir"
+type = "dir"
+cardinality = "one"
+description = "Assembly output directory with assembly.fasta"
+
+[tool.entrypoint]
+command = "flye"
+args_template = "--nano-raw {reads} --out-dir {output_dir} --threads {cpu_cores}"

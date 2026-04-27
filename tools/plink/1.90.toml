@@ -1,0 +1,33 @@
+[tool]
+id = "plink"
+version = "1.90"
+description = "Whole-genome association analysis toolset for large-scale genomic data"
+homepage = "https://www.cog-genomics.org/plink/"
+license = "GPL-3.0"
+tier = "community"
+maintainers = ["github:chrchang"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/plink:1.90b6.21--hec16e2b_4"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 8.0
+disk_gb = 5.0
+
+[[tool.inputs]]
+name = "vcf"
+type = "vcf"
+cardinality = "one"
+description = "Input VCF or PLINK binary files"
+
+[[tool.outputs]]
+name = "output_prefix"
+type = "file"
+cardinality = "one"
+description = "PLINK binary format output prefix"
+
+[tool.entrypoint]
+command = "plink"
+args_template = "--vcf {vcf} --out {output_prefix} --make-bed --threads {cpu_cores}"

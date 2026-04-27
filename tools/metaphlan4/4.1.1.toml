@@ -1,0 +1,33 @@
+[tool]
+id = "metaphlan4"
+version = "4.1.1"
+description = "MetaPhlAn 4: metagenomic profiling using marker genes from reference genomes"
+homepage = "https://github.com/biobakery/MetaPhlAn"
+license = "MIT"
+tier = "community"
+maintainers = ["github:biobakery"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/metaphlan:4.1.1--pyhca03a8a_0"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 8.0
+disk_gb = 10.0
+
+[[tool.inputs]]
+name = "reads"
+type = "fastq"
+cardinality = "one"
+description = "Metagenomics reads"
+
+[[tool.outputs]]
+name = "profile"
+type = "tabular"
+cardinality = "one"
+description = "Taxonomic abundance profile"
+
+[tool.entrypoint]
+command = "metaphlan"
+args_template = "{reads} --input_type fastq --nproc {cpu_cores} -o {profile}"

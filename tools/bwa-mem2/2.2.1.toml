@@ -1,0 +1,45 @@
+[tool]
+id = "bwa-mem2"
+version = "2.2.1"
+description = "Faster drop-in replacement for bwa mem using SIMD acceleration"
+homepage = "https://github.com/bwa-mem2/bwa-mem2"
+license = "MIT"
+tier = "core"
+maintainers = ["github:bwa-mem2"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/bwa-mem2:2.2.1--h9a82719_4"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 32.0
+disk_gb = 5.0
+
+[[tool.inputs]]
+name = "reads_r1"
+type = "fastq"
+cardinality = "one"
+description = "Forward reads"
+
+[[tool.inputs]]
+name = "reads_r2"
+type = "fastq"
+cardinality = "optional"
+description = "Reverse reads (paired-end)"
+
+[[tool.inputs]]
+name = "reference"
+type = "fasta"
+cardinality = "one"
+description = "Reference genome (must be indexed with bwa-mem2 index)"
+
+[[tool.outputs]]
+name = "alignment"
+type = "sam"
+cardinality = "one"
+description = "Aligned reads in SAM format"
+
+[tool.entrypoint]
+command = "bwa-mem2"
+args_template = "mem -t {cpu_cores} {reference} {reads_r1} {reads_r2} > {alignment}"

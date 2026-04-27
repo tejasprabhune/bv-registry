@@ -1,0 +1,33 @@
+[tool]
+id = "featurecounts"
+version = "2.0.6"
+description = "featureCounts: read summarization for genomic features (genes, exons) from RNA-seq alignments"
+homepage = "https://subread.sourceforge.net/featureCounts.html"
+license = "GPL-3.0"
+tier = "core"
+maintainers = ["github:ShiLab-Bioinformatics"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/subread:2.0.6--he4a0461_0"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 8.0
+disk_gb = 2.0
+
+[[tool.inputs]]
+name = "bam"
+type = "bam"
+cardinality = "many"
+description = "Aligned reads in BAM format"
+
+[[tool.outputs]]
+name = "counts"
+type = "tabular"
+cardinality = "one"
+description = "Read counts per feature"
+
+[tool.entrypoint]
+command = "featureCounts"
+args_template = "-T {cpu_cores} -a /workspace/annotation.gtf -o {counts} {bam}"

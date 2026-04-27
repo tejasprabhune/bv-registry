@@ -1,0 +1,45 @@
+[tool]
+id = "bbtools"
+version = "39.06"
+description = "BBTools: suite of fast, multithreaded bioinformatics tools for DNA/RNA/protein analysis"
+homepage = "https://jgi.doe.gov/data-and-tools/software-tools/bbtools/"
+license = "BSD-3-Clause"
+tier = "community"
+maintainers = ["github:jgi-doe"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/bbtools:39.06--h92535d8_1"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 16.0
+disk_gb = 2.0
+
+[[tool.inputs]]
+name = "reads_r1"
+type = "fastq"
+cardinality = "one"
+description = "Forward reads"
+
+[[tool.inputs]]
+name = "reads_r2"
+type = "fastq"
+cardinality = "optional"
+description = "Reverse reads (paired-end)"
+
+[[tool.outputs]]
+name = "out_r1"
+type = "fastq"
+cardinality = "one"
+description = "Processed forward reads"
+
+[[tool.outputs]]
+name = "out_r2"
+type = "fastq"
+cardinality = "optional"
+description = "Processed reverse reads"
+
+[tool.entrypoint]
+command = "bbduk.sh"
+args_template = "threads={cpu_cores} in={reads_r1} in2={reads_r2} out={out_r1} out2={out_r2} ref=/opt/conda/opt/bbtools/resources/adapters.fa ktrim=r k=23 mink=11 hdist=1 tpe tbo"

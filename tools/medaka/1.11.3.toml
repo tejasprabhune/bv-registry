@@ -1,0 +1,44 @@
+[tool]
+id = "medaka"
+version = "1.11.3"
+description = "Sequence variant calling and consensus from Oxford Nanopore data using neural networks"
+homepage = "https://github.com/nanoporetech/medaka"
+license = "Oxford Nanopore Technologies PLC"
+tier = "community"
+maintainers = ["github:nanoporetech"]
+
+[tool.image]
+backend = "docker"
+reference = "ontresearch/medaka:v1.11.3"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 16.0
+disk_gb = 5.0
+
+[tool.hardware.gpu]
+required = false
+min_vram_gb = 4
+cuda_version = "11.8"
+
+[[tool.inputs]]
+name = "reads"
+type = "fastq"
+cardinality = "one"
+description = "Oxford Nanopore reads"
+
+[[tool.inputs]]
+name = "draft"
+type = "fasta"
+cardinality = "one"
+description = "Draft assembly to polish"
+
+[[tool.outputs]]
+name = "output_dir"
+type = "dir"
+cardinality = "one"
+description = "Polished consensus sequences"
+
+[tool.entrypoint]
+command = "medaka_consensus"
+args_template = "-i {reads} -d {draft} -o {output_dir} -t {cpu_cores}"

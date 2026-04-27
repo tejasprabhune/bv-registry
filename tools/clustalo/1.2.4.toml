@@ -1,0 +1,38 @@
+[tool]
+id = "clustalo"
+version = "1.2.4"
+description = "Clustal Omega: fast and scalable multiple sequence aligner for proteins and nucleotides"
+homepage = "http://www.clustal.org/omega/"
+license = "GPL-2.0"
+tier = "community"
+maintainers = ["github:GSLBiotech"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/clustalo:1.2.4--h87f3376_5"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 4.0
+disk_gb = 1.0
+
+[[tool.inputs]]
+name = "sequences"
+type = "fasta"
+cardinality = "one"
+description = "Unaligned input sequences (protein or nucleotide)"
+
+[[tool.outputs]]
+name = "alignment"
+type = "msa"
+cardinality = "one"
+description = "Multiple sequence alignment"
+
+[tool.entrypoint]
+command = "clustalo"
+args_template = "--threads={cpu_cores} -i {sequences} -o {alignment} --outfmt=fa"
+
+[tool.test]
+inputs = { sequences = "test://fasta-protein-multi" }
+expected_outputs = ["alignment"]
+timeout_seconds = 120

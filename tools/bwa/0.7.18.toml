@@ -1,0 +1,45 @@
+[tool]
+id = "bwa"
+version = "0.7.18"
+description = "Burrows-Wheeler Aligner for short-read alignment to a reference genome"
+homepage = "https://github.com/lh3/bwa"
+license = "GPL-3.0"
+tier = "core"
+maintainers = ["github:lh3"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/bwa:0.7.18--he4a0461_0"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 16.0
+disk_gb = 5.0
+
+[[tool.inputs]]
+name = "reads_r1"
+type = "fastq"
+cardinality = "one"
+description = "Forward reads"
+
+[[tool.inputs]]
+name = "reads_r2"
+type = "fastq"
+cardinality = "optional"
+description = "Reverse reads (paired-end)"
+
+[[tool.inputs]]
+name = "reference"
+type = "fasta"
+cardinality = "one"
+description = "Reference genome (must be indexed with bwa index)"
+
+[[tool.outputs]]
+name = "alignment"
+type = "sam"
+cardinality = "one"
+description = "Aligned reads in SAM format"
+
+[tool.entrypoint]
+command = "bwa"
+args_template = "mem -t {cpu_cores} {reference} {reads_r1} {reads_r2} > {alignment}"

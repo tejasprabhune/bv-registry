@@ -1,0 +1,12 @@
+[data]
+id = "clinvar"
+version = "2024_11"
+description = "ClinVar: NCBI archive of variants with clinical significance interpretations in VCF format (~2 GB)"
+source_urls = [
+    "https://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh38/clinvar.vcf.gz",
+    "https://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh38/clinvar.vcf.gz.tbi",
+]
+size_bytes = 800000000
+format = "gz"
+post_download_action = "decompress"
+license = "public domain (NCBI)"

@@ -1,0 +1,12 @@
+[data]
+id = "pfam"
+version = "36.0"
+description = "Pfam: database of protein families represented as multiple sequence alignments and HMM profiles (~4.5 GB)"
+source_urls = [
+    "https://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam36.0/Pfam-A.hmm.gz",
+    "https://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam36.0/Pfam-A.hmm.dat.gz",
+]
+size_bytes = 15000000000
+format = "gz"
+post_download_action = "decompress"
+license = "CC0 1.0 (EMBL-EBI)"

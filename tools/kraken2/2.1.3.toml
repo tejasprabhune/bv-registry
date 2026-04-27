@@ -1,0 +1,45 @@
+[tool]
+id = "kraken2"
+version = "2.1.3"
+description = "Taxonomic classification of sequencing reads using exact k-mer matching"
+homepage = "https://github.com/DerrickWood/kraken2"
+license = "MIT"
+tier = "core"
+maintainers = ["github:DerrickWood"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/kraken2:2.1.3--pl5321h6f949c2_0"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 64.0
+disk_gb = 5.0
+
+[[tool.inputs]]
+name = "reads_r1"
+type = "fastq"
+cardinality = "one"
+description = "Forward reads"
+
+[[tool.inputs]]
+name = "reads_r2"
+type = "fastq"
+cardinality = "optional"
+description = "Reverse reads (paired-end)"
+
+[[tool.outputs]]
+name = "report"
+type = "tabular"
+cardinality = "one"
+description = "Kraken2 classification report"
+
+[[tool.outputs]]
+name = "output"
+type = "tabular"
+cardinality = "one"
+description = "Per-read classification results"
+
+[tool.entrypoint]
+command = "kraken2"
+args_template = "--threads {cpu_cores} --db /workspace/kraken2_db --paired --report {report} --output {output} {reads_r1} {reads_r2}"

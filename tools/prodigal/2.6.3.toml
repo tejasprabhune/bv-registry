@@ -1,0 +1,39 @@
+[tool]
+id = "prodigal"
+version = "2.6.3"
+description = "Prokaryotic gene recognition and translation initiation site identification"
+homepage = "https://github.com/hyattpd/Prodigal"
+license = "GPL-3.0"
+tier = "core"
+maintainers = ["github:hyattpd"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/prodigal:2.6.3--hd03093a_5"
+
+[tool.hardware]
+cpu_cores = 1
+ram_gb = 2.0
+disk_gb = 1.0
+
+[[tool.inputs]]
+name = "genome"
+type = "fasta"
+cardinality = "one"
+description = "Input nucleotide sequence (genome or contigs)"
+
+[[tool.outputs]]
+name = "proteins"
+type = "fasta[protein]"
+cardinality = "one"
+description = "Predicted protein sequences"
+
+[[tool.outputs]]
+name = "genes"
+type = "file"
+cardinality = "one"
+description = "Gene predictions in GFF/GenBank format"
+
+[tool.entrypoint]
+command = "prodigal"
+args_template = "-i {genome} -a {proteins} -f gff -o {genes}"

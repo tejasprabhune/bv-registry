@@ -1,0 +1,33 @@
+[tool]
+id = "seqkit"
+version = "2.8.1"
+description = "Cross-platform toolkit for FASTA/Q file manipulation and statistics"
+homepage = "https://bioinf.shenwei.me/seqkit/"
+license = "MIT"
+tier = "core"
+maintainers = ["github:shenwei356"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/seqkit:2.8.1--h9ee0642_0"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 4.0
+disk_gb = 1.0
+
+[[tool.inputs]]
+name = "input"
+type = "fasta"
+cardinality = "one"
+description = "Input FASTA or FASTQ file"
+
+[[tool.outputs]]
+name = "output"
+type = "fasta"
+cardinality = "one"
+description = "Processed sequences"
+
+[tool.entrypoint]
+command = "seqkit"
+args_template = "stats --threads {cpu_cores} {input}"

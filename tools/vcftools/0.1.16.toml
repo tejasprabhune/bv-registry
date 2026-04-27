@@ -1,0 +1,33 @@
+[tool]
+id = "vcftools"
+version = "0.1.16"
+description = "Tools for working with VCF files: filtering, statistics, and format conversion"
+homepage = "https://vcftools.github.io/"
+license = "GPL-3.0"
+tier = "community"
+maintainers = ["github:vcftools"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/vcftools:0.1.16--pl5321h9a82719_7"
+
+[tool.hardware]
+cpu_cores = 2
+ram_gb = 4.0
+disk_gb = 2.0
+
+[[tool.inputs]]
+name = "input"
+type = "vcf"
+cardinality = "one"
+description = "Input VCF file"
+
+[[tool.outputs]]
+name = "output_prefix"
+type = "file"
+cardinality = "one"
+description = "Output prefix for filtered files"
+
+[tool.entrypoint]
+command = "vcftools"
+args_template = "--vcf {input} --out {output_prefix} --recode"

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-27T09:05:38.336757+00:00",
+  "generated_at": "2026-04-27T10:13:07.925102+00:00",
   "tools": [
     {
       "id": "alphafold",
@@ -20,6 +20,93 @@
       ],
       "output_types": [
         "dir"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "augustus",
+      "version": "3.5.0",
+      "versions": [
+        "3.5.0"
+      ],
+      "description": "Ab initio eukaryotic gene prediction using a generalized hidden Markov model",
+      "tier": "community",
+      "maintainers": [
+        "github:Gaius-Augustus"
+      ],
+      "homepage": "https://github.com/Gaius-Augustus/Augustus",
+      "license": "Artistic-2.0",
+      "input_types": [
+        "fasta"
+      ],
+      "output_types": [
+        "file"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "bbtools",
+      "version": "39.06",
+      "versions": [
+        "39.06"
+      ],
+      "description": "BBTools: suite of fast, multithreaded bioinformatics tools for DNA/RNA/protein analysis",
+      "tier": "community",
+      "maintainers": [
+        "github:jgi-doe"
+      ],
+      "homepage": "https://jgi.doe.gov/data-and-tools/software-tools/bbtools/",
+      "license": "BSD-3-Clause",
+      "input_types": [
+        "fastq",
+        "fastq"
+      ],
+      "output_types": [
+        "fastq",
+        "fastq"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "bcftools",
+      "version": "1.21",
+      "versions": [
+        "1.21"
+      ],
+      "description": "Utilities for variant calling and manipulating VCF/BCF files",
+      "tier": "core",
+      "maintainers": [
+        "github:samtools"
+      ],
+      "homepage": "http://www.htslib.org/doc/bcftools.html",
+      "license": "MIT",
+      "input_types": [
+        "vcf"
+      ],
+      "output_types": [
+        "vcf"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "bedtools",
+      "version": "2.31.1",
+      "versions": [
+        "2.31.1"
+      ],
+      "description": "Swiss-army knife for genome arithmetic: intersect, merge, and manipulate genomic intervals",
+      "tier": "core",
+      "maintainers": [
+        "github:arq5x"
+      ],
+      "homepage": "https://bedtools.readthedocs.io/",
+      "license": "GPL-2.0",
+      "input_types": [
+        "bam",
+        "file"
+      ],
+      "output_types": [
+        "file"
       ],
       "deprecated": false
     },
@@ -47,6 +134,397 @@
       "deprecated": false
     },
     {
+      "id": "bowtie2",
+      "version": "2.5.4",
+      "versions": [
+        "2.5.4"
+      ],
+      "description": "Fast and sensitive read alignment for short reads to long reference sequences",
+      "tier": "core",
+      "maintainers": [
+        "github:BenLangmead"
+      ],
+      "homepage": "https://bowtie-bio.sourceforge.net/bowtie2/",
+      "license": "GPL-3.0",
+      "input_types": [
+        "fastq",
+        "fastq"
+      ],
+      "output_types": [
+        "sam"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "bracken",
+      "version": "2.9",
+      "versions": [
+        "2.9"
+      ],
+      "description": "Bayesian re-estimation of species-level abundance from Kraken2 classification reports",
+      "tier": "community",
+      "maintainers": [
+        "github:jenniferlu717"
+      ],
+      "homepage": "https://github.com/jenniferlu717/Bracken",
+      "license": "GPL-3.0",
+      "input_types": [
+        "tabular"
+      ],
+      "output_types": [
+        "tabular"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "bwa",
+      "version": "0.7.18",
+      "versions": [
+        "0.7.18"
+      ],
+      "description": "Burrows-Wheeler Aligner for short-read alignment to a reference genome",
+      "tier": "core",
+      "maintainers": [
+        "github:lh3"
+      ],
+      "homepage": "https://github.com/lh3/bwa",
+      "license": "GPL-3.0",
+      "input_types": [
+        "fastq",
+        "fastq",
+        "fasta"
+      ],
+      "output_types": [
+        "sam"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "bwa-mem2",
+      "version": "2.2.1",
+      "versions": [
+        "2.2.1"
+      ],
+      "description": "Faster drop-in replacement for bwa mem using SIMD acceleration",
+      "tier": "core",
+      "maintainers": [
+        "github:bwa-mem2"
+      ],
+      "homepage": "https://github.com/bwa-mem2/bwa-mem2",
+      "license": "MIT",
+      "input_types": [
+        "fastq",
+        "fastq",
+        "fasta"
+      ],
+      "output_types": [
+        "sam"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "chopper",
+      "version": "0.8.0",
+      "versions": [
+        "0.8.0"
+      ],
+      "description": "Quality filtering and trimming of Oxford Nanopore reads",
+      "tier": "community",
+      "maintainers": [
+        "github:wdecoster"
+      ],
+      "homepage": "https://github.com/wdecoster/chopper",
+      "license": "MIT",
+      "input_types": [
+        "fastq"
+      ],
+      "output_types": [
+        "fastq"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "clustalo",
+      "version": "1.2.4",
+      "versions": [
+        "1.2.4"
+      ],
+      "description": "Clustal Omega: fast and scalable multiple sequence aligner for proteins and nucleotides",
+      "tier": "community",
+      "maintainers": [
+        "github:GSLBiotech"
+      ],
+      "homepage": "http://www.clustal.org/omega/",
+      "license": "GPL-2.0",
+      "input_types": [
+        "fasta"
+      ],
+      "output_types": [
+        "msa"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "colabfold",
+      "version": "1.6.1",
+      "versions": [
+        "1.6.1"
+      ],
+      "description": "ColabFold: fast protein structure prediction combining MMseqs2 MSA with AlphaFold2",
+      "tier": "core",
+      "maintainers": [
+        "github:sokrypton",
+        "github:steineggerlab"
+      ],
+      "homepage": "https://github.com/sokrypton/ColabFold",
+      "license": "MIT",
+      "input_types": [
+        "fasta[protein]"
+      ],
+      "output_types": [
+        "dir"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "deepvariant",
+      "version": "1.6.1",
+      "versions": [
+        "1.6.1"
+      ],
+      "description": "DeepVariant: deep learning variant caller for short and long reads",
+      "tier": "community",
+      "maintainers": [
+        "github:google"
+      ],
+      "homepage": "https://github.com/google/deepvariant",
+      "license": "BSD-3-Clause",
+      "input_types": [
+        "bam",
+        "fasta"
+      ],
+      "output_types": [
+        "vcf"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "diamond",
+      "version": "2.1.9",
+      "versions": [
+        "2.1.9"
+      ],
+      "description": "DIAMOND: fast protein/translated DNA alignment against large databases",
+      "tier": "core",
+      "maintainers": [
+        "github:bbuchfink"
+      ],
+      "homepage": "https://github.com/bbuchfink/diamond",
+      "license": "GPL-3.0",
+      "input_types": [
+        "fasta",
+        "dir"
+      ],
+      "output_types": [
+        "blast_tab"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "fastp",
+      "version": "0.23.4",
+      "versions": [
+        "0.23.4"
+      ],
+      "description": "All-in-one FASTQ preprocessor: adapter trimming, quality filtering, and QC reporting",
+      "tier": "core",
+      "maintainers": [
+        "github:OpenGene"
+      ],
+      "homepage": "https://github.com/OpenGene/fastp",
+      "license": "MIT",
+      "input_types": [
+        "fastq",
+        "fastq"
+      ],
+      "output_types": [
+        "fastq",
+        "fastq"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "fastqc",
+      "version": "0.12.1",
+      "versions": [
+        "0.12.1"
+      ],
+      "description": "Quality control analysis tool for high-throughput sequencing data",
+      "tier": "core",
+      "maintainers": [
+        "github:s-andrews"
+      ],
+      "homepage": "https://www.bioinformatics.babraham.ac.uk/projects/fastqc/",
+      "license": "GPL-3.0",
+      "input_types": [
+        "fastq"
+      ],
+      "output_types": [
+        "dir"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "fasttree",
+      "version": "2.1.11",
+      "versions": [
+        "2.1.11"
+      ],
+      "description": "Approximately-maximum-likelihood phylogenetic trees from large multiple sequence alignments",
+      "tier": "community",
+      "maintainers": [
+        "github:morgannprice"
+      ],
+      "homepage": "http://www.microbesonline.org/fasttree/",
+      "license": "GPL-2.0",
+      "input_types": [
+        "msa"
+      ],
+      "output_types": [
+        "file"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "featurecounts",
+      "version": "2.0.6",
+      "versions": [
+        "2.0.6"
+      ],
+      "description": "featureCounts: read summarization for genomic features (genes, exons) from RNA-seq alignments",
+      "tier": "core",
+      "maintainers": [
+        "github:ShiLab-Bioinformatics"
+      ],
+      "homepage": "https://subread.sourceforge.net/featureCounts.html",
+      "license": "GPL-3.0",
+      "input_types": [
+        "bam"
+      ],
+      "output_types": [
+        "tabular"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "flye",
+      "version": "2.9.4",
+      "versions": [
+        "2.9.4"
+      ],
+      "description": "De novo assembler for single-molecule sequencing reads (PacBio, Nanopore)",
+      "tier": "core",
+      "maintainers": [
+        "github:mikolmogorov"
+      ],
+      "homepage": "https://github.com/mikolmogorov/Flye",
+      "license": "BSD-3-Clause",
+      "input_types": [
+        "fastq"
+      ],
+      "output_types": [
+        "dir"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "freebayes",
+      "version": "1.3.7",
+      "versions": [
+        "1.3.7"
+      ],
+      "description": "Bayesian haplotype-based genetic variant detector",
+      "tier": "community",
+      "maintainers": [
+        "github:freebayes"
+      ],
+      "homepage": "https://github.com/freebayes/freebayes",
+      "license": "MIT",
+      "input_types": [
+        "bam",
+        "fasta"
+      ],
+      "output_types": [
+        "vcf"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "gatk4",
+      "version": "4.6.0.0",
+      "versions": [
+        "4.6.0.0"
+      ],
+      "description": "GATK4: genome analysis toolkit for variant discovery in high-throughput sequencing data",
+      "tier": "core",
+      "maintainers": [
+        "github:broadinstitute"
+      ],
+      "homepage": "https://gatk.broadinstitute.org/",
+      "license": "BSD-3-Clause",
+      "input_types": [
+        "bam",
+        "fasta"
+      ],
+      "output_types": [
+        "vcf"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "hifiasm",
+      "version": "0.19.8",
+      "versions": [
+        "0.19.8"
+      ],
+      "description": "Haplotype-resolved assembler for PacBio HiFi reads",
+      "tier": "community",
+      "maintainers": [
+        "github:chhylp123"
+      ],
+      "homepage": "https://github.com/chhylp123/hifiasm",
+      "license": "MIT",
+      "input_types": [
+        "fastq"
+      ],
+      "output_types": [
+        "file"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "hisat2",
+      "version": "2.2.1",
+      "versions": [
+        "2.2.1"
+      ],
+      "description": "Graph-based alignment of reads to a reference genome; successor to TopHat2",
+      "tier": "core",
+      "maintainers": [
+        "github:DaehwanKimLab"
+      ],
+      "homepage": "https://daehwankimlab.github.io/hisat2/",
+      "license": "GPL-3.0",
+      "input_types": [
+        "fastq",
+        "fastq"
+      ],
+      "output_types": [
+        "sam"
+      ],
+      "deprecated": false
+    },
+    {
       "id": "hmmer",
       "version": "3.3.2",
       "versions": [
@@ -65,6 +543,179 @@
       ],
       "output_types": [
         "hmmer_output"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "interproscan",
+      "version": "5.67-99.0",
+      "versions": [
+        "5.67-99.0"
+      ],
+      "description": "InterProScan: functional annotation of proteins by scanning member databases",
+      "tier": "community",
+      "maintainers": [
+        "github:ebi-pf-team"
+      ],
+      "homepage": "https://www.ebi.ac.uk/interpro/search/sequence/",
+      "license": "Apache-2.0",
+      "input_types": [
+        "fasta[protein]"
+      ],
+      "output_types": [
+        "file"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "iqtree2",
+      "version": "2.3.6",
+      "versions": [
+        "2.3.6"
+      ],
+      "description": "IQ-TREE 2: maximum-likelihood phylogenetic inference with ultrafast bootstrap",
+      "tier": "core",
+      "maintainers": [
+        "github:iqtree"
+      ],
+      "homepage": "http://www.iqtree.org/",
+      "license": "GPL-2.0",
+      "input_types": [
+        "msa"
+      ],
+      "output_types": [
+        "file"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "kallisto",
+      "version": "0.51.1",
+      "versions": [
+        "0.51.1"
+      ],
+      "description": "Pseudo-alignment based RNA-seq transcript quantification",
+      "tier": "core",
+      "maintainers": [
+        "github:pachterlab"
+      ],
+      "homepage": "https://pachterlab.github.io/kallisto/",
+      "license": "BSD-2-Clause",
+      "input_types": [
+        "fastq",
+        "fastq"
+      ],
+      "output_types": [
+        "dir"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "kraken2",
+      "version": "2.1.3",
+      "versions": [
+        "2.1.3"
+      ],
+      "description": "Taxonomic classification of sequencing reads using exact k-mer matching",
+      "tier": "core",
+      "maintainers": [
+        "github:DerrickWood"
+      ],
+      "homepage": "https://github.com/DerrickWood/kraken2",
+      "license": "MIT",
+      "input_types": [
+        "fastq",
+        "fastq"
+      ],
+      "output_types": [
+        "tabular",
+        "tabular"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "mafft",
+      "version": "7.526",
+      "versions": [
+        "7.526"
+      ],
+      "description": "Multiple sequence alignment using Fast Fourier Transform",
+      "tier": "core",
+      "maintainers": [
+        "github:GSLBiotech"
+      ],
+      "homepage": "https://mafft.cbrc.jp/alignment/software/",
+      "license": "BSD-3-Clause",
+      "input_types": [
+        "fasta"
+      ],
+      "output_types": [
+        "msa"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "medaka",
+      "version": "1.11.3",
+      "versions": [
+        "1.11.3"
+      ],
+      "description": "Sequence variant calling and consensus from Oxford Nanopore data using neural networks",
+      "tier": "community",
+      "maintainers": [
+        "github:nanoporetech"
+      ],
+      "homepage": "https://github.com/nanoporetech/medaka",
+      "license": "Oxford Nanopore Technologies PLC",
+      "input_types": [
+        "fastq",
+        "fasta"
+      ],
+      "output_types": [
+        "dir"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "metaphlan4",
+      "version": "4.1.1",
+      "versions": [
+        "4.1.1"
+      ],
+      "description": "MetaPhlAn 4: metagenomic profiling using marker genes from reference genomes",
+      "tier": "community",
+      "maintainers": [
+        "github:biobakery"
+      ],
+      "homepage": "https://github.com/biobakery/MetaPhlAn",
+      "license": "MIT",
+      "input_types": [
+        "fastq"
+      ],
+      "output_types": [
+        "tabular"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "minimap2",
+      "version": "2.28",
+      "versions": [
+        "2.28"
+      ],
+      "description": "Fast sequence alignment for long reads (PacBio, Oxford Nanopore) and spliced mRNA",
+      "tier": "core",
+      "maintainers": [
+        "github:lh3"
+      ],
+      "homepage": "https://github.com/lh3/minimap2",
+      "license": "MIT",
+      "input_types": [
+        "fastq",
+        "fasta"
+      ],
+      "output_types": [
+        "sam"
       ],
       "deprecated": false
     },
@@ -91,6 +742,133 @@
       "deprecated": false
     },
     {
+      "id": "multiqc",
+      "version": "1.25",
+      "versions": [
+        "1.25"
+      ],
+      "description": "Aggregate results from bioinformatics analyses across many samples into a single report",
+      "tier": "core",
+      "maintainers": [
+        "github:ewels"
+      ],
+      "homepage": "https://multiqc.info/",
+      "license": "GPL-3.0",
+      "input_types": [
+        "dir"
+      ],
+      "output_types": [
+        "dir"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "muscle",
+      "version": "5.1",
+      "versions": [
+        "5.1"
+      ],
+      "description": "MUSCLE: multiple sequence alignment with high accuracy and high throughput",
+      "tier": "community",
+      "maintainers": [
+        "github:rcedgar"
+      ],
+      "homepage": "https://www.drive5.com/muscle/",
+      "license": "Public Domain",
+      "input_types": [
+        "fasta"
+      ],
+      "output_types": [
+        "msa"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "nanostat",
+      "version": "1.6.0",
+      "versions": [
+        "1.6.0"
+      ],
+      "description": "Statistical summary and quality control for long-read Oxford Nanopore data",
+      "tier": "community",
+      "maintainers": [
+        "github:wdecoster"
+      ],
+      "homepage": "https://github.com/wdecoster/NanoStat",
+      "license": "MIT",
+      "input_types": [
+        "fastq"
+      ],
+      "output_types": [
+        "file"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "nextclade",
+      "version": "3.9.1",
+      "versions": [
+        "3.9.1"
+      ],
+      "description": "Viral sequence quality control, clade assignment, and mutation calling",
+      "tier": "community",
+      "maintainers": [
+        "github:nextstrain"
+      ],
+      "homepage": "https://clades.nextstrain.org/",
+      "license": "MIT",
+      "input_types": [
+        "fasta"
+      ],
+      "output_types": [
+        "dir"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "plink",
+      "version": "1.90",
+      "versions": [
+        "1.90"
+      ],
+      "description": "Whole-genome association analysis toolset for large-scale genomic data",
+      "tier": "community",
+      "maintainers": [
+        "github:chrchang"
+      ],
+      "homepage": "https://www.cog-genomics.org/plink/",
+      "license": "GPL-3.0",
+      "input_types": [
+        "vcf"
+      ],
+      "output_types": [
+        "file"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "prodigal",
+      "version": "2.6.3",
+      "versions": [
+        "2.6.3"
+      ],
+      "description": "Prokaryotic gene recognition and translation initiation site identification",
+      "tier": "core",
+      "maintainers": [
+        "github:hyattpd"
+      ],
+      "homepage": "https://github.com/hyattpd/Prodigal",
+      "license": "GPL-3.0",
+      "input_types": [
+        "fasta"
+      ],
+      "output_types": [
+        "fasta[protein]",
+        "file"
+      ],
+      "deprecated": false
+    },
+    {
       "id": "proteinmpnn",
       "version": "1.0.1",
       "versions": [
@@ -108,6 +886,285 @@
       ],
       "output_types": [
         "dir"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "quast",
+      "version": "5.2.0",
+      "versions": [
+        "5.2.0"
+      ],
+      "description": "Quality assessment tool for genome assemblies",
+      "tier": "community",
+      "maintainers": [
+        "github:ablab"
+      ],
+      "homepage": "https://github.com/ablab/quast",
+      "license": "GPL-2.0",
+      "input_types": [
+        "fasta"
+      ],
+      "output_types": [
+        "dir"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "raxml-ng",
+      "version": "1.2.2",
+      "versions": [
+        "1.2.2"
+      ],
+      "description": "RAxML-NG: scalable maximum-likelihood phylogenetic tree inference",
+      "tier": "community",
+      "maintainers": [
+        "github:amkozlov"
+      ],
+      "homepage": "https://github.com/amkozlov/raxml-ng",
+      "license": "AGPL-3.0",
+      "input_types": [
+        "msa"
+      ],
+      "output_types": [
+        "file"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "salmon",
+      "version": "1.10.3",
+      "versions": [
+        "1.10.3"
+      ],
+      "description": "Quasi-mapping-based transcript quantification from RNA-seq data",
+      "tier": "core",
+      "maintainers": [
+        "github:COMBINE-lab"
+      ],
+      "homepage": "https://combine-lab.github.io/salmon/",
+      "license": "GPL-3.0",
+      "input_types": [
+        "fastq",
+        "fastq"
+      ],
+      "output_types": [
+        "dir"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "samtools",
+      "version": "1.21",
+      "versions": [
+        "1.21"
+      ],
+      "description": "Tools for manipulating next-generation sequencing data in SAM/BAM/CRAM formats",
+      "tier": "core",
+      "maintainers": [
+        "github:samtools"
+      ],
+      "homepage": "http://www.htslib.org/",
+      "license": "MIT",
+      "input_types": [
+        "bam"
+      ],
+      "output_types": [
+        "bam"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "seqkit",
+      "version": "2.8.1",
+      "versions": [
+        "2.8.1"
+      ],
+      "description": "Cross-platform toolkit for FASTA/Q file manipulation and statistics",
+      "tier": "core",
+      "maintainers": [
+        "github:shenwei356"
+      ],
+      "homepage": "https://bioinf.shenwei.me/seqkit/",
+      "license": "MIT",
+      "input_types": [
+        "fasta"
+      ],
+      "output_types": [
+        "fasta"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "seqtk",
+      "version": "1.4",
+      "versions": [
+        "1.4"
+      ],
+      "description": "Fast toolkit for processing FASTA/FASTQ sequences: subsampling, conversion, trimming",
+      "tier": "community",
+      "maintainers": [
+        "github:lh3"
+      ],
+      "homepage": "https://github.com/lh3/seqtk",
+      "license": "MIT",
+      "input_types": [
+        "fastq"
+      ],
+      "output_types": [
+        "fastq"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "solenoid",
+      "version": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "description": "SOLeNNoID: de novo design of solenoid repeat proteins using graph neural networks",
+      "tier": "experimental",
+      "maintainers": [
+        "github:wells-wood-research"
+      ],
+      "homepage": "https://github.com/wells-wood-research/solenoid",
+      "license": "MIT",
+      "input_types": [
+        "file"
+      ],
+      "output_types": [
+        "dir"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "spades",
+      "version": "4.0.0",
+      "versions": [
+        "4.0.0"
+      ],
+      "description": "SPAdes: de Bruijn graph assembler for Illumina, PacBio, and hybrid assemblies",
+      "tier": "core",
+      "maintainers": [
+        "github:ablab"
+      ],
+      "homepage": "https://github.com/ablab/spades",
+      "license": "GPL-2.0",
+      "input_types": [
+        "fastq",
+        "fastq"
+      ],
+      "output_types": [
+        "dir"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "star",
+      "version": "2.7.11b",
+      "versions": [
+        "2.7.11b"
+      ],
+      "description": "Spliced Transcripts Alignment to a Reference: RNA-seq aligner with splice junction detection",
+      "tier": "core",
+      "maintainers": [
+        "github:alexdobin"
+      ],
+      "homepage": "https://github.com/alexdobin/STAR",
+      "license": "MIT",
+      "input_types": [
+        "fastq",
+        "fastq"
+      ],
+      "output_types": [
+        "bam"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "stringtie",
+      "version": "2.2.3",
+      "versions": [
+        "2.2.3"
+      ],
+      "description": "Transcript assembly and quantification from RNA-seq alignments",
+      "tier": "core",
+      "maintainers": [
+        "github:gpertea"
+      ],
+      "homepage": "https://ccb.jhu.edu/software/stringtie/",
+      "license": "MIT",
+      "input_types": [
+        "bam"
+      ],
+      "output_types": [
+        "file"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "trim-galore",
+      "version": "0.6.10",
+      "versions": [
+        "0.6.10"
+      ],
+      "description": "Wrapper around Cutadapt and FastQC for adapter trimming and quality control",
+      "tier": "community",
+      "maintainers": [
+        "github:FelixKrueger"
+      ],
+      "homepage": "https://github.com/FelixKrueger/TrimGalore",
+      "license": "MIT",
+      "input_types": [
+        "fastq",
+        "fastq"
+      ],
+      "output_types": [
+        "dir"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "trimmomatic",
+      "version": "0.39",
+      "versions": [
+        "0.39"
+      ],
+      "description": "Flexible read trimming tool for Illumina NGS data",
+      "tier": "community",
+      "maintainers": [
+        "github:usadellab"
+      ],
+      "homepage": "http://www.usadellab.org/cms/?page=trimmomatic",
+      "license": "GPL-3.0",
+      "input_types": [
+        "fastq",
+        "fastq"
+      ],
+      "output_types": [
+        "fastq",
+        "fastq"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "vcftools",
+      "version": "0.1.16",
+      "versions": [
+        "0.1.16"
+      ],
+      "description": "Tools for working with VCF files: filtering, statistics, and format conversion",
+      "tier": "community",
+      "maintainers": [
+        "github:vcftools"
+      ],
+      "homepage": "https://vcftools.github.io/",
+      "license": "GPL-3.0",
+      "input_types": [
+        "vcf"
+      ],
+      "output_types": [
+        "file"
       ],
       "deprecated": false
     }

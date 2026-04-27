@@ -1,0 +1,39 @@
+[tool]
+id = "kallisto"
+version = "0.51.1"
+description = "Pseudo-alignment based RNA-seq transcript quantification"
+homepage = "https://pachterlab.github.io/kallisto/"
+license = "BSD-2-Clause"
+tier = "core"
+maintainers = ["github:pachterlab"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/kallisto:0.51.1--h5584807_1"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 8.0
+disk_gb = 2.0
+
+[[tool.inputs]]
+name = "reads_r1"
+type = "fastq"
+cardinality = "one"
+description = "Forward reads"
+
+[[tool.inputs]]
+name = "reads_r2"
+type = "fastq"
+cardinality = "optional"
+description = "Reverse reads (paired-end)"
+
+[[tool.outputs]]
+name = "quant_dir"
+type = "dir"
+cardinality = "one"
+description = "Quantification output with abundance.tsv"
+
+[tool.entrypoint]
+command = "kallisto"
+args_template = "quant --threads {cpu_cores} -i /workspace/index.idx -o {quant_dir} {reads_r1} {reads_r2}"

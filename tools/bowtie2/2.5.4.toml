@@ -1,0 +1,39 @@
+[tool]
+id = "bowtie2"
+version = "2.5.4"
+description = "Fast and sensitive read alignment for short reads to long reference sequences"
+homepage = "https://bowtie-bio.sourceforge.net/bowtie2/"
+license = "GPL-3.0"
+tier = "core"
+maintainers = ["github:BenLangmead"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/bowtie2:2.5.4--py39h6fed5c7_0"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 8.0
+disk_gb = 5.0
+
+[[tool.inputs]]
+name = "reads_r1"
+type = "fastq"
+cardinality = "one"
+description = "Forward reads"
+
+[[tool.inputs]]
+name = "reads_r2"
+type = "fastq"
+cardinality = "optional"
+description = "Reverse reads (paired-end)"
+
+[[tool.outputs]]
+name = "alignment"
+type = "sam"
+cardinality = "one"
+description = "Aligned reads in SAM format"
+
+[tool.entrypoint]
+command = "bowtie2"
+args_template = "-p {cpu_cores} -x /workspace/index -1 {reads_r1} -2 {reads_r2} -S {alignment}"

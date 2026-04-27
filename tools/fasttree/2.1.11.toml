@@ -1,0 +1,33 @@
+[tool]
+id = "fasttree"
+version = "2.1.11"
+description = "Approximately-maximum-likelihood phylogenetic trees from large multiple sequence alignments"
+homepage = "http://www.microbesonline.org/fasttree/"
+license = "GPL-2.0"
+tier = "community"
+maintainers = ["github:morgannprice"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/fasttree:2.1.11--h031d066_3"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 4.0
+disk_gb = 1.0
+
+[[tool.inputs]]
+name = "alignment"
+type = "msa"
+cardinality = "one"
+description = "Multiple sequence alignment"
+
+[[tool.outputs]]
+name = "tree"
+type = "file"
+cardinality = "one"
+description = "Newick format phylogenetic tree"
+
+[tool.entrypoint]
+command = "FastTree"
+args_template = "-nt -gtr {alignment} > {tree}"

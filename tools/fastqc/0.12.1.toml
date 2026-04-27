@@ -1,0 +1,33 @@
+[tool]
+id = "fastqc"
+version = "0.12.1"
+description = "Quality control analysis tool for high-throughput sequencing data"
+homepage = "https://www.bioinformatics.babraham.ac.uk/projects/fastqc/"
+license = "GPL-3.0"
+tier = "core"
+maintainers = ["github:s-andrews"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/fastqc:0.12.1--hdfd78af_0"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 4.0
+disk_gb = 1.0
+
+[[tool.inputs]]
+name = "reads"
+type = "fastq"
+cardinality = "many"
+description = "FASTQ files to assess"
+
+[[tool.outputs]]
+name = "report_dir"
+type = "dir"
+cardinality = "one"
+description = "HTML and zip QC reports"
+
+[tool.entrypoint]
+command = "fastqc"
+args_template = "--threads {cpu_cores} --outdir {report_dir} {reads}"

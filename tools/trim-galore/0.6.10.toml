@@ -1,0 +1,39 @@
+[tool]
+id = "trim-galore"
+version = "0.6.10"
+description = "Wrapper around Cutadapt and FastQC for adapter trimming and quality control"
+homepage = "https://github.com/FelixKrueger/TrimGalore"
+license = "MIT"
+tier = "community"
+maintainers = ["github:FelixKrueger"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/trim-galore:0.6.10--hdfd78af_0"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 4.0
+disk_gb = 1.0
+
+[[tool.inputs]]
+name = "reads_r1"
+type = "fastq"
+cardinality = "one"
+description = "Forward reads"
+
+[[tool.inputs]]
+name = "reads_r2"
+type = "fastq"
+cardinality = "optional"
+description = "Reverse reads (paired-end)"
+
+[[tool.outputs]]
+name = "output_dir"
+type = "dir"
+cardinality = "one"
+description = "Trimmed reads and QC reports"
+
+[tool.entrypoint]
+command = "trim_galore"
+args_template = "--cores {cpu_cores} --paired --output_dir {output_dir} {reads_r1} {reads_r2}"

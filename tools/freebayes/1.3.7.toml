@@ -1,0 +1,39 @@
+[tool]
+id = "freebayes"
+version = "1.3.7"
+description = "Bayesian haplotype-based genetic variant detector"
+homepage = "https://github.com/freebayes/freebayes"
+license = "MIT"
+tier = "community"
+maintainers = ["github:freebayes"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/freebayes:1.3.7--py311he3f7eae_2"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 8.0
+disk_gb = 2.0
+
+[[tool.inputs]]
+name = "bam"
+type = "bam"
+cardinality = "one"
+description = "Aligned reads in sorted BAM format"
+
+[[tool.inputs]]
+name = "reference"
+type = "fasta"
+cardinality = "one"
+description = "Reference genome FASTA"
+
+[[tool.outputs]]
+name = "vcf"
+type = "vcf"
+cardinality = "one"
+description = "Called variants in VCF format"
+
+[tool.entrypoint]
+command = "freebayes"
+args_template = "-f {reference} {bam} > {vcf}"

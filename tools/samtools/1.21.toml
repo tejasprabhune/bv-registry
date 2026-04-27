@@ -1,0 +1,33 @@
+[tool]
+id = "samtools"
+version = "1.21"
+description = "Tools for manipulating next-generation sequencing data in SAM/BAM/CRAM formats"
+homepage = "http://www.htslib.org/"
+license = "MIT"
+tier = "core"
+maintainers = ["github:samtools"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/samtools:1.21--h50ea8bc_0"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 8.0
+disk_gb = 2.0
+
+[[tool.inputs]]
+name = "input"
+type = "bam"
+cardinality = "one"
+description = "Input alignment file (BAM, SAM, or CRAM)"
+
+[[tool.outputs]]
+name = "output"
+type = "bam"
+cardinality = "one"
+description = "Processed alignment file"
+
+[tool.entrypoint]
+command = "samtools"
+args_template = "sort -@ {cpu_cores} -o {output} {input}"

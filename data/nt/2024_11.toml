@@ -1,0 +1,11 @@
+[data]
+id = "nt"
+version = "2024_11"
+description = "NCBI nucleotide collection; preformatted BLAST database of all GenBank/RefSeq/EMBL sequences (~300 GB)"
+source_urls = [
+    "https://ftp.ncbi.nlm.nih.gov/blast/db/nt.*.tar.gz",
+]
+size_bytes = 300000000000
+format = "tar"
+post_download_action = "extract"
+license = "public domain (NCBI)"

@@ -1,0 +1,33 @@
+[tool]
+id = "multiqc"
+version = "1.25"
+description = "Aggregate results from bioinformatics analyses across many samples into a single report"
+homepage = "https://multiqc.info/"
+license = "GPL-3.0"
+tier = "core"
+maintainers = ["github:ewels"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/multiqc:1.25--pyhdfd78af_0"
+
+[tool.hardware]
+cpu_cores = 2
+ram_gb = 4.0
+disk_gb = 1.0
+
+[[tool.inputs]]
+name = "analysis_dir"
+type = "dir"
+cardinality = "one"
+description = "Directory containing output files from supported tools"
+
+[[tool.outputs]]
+name = "report_dir"
+type = "dir"
+cardinality = "one"
+description = "MultiQC HTML report and data directory"
+
+[tool.entrypoint]
+command = "multiqc"
+args_template = "{analysis_dir} --outdir {report_dir}"

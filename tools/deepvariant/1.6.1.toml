@@ -1,0 +1,44 @@
+[tool]
+id = "deepvariant"
+version = "1.6.1"
+description = "DeepVariant: deep learning variant caller for short and long reads"
+homepage = "https://github.com/google/deepvariant"
+license = "BSD-3-Clause"
+tier = "community"
+maintainers = ["github:google"]
+
+[tool.image]
+backend = "docker"
+reference = "google/deepvariant:1.6.1"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 16.0
+disk_gb = 10.0
+
+[tool.hardware.gpu]
+required = false
+min_vram_gb = 8
+cuda_version = "11.8"
+
+[[tool.inputs]]
+name = "bam"
+type = "bam"
+cardinality = "one"
+description = "Aligned reads in BAM format"
+
+[[tool.inputs]]
+name = "reference"
+type = "fasta"
+cardinality = "one"
+description = "Reference genome FASTA"
+
+[[tool.outputs]]
+name = "vcf"
+type = "vcf"
+cardinality = "one"
+description = "Called variants in VCF format"
+
+[tool.entrypoint]
+command = "/opt/deepvariant/bin/run_deepvariant"
+args_template = "--model_type=WGS --ref={reference} --reads={bam} --output_vcf={vcf} --num_shards={cpu_cores}"

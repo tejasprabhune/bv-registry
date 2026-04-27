@@ -1,0 +1,11 @@
+[data]
+id = "nr"
+version = "2024_11"
+description = "NCBI non-redundant protein sequence database; preformatted for BLAST and DIAMOND (~300 GB)"
+source_urls = [
+    "https://ftp.ncbi.nlm.nih.gov/blast/db/nr.*.tar.gz",
+]
+size_bytes = 300000000000
+format = "tar"
+post_download_action = "extract"
+license = "public domain (NCBI)"

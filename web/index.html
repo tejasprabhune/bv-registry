@@ -10,27 +10,35 @@
 <body>
 
 <header>
-  <h1 class="site-title">bv registry</h1>
-  <p class="site-subtitle">reproducible bioinformatics tools</p>
+  <div class="page-wrap">
+    <h1 class="site-title">bv registry</h1>
+    <p class="site-subtitle">reproducible bioinformatics tools</p>
+  </div>
 </header>
 
-<div class="controls-bar">
-  <input type="search" id="search" placeholder="find a tool..." autocomplete="off" spellcheck="false">
-  <select id="tier-filter">
-    <option value="all">all tiers</option>
-    <option value="core">core</option>
-    <option value="community">community</option>
-    <option value="experimental">experimental</option>
-  </select>
-  <select id="type-filter">
-    <option value="">all types</option>
-  </select>
-  <span class="results-count" id="results-count"></span>
+<div class="controls-wrap">
+  <div class="page-wrap">
+    <div class="controls-bar">
+      <input type="search" id="search" placeholder="find a tool..." autocomplete="off" spellcheck="false">
+      <select id="tier-filter">
+        <option value="all">all tiers</option>
+        <option value="core">core</option>
+        <option value="community">community</option>
+        <option value="experimental">experimental</option>
+      </select>
+      <select id="type-filter">
+        <option value="">all types</option>
+      </select>
+      <span class="results-count" id="results-count"></span>
+    </div>
+  </div>
 </div>
 
-<div class="grid-wrap">
-  <div class="tool-grid" id="tool-grid">
-    <div class="empty">loading...</div>
+<div class="grid-section">
+  <div class="page-wrap" style="padding-left:0; padding-right:0;">
+    <div class="tool-grid" id="tool-grid">
+      <div class="empty">loading...</div>
+    </div>
   </div>
 </div>
 
@@ -45,6 +53,14 @@
     </div>
 
     <div class="modal-section">
+      <div class="section-label">install</div>
+      <div class="bv-add-wrap">
+        <span class="bv-add-cmd" id="modal-bv-add"></span>
+        <button class="copy-btn" id="copy-btn">copy</button>
+      </div>
+    </div>
+
+    <div class="modal-section" id="modal-desc-section">
       <div class="section-label">description</div>
       <div class="modal-desc" id="modal-desc"></div>
     </div>

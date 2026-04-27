@@ -1,0 +1,33 @@
+[tool]
+id = "iqtree2"
+version = "2.3.6"
+description = "IQ-TREE 2: maximum-likelihood phylogenetic inference with ultrafast bootstrap"
+homepage = "http://www.iqtree.org/"
+license = "GPL-2.0"
+tier = "core"
+maintainers = ["github:iqtree"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/iqtree:2.3.6--h21ec9f0_0"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 8.0
+disk_gb = 2.0
+
+[[tool.inputs]]
+name = "alignment"
+type = "msa"
+cardinality = "one"
+description = "Multiple sequence alignment"
+
+[[tool.outputs]]
+name = "output_prefix"
+type = "file"
+cardinality = "one"
+description = "Output prefix for tree files (.treefile, .log, etc.)"
+
+[tool.entrypoint]
+command = "iqtree2"
+args_template = "-s {alignment} -nt {cpu_cores} -bb 1000 -pre {output_prefix}"

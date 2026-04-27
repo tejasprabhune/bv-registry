@@ -1,0 +1,33 @@
+[tool]
+id = "interproscan"
+version = "5.67-99.0"
+description = "InterProScan: functional annotation of proteins by scanning member databases"
+homepage = "https://www.ebi.ac.uk/interpro/search/sequence/"
+license = "Apache-2.0"
+tier = "community"
+maintainers = ["github:ebi-pf-team"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/interproscan:5.67-99.0--pl5321hf1761c0_0"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 16.0
+disk_gb = 30.0
+
+[[tool.inputs]]
+name = "proteins"
+type = "fasta[protein]"
+cardinality = "one"
+description = "Input protein sequences"
+
+[[tool.outputs]]
+name = "output"
+type = "file"
+cardinality = "one"
+description = "Functional annotations in TSV/GFF3/XML format"
+
+[tool.entrypoint]
+command = "interproscan.sh"
+args_template = "--cpu {cpu_cores} -i {proteins} -o {output} -f TSV"

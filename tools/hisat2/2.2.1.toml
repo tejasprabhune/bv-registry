@@ -1,0 +1,39 @@
+[tool]
+id = "hisat2"
+version = "2.2.1"
+description = "Graph-based alignment of reads to a reference genome; successor to TopHat2"
+homepage = "https://daehwankimlab.github.io/hisat2/"
+license = "GPL-3.0"
+tier = "core"
+maintainers = ["github:DaehwanKimLab"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/hisat2:2.2.1--hdbdd923_6"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 8.0
+disk_gb = 5.0
+
+[[tool.inputs]]
+name = "reads_r1"
+type = "fastq"
+cardinality = "one"
+description = "Forward reads"
+
+[[tool.inputs]]
+name = "reads_r2"
+type = "fastq"
+cardinality = "optional"
+description = "Reverse reads (paired-end)"
+
+[[tool.outputs]]
+name = "alignment"
+type = "sam"
+cardinality = "one"
+description = "Aligned reads in SAM format"
+
+[tool.entrypoint]
+command = "hisat2"
+args_template = "-p {cpu_cores} -x /workspace/index -1 {reads_r1} -2 {reads_r2} -S {alignment}"

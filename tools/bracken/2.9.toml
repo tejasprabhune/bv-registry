@@ -1,0 +1,33 @@
+[tool]
+id = "bracken"
+version = "2.9"
+description = "Bayesian re-estimation of species-level abundance from Kraken2 classification reports"
+homepage = "https://github.com/jenniferlu717/Bracken"
+license = "GPL-3.0"
+tier = "community"
+maintainers = ["github:jenniferlu717"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/bracken:2.9--py312hcf5f4e0_1"
+
+[tool.hardware]
+cpu_cores = 2
+ram_gb = 8.0
+disk_gb = 2.0
+
+[[tool.inputs]]
+name = "kraken_report"
+type = "tabular"
+cardinality = "one"
+description = "Kraken2 report file"
+
+[[tool.outputs]]
+name = "bracken_report"
+type = "tabular"
+cardinality = "one"
+description = "Bracken abundance estimation report"
+
+[tool.entrypoint]
+command = "bracken"
+args_template = "-d /workspace/kraken2_db -i {kraken_report} -o {bracken_report} -r 150 -l S"

@@ -1,0 +1,38 @@
+[tool]
+id = "colabfold"
+version = "1.6.1"
+description = "ColabFold: fast protein structure prediction combining MMseqs2 MSA with AlphaFold2"
+homepage = "https://github.com/sokrypton/ColabFold"
+license = "MIT"
+tier = "core"
+maintainers = ["github:sokrypton", "github:steineggerlab"]
+
+[tool.image]
+backend = "docker"
+reference = "ghcr.io/sokrypton/colabfold:1.6.1-cuda12"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 16.0
+disk_gb = 10.0
+
+[tool.hardware.gpu]
+required = true
+min_vram_gb = 8
+cuda_version = "12.0"
+
+[[tool.inputs]]
+name = "fasta"
+type = "fasta[protein]"
+cardinality = "one"
+description = "Input protein sequence(s) for structure prediction"
+
+[[tool.outputs]]
+name = "output_dir"
+type = "dir"
+cardinality = "one"
+description = "Predicted structures and confidence scores"
+
+[tool.entrypoint]
+command = "colabfold_batch"
+args_template = "--num-recycle 3 {fasta} {output_dir}"

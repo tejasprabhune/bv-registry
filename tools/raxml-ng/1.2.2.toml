@@ -1,0 +1,33 @@
+[tool]
+id = "raxml-ng"
+version = "1.2.2"
+description = "RAxML-NG: scalable maximum-likelihood phylogenetic tree inference"
+homepage = "https://github.com/amkozlov/raxml-ng"
+license = "AGPL-3.0"
+tier = "community"
+maintainers = ["github:amkozlov"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/raxml-ng:1.2.2--h6d1f08b_0"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 8.0
+disk_gb = 2.0
+
+[[tool.inputs]]
+name = "alignment"
+type = "msa"
+cardinality = "one"
+description = "Multiple sequence alignment"
+
+[[tool.outputs]]
+name = "output_prefix"
+type = "file"
+cardinality = "one"
+description = "Output prefix for RAxML result files"
+
+[tool.entrypoint]
+command = "raxml-ng"
+args_template = "--all --msa {alignment} --model GTR+G --threads {cpu_cores} --prefix {output_prefix} --bs-trees 100"

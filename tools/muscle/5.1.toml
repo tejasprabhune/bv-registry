@@ -1,0 +1,38 @@
+[tool]
+id = "muscle"
+version = "5.1"
+description = "MUSCLE: multiple sequence alignment with high accuracy and high throughput"
+homepage = "https://www.drive5.com/muscle/"
+license = "Public Domain"
+tier = "community"
+maintainers = ["github:rcedgar"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/muscle:5.1--h9f5acd7_1"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 4.0
+disk_gb = 1.0
+
+[[tool.inputs]]
+name = "sequences"
+type = "fasta"
+cardinality = "one"
+description = "Unaligned input sequences"
+
+[[tool.outputs]]
+name = "alignment"
+type = "msa"
+cardinality = "one"
+description = "Multiple sequence alignment"
+
+[tool.entrypoint]
+command = "muscle"
+args_template = "-align {sequences} -output {alignment} -threads {cpu_cores}"
+
+[tool.test]
+inputs = { sequences = "test://fasta-protein-multi" }
+expected_outputs = ["alignment"]
+timeout_seconds = 120

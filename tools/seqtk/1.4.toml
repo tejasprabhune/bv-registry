@@ -1,0 +1,33 @@
+[tool]
+id = "seqtk"
+version = "1.4"
+description = "Fast toolkit for processing FASTA/FASTQ sequences: subsampling, conversion, trimming"
+homepage = "https://github.com/lh3/seqtk"
+license = "MIT"
+tier = "community"
+maintainers = ["github:lh3"]
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/seqtk:1.4--he4a0461_1"
+
+[tool.hardware]
+cpu_cores = 1
+ram_gb = 2.0
+disk_gb = 1.0
+
+[[tool.inputs]]
+name = "input"
+type = "fastq"
+cardinality = "one"
+description = "Input FASTQ or FASTA file"
+
+[[tool.outputs]]
+name = "output"
+type = "fastq"
+cardinality = "one"
+description = "Processed sequences"
+
+[tool.entrypoint]
+command = "seqtk"
+args_template = "sample {input} 1000000 > {output}"
