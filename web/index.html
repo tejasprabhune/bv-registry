@@ -4,68 +4,75 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>bv registry</title>
+  <link rel="stylesheet" href="https://use.typekit.net/bsk0vur.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-  <div>
-    <h1>bv registry</h1>
-    <div class="subtitle">reproducible bioinformatics tools</div>
-  </div>
+  <h1 class="site-title">bv registry</h1>
+  <p class="site-subtitle">reproducible bioinformatics tools</p>
 </header>
 
-<main class="container">
-  <div class="controls">
-    <input type="search" id="search" placeholder="Search tools, types, descriptions..." autocomplete="off">
-    <select id="tier-filter">
-      <option value="all">All tiers</option>
-      <option value="core">Core</option>
-      <option value="community">Community</option>
-      <option value="experimental">Experimental</option>
-    </select>
-    <select id="type-filter">
-      <option value="">All types</option>
-    </select>
-  </div>
-  <div class="results-count" id="results-count"></div>
+<div class="controls-bar">
+  <input type="search" id="search" placeholder="find a tool..." autocomplete="off" spellcheck="false">
+  <select id="tier-filter">
+    <option value="all">all tiers</option>
+    <option value="core">core</option>
+    <option value="community">community</option>
+    <option value="experimental">experimental</option>
+  </select>
+  <select id="type-filter">
+    <option value="">all types</option>
+  </select>
+  <span class="results-count" id="results-count"></span>
+</div>
+
+<div class="grid-wrap">
   <div class="tool-grid" id="tool-grid">
-    <p class="empty">Loading...</p>
+    <div class="empty">loading...</div>
   </div>
-</main>
+</div>
 
 <div class="modal-overlay" id="modal">
   <div class="modal">
-    <button class="modal-close" id="modal-close">&times;</button>
-    <h2 id="modal-title"></h2>
-    <p class="meta" id="modal-meta"></p>
-    <p id="modal-desc" style="margin-bottom:16px; color:var(--text-dim); font-size:13px;"></p>
+    <div class="modal-head">
+      <div>
+        <div class="modal-name" id="modal-title"></div>
+        <div class="modal-meta" id="modal-meta"></div>
+      </div>
+      <button class="modal-close" id="modal-close">&#x2715;</button>
+    </div>
 
-    <section>
-      <h3>Homepage</h3>
-      <p id="modal-homepage" style="font-size:13px;"></p>
-    </section>
+    <div class="modal-section">
+      <div class="section-label">description</div>
+      <div class="modal-desc" id="modal-desc"></div>
+    </div>
 
-    <section>
-      <h3>Inputs</h3>
-      <table class="io-table">
-        <thead><tr><th>Type</th></tr></thead>
-        <tbody id="modal-inputs"></tbody>
-      </table>
-    </section>
+    <div class="modal-section" id="modal-homepage-section">
+      <div class="section-label">homepage</div>
+      <div id="modal-homepage"></div>
+    </div>
 
-    <section>
-      <h3>Outputs</h3>
-      <table class="io-table">
-        <thead><tr><th>Type</th></tr></thead>
-        <tbody id="modal-outputs"></tbody>
-      </table>
-    </section>
+    <div class="modal-section">
+      <div class="section-label">inputs</div>
+      <div class="io-list" id="modal-inputs"></div>
+    </div>
 
-    <section>
-      <h3>Versions</h3>
-      <div class="versions-list" id="modal-versions"></div>
-    </section>
+    <div class="modal-section">
+      <div class="section-label">outputs</div>
+      <div class="io-list" id="modal-outputs"></div>
+    </div>
+
+    <div class="modal-section">
+      <div class="section-label">maintainers</div>
+      <div class="io-list" id="modal-maintainers"></div>
+    </div>
+
+    <div class="modal-section last">
+      <div class="section-label">versions</div>
+      <div class="versions-row" id="modal-versions"></div>
+    </div>
   </div>
 </div>
 

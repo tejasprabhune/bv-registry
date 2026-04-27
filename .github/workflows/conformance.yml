@@ -1,0 +1,36 @@
+name: Conformance tests
+
+on:
+  pull_request:
+    paths:
+      - "tools/**"
+  schedule:
+    - cron: "0 6 * * 1"
+
+jobs:
+  conformance:
+    name: Check ${{ matrix.tool }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - tool: blast
+          - tool: hmmer
+          - tool: mmseqs2
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install bv
+        run: |
+          curl -sSfL \
+            https://github.com/mlberkeley/bv/releases/latest/download/bv-linux-x86_64 \
+            -o /tmp/bv
+          chmod +x /tmp/bv
+          sudo mv /tmp/bv /usr/local/bin/bv
+
+      - name: Run conformance check
+        run: bv conformance ${{ matrix.tool }} --registry ${{ github.workspace }}
+        env:
+          BV_BACKEND: docker

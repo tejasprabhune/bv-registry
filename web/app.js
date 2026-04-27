@@ -11,11 +11,11 @@ async function init() {
     allTools = data.tools || [];
   } catch (e) {
     document.getElementById('tool-grid').innerHTML =
-      `<p class="empty">Failed to load index: ${e.message}</p>`;
+      `<div class="empty">failed to load index: ${esc(e.message)}</div>`;
     return;
   }
+  populateTypeFilter();
   render();
-  populateTypeFilters();
 }
 
 function render() {
@@ -28,95 +28,104 @@ function render() {
     if (tierFilter !== 'all' && t.tier !== tierFilter) return false;
     if (typeFilter) {
       const types = [...(t.input_types || []), ...(t.output_types || [])];
-      if (!types.some(ty => ty.startsWith(typeFilter))) return false;
+      if (!types.some(ty => ty.split('[')[0] === typeFilter)) return false;
     }
     if (!query) return true;
     return (
       t.id.includes(query) ||
       (t.description || '').toLowerCase().includes(query) ||
-      (t.input_types || []).some(ty => ty.includes(query)) ||
+      (t.input_types  || []).some(ty => ty.includes(query)) ||
       (t.output_types || []).some(ty => ty.includes(query))
     );
   });
 
   filteredTools.sort((a, b) => {
-    const tierOrder = { core: 0, community: 1, experimental: 2 };
-    const ta = tierOrder[a.tier] ?? 2;
-    const tb = tierOrder[b.tier] ?? 2;
-    if (ta !== tb) return ta - tb;
+    const order = { core: 0, community: 1, experimental: 2 };
+    const diff = (order[a.tier] ?? 2) - (order[b.tier] ?? 2);
+    if (diff !== 0) return diff;
     return a.id.localeCompare(b.id);
   });
 
-  const count = document.getElementById('results-count');
-  count.textContent = `${filteredTools.length} tool${filteredTools.length !== 1 ? 's' : ''}`;
+  const countEl = document.getElementById('results-count');
+  countEl.textContent = `${filteredTools.length} tool${filteredTools.length !== 1 ? 's' : ''}`;
 
   const grid = document.getElementById('tool-grid');
   if (filteredTools.length === 0) {
-    grid.innerHTML = '<p class="empty">No tools match your filters.</p>';
+    grid.innerHTML = '<div class="empty">no tools match.</div>';
     return;
   }
-  grid.innerHTML = filteredTools.map(toolCard).join('');
+
+  grid.innerHTML = filteredTools.map((t, i) => toolCard(t, i)).join('');
+
   grid.querySelectorAll('.tool-card').forEach((card, i) => {
     card.addEventListener('click', () => openModal(filteredTools[i]));
   });
 }
 
 function toolCard(t) {
-  const inputs = (t.input_types || []).map(ty => `<span class="chip input">${ty}</span>`).join('');
-  const outputs = (t.output_types || []).map(ty => `<span class="chip output">${ty}</span>`).join('');
-  return `
-    <div class="tool-card">
-      <div class="tool-card-header">
-        <span class="tool-name">${esc(t.id)}</span>
-        <span class="tool-version">${esc(t.version)}</span>
-        <span class="tier-badge tier-${t.tier}">${t.tier}</span>
-      </div>
-      <p class="tool-desc">${esc(t.description || '')}</p>
-      <div class="io-chips">${inputs}${outputs}</div>
-    </div>`;
+  const inputs  = (t.input_types  || []).map(ty => `<span class="chip">${esc(ty)}</span>`).join('');
+  const outputs = (t.output_types || []).map(ty => `<span class="chip">${esc(ty)}</span>`).join('');
+  const arrow   = inputs && outputs ? `<span class="chip chip-arrow">&#8594;</span>` : '';
+
+  return `<div class="tool-card" tabindex="0">
+    <div class="card-top">
+      <span class="card-name">${esc(t.id)}</span>
+      <span class="card-ver">${esc(t.version)}</span>
+      <span class="tier-badge">${esc(t.tier)}</span>
+    </div>
+    <div class="card-desc">${esc(t.description || '')}</div>
+    <div class="card-io">${inputs}${arrow}${outputs}</div>
+  </div>`;
 }
 
 function openModal(t) {
-  const m = document.getElementById('modal');
   document.getElementById('modal-title').textContent = t.id;
 
-  const maintainers = (t.maintainers || [])
-    .map(h => {
-      const login = h.replace('github:', '');
-      return `<a href="https://github.com/${login}" target="_blank">@${login}</a>`;
-    }).join(', ') || 'none listed';
-
-  document.getElementById('modal-meta').innerHTML =
-    `${esc(t.version)} &nbsp;|&nbsp; ${t.tier} &nbsp;|&nbsp; ${esc(t.license || 'unknown license')} &nbsp;|&nbsp; maintainers: ${maintainers}`;
+  const meta = [t.version, t.tier, t.license].filter(Boolean).join(' · ');
+  document.getElementById('modal-meta').textContent = meta;
 
   document.getElementById('modal-desc').textContent = t.description || '';
 
-  document.getElementById('modal-homepage').innerHTML =
-    t.homepage ? `<a href="${esc(t.homepage)}" target="_blank">${esc(t.homepage)}</a>` : 'n/a';
+  const homeSec = document.getElementById('modal-homepage-section');
+  const homeEl  = document.getElementById('modal-homepage');
+  if (t.homepage) {
+    homeEl.innerHTML = `<a href="${esc(t.homepage)}" target="_blank" rel="noopener">${esc(t.homepage)}</a>`;
+    homeSec.style.display = '';
+  } else {
+    homeSec.style.display = 'none';
+  }
 
-  const inputRows = (t.input_types || []).map((ty, i) => `<tr><td class="type-cell">${esc(ty)}</td></tr>`).join('');
   document.getElementById('modal-inputs').innerHTML =
-    inputRows || '<tr><td style="color:var(--text-dim)">none declared</td></tr>';
+    (t.input_types || []).map(ty =>
+      `<div class="io-row"><span class="io-type">${esc(ty)}</span></div>`
+    ).join('') || '<div class="io-row io-card">none declared</div>';
 
-  const outputRows = (t.output_types || []).map((ty, i) => `<tr><td class="type-cell">${esc(ty)}</td></tr>`).join('');
   document.getElementById('modal-outputs').innerHTML =
-    outputRows || '<tr><td style="color:var(--text-dim)">none declared</td></tr>';
+    (t.output_types || []).map(ty =>
+      `<div class="io-row"><span class="io-type">${esc(ty)}</span></div>`
+    ).join('') || '<div class="io-row io-card">none declared</div>';
+
+  document.getElementById('modal-maintainers').innerHTML =
+    (t.maintainers || []).map(h => {
+      const login = h.replace('github:', '');
+      return `<div class="io-row"><a href="https://github.com/${esc(login)}" target="_blank" rel="noopener">@${esc(login)}</a></div>`;
+    }).join('') || '<div class="io-row io-card">none listed</div>';
 
   document.getElementById('modal-versions').innerHTML =
-    (t.versions || [t.version]).slice().reverse()
-      .map(v => `<span class="version-tag">${esc(v)}</span>`).join('');
+    [...(t.versions || [t.version])].reverse()
+      .map(v => `<span class="vpill">${esc(v)}</span>`).join('');
 
-  m.classList.add('open');
+  document.getElementById('modal').classList.add('open');
 }
 
 function closeModal() {
   document.getElementById('modal').classList.remove('open');
 }
 
-function populateTypeFilters() {
+function populateTypeFilter() {
   const types = new Set();
   allTools.forEach(t => {
-    (t.input_types || []).forEach(ty => types.add(ty.split('[')[0]));
+    (t.input_types  || []).forEach(ty => types.add(ty.split('[')[0]));
     (t.output_types || []).forEach(ty => types.add(ty.split('[')[0]));
   });
   const sel = document.getElementById('type-filter');
@@ -129,7 +138,7 @@ function populateTypeFilters() {
 }
 
 function esc(s) {
-  return String(s)
+  return String(s ?? '')
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
@@ -143,6 +152,13 @@ document.getElementById('modal-close').addEventListener('click', closeModal);
 document.getElementById('modal').addEventListener('click', e => {
   if (e.target === document.getElementById('modal')) closeModal();
 });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+document.querySelectorAll('.tool-card').forEach(card => {
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') card.click();
+  });
+});
 
 init();
