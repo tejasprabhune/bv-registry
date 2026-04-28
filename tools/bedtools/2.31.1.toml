@@ -9,7 +9,7 @@ maintainers = ["github:arq5x"]
 
 [tool.image]
 backend = "docker"
-reference = "quay.io/biocontainers/bedtools:2.31.1--hf5e1c6e_3"
+reference = "quay.io/biocontainers/bedtools:2.31.1--h13024bc_3"
 
 [tool.hardware]
 cpu_cores = 2
