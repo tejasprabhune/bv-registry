@@ -18,6 +18,7 @@ except ImportError:
 def main():
     root = Path(__file__).parent.parent
     tools_dir = root / "tools"
+    data_dir = root / "data"
 
     if not tools_dir.is_dir():
         print("error: tools/ directory not found", file=sys.stderr)
@@ -65,10 +66,52 @@ def main():
         }
         tools_out.append(entry)
 
+    data_out = []
+    if data_dir.is_dir():
+        for ds_dir in sorted(data_dir.iterdir()):
+            if not ds_dir.is_dir():
+                continue
+
+            ds_id = ds_dir.name
+            versions = []
+
+            for toml_file in sorted(ds_dir.glob("*.toml")):
+                try:
+                    with open(toml_file, "rb") as f:
+                        d = tomllib.load(f)
+                except Exception as e:
+                    print(f"warning: skipping {toml_file}: {e}", file=sys.stderr)
+                    continue
+
+                ds = d.get("data", {})
+                versions.append((ds.get("version", toml_file.stem), ds))
+
+            if not versions:
+                continue
+
+            versions.sort(key=lambda x: x[0])
+            version_strings = [v for v, _ in versions]
+
+            _, latest = versions[-1]
+            entry = {
+                "id": ds_id,
+                "version": latest.get("version", version_strings[-1]),
+                "versions": version_strings,
+                "description": latest.get("description"),
+                "source_urls": latest.get("source_urls", []),
+                "size_bytes": latest.get("size_bytes"),
+                "format": latest.get("format"),
+                "post_download_action": latest.get("post_download_action"),
+                "license": latest.get("license"),
+                "deprecated": latest.get("deprecated", False),
+            }
+            data_out.append(entry)
+
     index = {
         "schema_version": 1,
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "tools": tools_out,
+        "data": data_out,
     }
 
     print(json.dumps(index, indent=2))

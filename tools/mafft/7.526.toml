@@ -32,11 +32,6 @@ description = "Multiple sequence alignment in FASTA format"
 command = "mafft"
 args_template = "--auto --thread {cpu_cores} --out {alignment} {sequences}"
 
-[tool.test]
-inputs = { sequences = "test://fasta-protein-multi" }
-expected_outputs = ["alignment"]
-timeout_seconds = 120
-
 [tool.binaries]
 exposed = [
   "mafft", "mafft-linsi", "mafft-ginsi", "mafft-einsi",

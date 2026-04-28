@@ -38,12 +38,6 @@ description = "Tabular BLAST alignment results (outfmt 6)"
 command = "blastn"
 args_template = "-query {query} -db {db} -out {output} -num_threads {cpu_cores}"
 
-[tool.test]
-inputs = { query = "test://fasta-nucleotide" }
-expected_outputs = ["output"]
-extra_args = ["-task", "blastn-short"]
-timeout_seconds = 60
-
 [tool.binaries]
 exposed = [
   "blastn", "blastp", "tblastn", "tblastx", "psiblast",

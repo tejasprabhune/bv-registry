@@ -97,6 +97,25 @@ cache_paths = ["/cache/colabfold"]
 
 bv binds each path to `~/.cache/bv/<tool>/<slug>` on the host by default. Users override the host side with `[[cache]]` entries in their project `bv.toml`. Skip this section for tools that don't write inside the image (e.g. blast).
 
+## `[tool.smoke]` (optional)
+
+Per-binary overrides for `bv conformance`'s smoke check. Most tools don't need this block at all: by default, `bv conformance` tries `--version`, `-version`, `--help`, `-h`, `-v`, and `version` against every binary in `[tool.binaries]` and accepts the first one that exits 0.
+
+Add overrides only for unusual binaries:
+
+```toml
+[tool.smoke]
+# Pin a specific probe for binaries that don't accept any of the defaults.
+probes = { weird-tool = "--check", another = "" }   # "" means run with no args
+
+# Skip binaries that have no non-destructive invocation (daemons, REPLs that
+# wait for stdin forever, etc.). They still get shims; conformance just
+# doesn't probe them.
+skip = ["server-daemon"]
+```
+
+Conformance does not currently run tools on canonical inputs or verify typed outputs; that's a v2 feature that needs a hosted test-fixture pipeline.
+
 ## Tier and governance fields
 
 | Field | Type | Default | Description |

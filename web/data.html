@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>bv registry</title>
+  <title>bv registry — data</title>
   <link rel="stylesheet" href="https://use.typekit.net/bsk0vur.css">
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
   <link rel="stylesheet" href="style.css">
@@ -13,9 +13,9 @@
 <header>
   <div class="page-wrap">
     <h1 class="site-title">bv registry</h1>
-    <p class="site-subtitle">reproducible bioinformatics tools</p>
+    <p class="site-subtitle">reference data sources</p>
     <div class="header-links">
-      <a href="data.html">data</a>
+      <a href="index.html">tools</a>
       <a href="about.html">about</a>
       <a href="docs.html">docs</a>
       <a href="https://github.com/mlberkeley/bv">bv repo</a>
@@ -27,15 +27,12 @@
 <div class="controls-wrap">
   <div class="page-wrap">
     <div class="controls-bar">
-      <input type="search" id="search" placeholder="find a tool..." autocomplete="off" spellcheck="false">
-      <select id="tier-filter">
-        <option value="all">all tiers</option>
-        <option value="core">core</option>
-        <option value="community">community</option>
-        <option value="experimental">experimental</option>
+      <input type="search" id="search" placeholder="find a data source..." autocomplete="off" spellcheck="false">
+      <select id="format-filter">
+        <option value="">all formats</option>
       </select>
-      <select id="type-filter">
-        <option value="">all types</option>
+      <select id="action-filter">
+        <option value="">all actions</option>
       </select>
       <span class="results-count" id="results-count"></span>
     </div>
@@ -61,7 +58,7 @@
     </div>
 
     <div class="modal-section">
-      <div class="section-label">install</div>
+      <div class="section-label">fetch</div>
       <div class="bv-add-wrap">
         <code class="bv-add-cmd" id="modal-bv-add"></code>
         <button class="copy-btn" id="copy-btn" title="copy"><i class="fi fi-rr-copy"></i></button>
@@ -73,24 +70,9 @@
       <div class="modal-desc" id="modal-desc"></div>
     </div>
 
-    <div class="modal-section" id="modal-homepage-section">
-      <div class="section-label">homepage</div>
-      <div id="modal-homepage"></div>
-    </div>
-
     <div class="modal-section">
-      <div class="section-label">inputs</div>
-      <div class="io-list" id="modal-inputs"></div>
-    </div>
-
-    <div class="modal-section">
-      <div class="section-label">outputs</div>
-      <div class="io-list" id="modal-outputs"></div>
-    </div>
-
-    <div class="modal-section">
-      <div class="section-label">maintainers</div>
-      <div class="io-list" id="modal-maintainers"></div>
+      <div class="section-label">sources</div>
+      <div class="io-list" id="modal-sources"></div>
     </div>
 
     <div class="modal-section last">
@@ -100,6 +82,6 @@
   </div>
 </div>
 
-<script src="app.js"></script>
+<script src="data.js"></script>
 </body>
 </html>

@@ -225,7 +225,8 @@
     <h1 class="site-title">bv docs</h1>
     <p class="site-subtitle">how to use, publish, and maintain</p>
     <div class="header-links">
-      <a href="index.html">browse registry</a>
+      <a href="index.html">tools</a>
+      <a href="data.html">data</a>
       <a href="about.html">about</a>
       <a href="https://github.com/mlberkeley/bv">bv repo</a>
       <a href="https://github.com/mlberkeley/bv-registry">registry repo</a>
@@ -506,15 +507,19 @@ jobs:
       BV_REGISTRY_TOKEN: ${{ secrets.BV_REGISTRY_TOKEN }}</code></pre>
 
     <h3 id="pub-conformance">conformance tests</h3>
-    <p>Add a <code>[tool.test]</code> block so reviewers (and CI) can verify the tool runs on canonical inputs and the binaries you declared actually respond:</p>
-<pre class="language-toml"><code class="language-toml">[tool.test]
-inputs           = { query = "test://fasta-nucleotide" }
-expected_outputs = ["output"]
-timeout_seconds  = 60</code></pre>
+    <p>By default, <code>bv conformance &lt;tool&gt;</code> pulls your image and smoke-tests every binary you declared in <code>[tool.binaries]</code>. For each one it tries <code>--version</code>, <code>-version</code>, <code>--help</code>, <code>-h</code>, <code>-v</code>, <code>version</code> in order, and considers the binary alive if any of them exits 0. Most tools need no extra config.</p>
     <p>Run it locally before opening the PR:</p>
 <pre class="language-bash"><code class="language-bash">bv conformance my-tool
 bv conformance my-tool --backend apptainer</code></pre>
-    <p>Conformance runs in CI on every registry PR; <code>core</code> promotion requires it pass on both backends.</p>
+    <p>For unusual binaries, add a <code>[tool.smoke]</code> block:</p>
+<pre class="language-toml"><code class="language-toml">[tool.smoke]
+# Pin a specific probe arg for binaries that don't accept any of the defaults.
+probes = { weird-tool = "--check", another = "" }   # "" runs the binary with no args
+
+# Skip binaries with no safe non-destructive invocation (daemons, REPLs that
+# wait on stdin forever). They still get shims; conformance just skips them.
+skip = ["server-daemon"]</code></pre>
+    <p>Conformance runs in CI on every registry PR. Today it's a smoke check only; running tools on canonical inputs and validating typed outputs is on the v2 roadmap.</p>
 
     <h3 id="pub-tiers">tiers</h3>
     <table>
@@ -553,7 +558,7 @@ bv-ingest promote samtools 1.20 --staging-dir ./bv-registry-staging</code></pre>
       <li><strong>resolve images</strong>: query <a href="https://quay.io/biocontainers">quay.io/biocontainers</a> for the matching tag and digest. Skip tools without a published BioContainer.</li>
       <li><strong>generate manifest</strong>: write <code>tools/&lt;id&gt;/&lt;version&gt;.toml</code> in staging with hardware defaults, exposed binaries, but no typed I/O.</li>
       <li><strong>open PR</strong>: one PR per (tool, version) against bv-registry-staging.</li>
-      <li><strong>review</strong>: maintainer adds <code>[[tool.inputs]]</code> / <code>[[tool.outputs]]</code> using the <code>bv-types</code> vocabulary, plus a <code>[tool.test]</code> block.</li>
+      <li><strong>review</strong>: maintainer adds <code>[[tool.inputs]]</code> / <code>[[tool.outputs]]</code> using the <code>bv-types</code> vocabulary, and (if needed) a <code>[tool.smoke]</code> override.</li>
       <li><strong>promote</strong>: <code>bv-ingest promote</code> opens a PR to bv-registry. CI runs conformance; merge ships it.</li>
     </ol>
 
@@ -577,7 +582,7 @@ GITHUB_TOKEN      = ...                            # falls back to `gh auth toke
       <li>Check the upstream tool's docs to identify what file types its main entrypoint reads and writes.</li>
       <li>Add <code>[[tool.inputs]]</code> / <code>[[tool.outputs]]</code> blocks. If a needed type does not exist in <code>bv-types</code>, add it there first (separate PR).</li>
       <li>If the tool downloads model weights or writes large scratch state inside the image, add <code>cache_paths = [...]</code>. Look for clues in the upstream Dockerfile (<code>WORKDIR</code>, <code>VOLUME</code>) or run <code>bv run &lt;tool&gt;</code> on apptainer and watch for read-only-fs errors.</li>
-      <li>Add a <code>[tool.test]</code> with a tiny canonical input from <a href="https://github.com/mlberkeley/bv-types">bv-types</a>'s <code>test://</code> URIs.</li>
+      <li>Add a <code>[tool.smoke]</code> override only if any binary needs a non-default probe (the default loop covers <code>--version</code>, <code>-version</code>, <code>--help</code>, <code>-h</code>, <code>-v</code>, <code>version</code>).</li>
       <li>Run <code>bv conformance &lt;tool&gt;</code> locally on both backends.</li>
       <li>Approve the staging PR. Once merged, run <code>bv-ingest promote</code>.</li>
     </ol>

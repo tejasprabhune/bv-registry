@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-27T23:07:43.072980+00:00",
+  "generated_at": "2026-04-28T00:22:44.857263+00:00",
   "tools": [
     {
       "id": "augustus",
@@ -1145,6 +1145,218 @@
       "output_types": [
         "file"
       ],
+      "deprecated": false
+    }
+  ],
+  "data": [
+    {
+      "id": "card",
+      "version": "3.3.0",
+      "versions": [
+        "3.3.0"
+      ],
+      "description": "CARD: Comprehensive Antibiotic Resistance Database; protein and nucleotide sequences of resistance determinants (~500 MB)",
+      "source_urls": [
+        "https://card.mcmaster.ca/latest/data"
+      ],
+      "size_bytes": 200000000,
+      "format": "tar",
+      "post_download_action": "extract",
+      "license": "CC-BY 4.0 (McMaster University)",
+      "deprecated": false
+    },
+    {
+      "id": "clinvar",
+      "version": "2024_11",
+      "versions": [
+        "2024_11"
+      ],
+      "description": "ClinVar: NCBI archive of variants with clinical significance interpretations in VCF format (~2 GB)",
+      "source_urls": [
+        "https://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh38/clinvar.vcf.gz",
+        "https://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh38/clinvar.vcf.gz.tbi"
+      ],
+      "size_bytes": 800000000,
+      "format": "gz",
+      "post_download_action": "decompress",
+      "license": "public domain (NCBI)",
+      "deprecated": false
+    },
+    {
+      "id": "hg38",
+      "version": "2024",
+      "versions": [
+        "2024"
+      ],
+      "description": "Human reference genome GRCh38/hg38 with primary assembly, alt sequences, and decoys (~3.2 GB)",
+      "source_urls": [
+        "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_no_alt_plus_hs38d1_analysis_set.fna.gz"
+      ],
+      "size_bytes": 3200000000,
+      "format": "gz",
+      "post_download_action": "decompress",
+      "license": "public domain (NCBI)",
+      "deprecated": false
+    },
+    {
+      "id": "kraken2-standard",
+      "version": "2024_05",
+      "versions": [
+        "2024_05"
+      ],
+      "description": "Kraken2 standard k-mer database: bacteria, archaea, viruses, plasmids, human, UniVec (~85 GB)",
+      "source_urls": [
+        "https://genome-idx.s3.amazonaws.com/kraken/k2_standard_20240605.tar.gz"
+      ],
+      "size_bytes": 85000000000,
+      "format": "tar",
+      "post_download_action": "extract",
+      "license": "public domain (derived from NCBI RefSeq)",
+      "deprecated": false
+    },
+    {
+      "id": "nr",
+      "version": "2024_11",
+      "versions": [
+        "2024_11"
+      ],
+      "description": "NCBI non-redundant protein sequence database; preformatted for BLAST and DIAMOND (~300 GB)",
+      "source_urls": [
+        "https://ftp.ncbi.nlm.nih.gov/blast/db/nr.*.tar.gz"
+      ],
+      "size_bytes": 300000000000,
+      "format": "tar",
+      "post_download_action": "extract",
+      "license": "public domain (NCBI)",
+      "deprecated": false
+    },
+    {
+      "id": "nt",
+      "version": "2024_11",
+      "versions": [
+        "2024_11"
+      ],
+      "description": "NCBI nucleotide collection; preformatted BLAST database of all GenBank/RefSeq/EMBL sequences (~300 GB)",
+      "source_urls": [
+        "https://ftp.ncbi.nlm.nih.gov/blast/db/nt.*.tar.gz"
+      ],
+      "size_bytes": 300000000000,
+      "format": "tar",
+      "post_download_action": "extract",
+      "license": "public domain (NCBI)",
+      "deprecated": false
+    },
+    {
+      "id": "pdb-mmcif",
+      "version": "2024_10",
+      "versions": [
+        "2024_10"
+      ],
+      "description": "PDB mmCIF structure files: all experimentally determined 3D structures from the Protein Data Bank (~50 GB)",
+      "source_urls": [
+        "https://files.rcsb.org/pub/pdb/data/structures/divided/mmCIF/"
+      ],
+      "size_bytes": 50000000000,
+      "format": "dir",
+      "post_download_action": "none",
+      "license": "CC0 1.0 (RCSB PDB)",
+      "deprecated": false
+    },
+    {
+      "id": "pdbaa",
+      "version": "2024_01",
+      "versions": [
+        "2024_01"
+      ],
+      "description": "PDB amino acid sequences as a preformatted BLAST database (~70 MB)",
+      "source_urls": [
+        "https://ftp.ncbi.nlm.nih.gov/blast/db/pdbaa.tar.gz"
+      ],
+      "size_bytes": 70000000,
+      "format": "tar",
+      "post_download_action": "extract",
+      "license": "public domain (NCBI)",
+      "deprecated": false
+    },
+    {
+      "id": "pfam",
+      "version": "36.0",
+      "versions": [
+        "36.0"
+      ],
+      "description": "Pfam: database of protein families represented as multiple sequence alignments and HMM profiles (~4.5 GB)",
+      "source_urls": [
+        "https://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam36.0/Pfam-A.hmm.gz",
+        "https://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam36.0/Pfam-A.hmm.dat.gz"
+      ],
+      "size_bytes": 15000000000,
+      "format": "gz",
+      "post_download_action": "decompress",
+      "license": "CC0 1.0 (EMBL-EBI)",
+      "deprecated": false
+    },
+    {
+      "id": "refseq-bacteria",
+      "version": "2024_11",
+      "versions": [
+        "2024_11"
+      ],
+      "description": "NCBI RefSeq complete bacterial reference genomes; used for comparative genomics and Kraken2 DB building (~150 GB)",
+      "source_urls": [
+        "https://ftp.ncbi.nlm.nih.gov/refseq/release/bacteria/"
+      ],
+      "size_bytes": 150000000000,
+      "format": "gz",
+      "post_download_action": "decompress",
+      "license": "public domain (NCBI)",
+      "deprecated": false
+    },
+    {
+      "id": "silva-ssu",
+      "version": "138.1",
+      "versions": [
+        "138.1"
+      ],
+      "description": "SILVA SSU rRNA database: comprehensive collection of aligned 16S/18S rRNA sequences for taxonomic classification (~7 GB)",
+      "source_urls": [
+        "https://www.arb-silva.de/fileadmin/silva_databases/release_138_1/Exports/SILVA_138.1_SSURef_NR99_tax_silva.fasta.gz"
+      ],
+      "size_bytes": 25000000000,
+      "format": "gz",
+      "post_download_action": "decompress",
+      "license": "CC-BY 4.0 (SILVA)",
+      "deprecated": false
+    },
+    {
+      "id": "uniprot-swissprot",
+      "version": "2024_06",
+      "versions": [
+        "2024_06"
+      ],
+      "description": "UniProt/Swiss-Prot: manually reviewed and annotated protein sequences (~570k entries, ~820 MB)",
+      "source_urls": [
+        "https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.fasta.gz"
+      ],
+      "size_bytes": 820000000,
+      "format": "gz",
+      "post_download_action": "decompress",
+      "license": "CC-BY 4.0 (UniProt)",
+      "deprecated": false
+    },
+    {
+      "id": "uniref90",
+      "version": "2024_06",
+      "versions": [
+        "2024_06"
+      ],
+      "description": "UniRef90: clustered UniProt sequences at 90% identity; used for MSA generation in structure prediction (~68 GB compressed)",
+      "source_urls": [
+        "https://ftp.uniprot.org/pub/databases/uniprot/uniref/uniref90/uniref90.fasta.gz"
+      ],
+      "size_bytes": 230000000000,
+      "format": "gz",
+      "post_download_action": "decompress",
+      "license": "CC-BY 4.0 (UniProt)",
       "deprecated": false
     }
   ]

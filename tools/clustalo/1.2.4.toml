@@ -32,10 +32,5 @@ description = "Multiple sequence alignment"
 command = "clustalo"
 args_template = "--threads={cpu_cores} -i {sequences} -o {alignment} --outfmt=fa"
 
-[tool.test]
-inputs = { sequences = "test://fasta-protein-multi" }
-expected_outputs = ["alignment"]
-timeout_seconds = 120
-
 [tool.binaries]
 exposed = ["clustalo"]
