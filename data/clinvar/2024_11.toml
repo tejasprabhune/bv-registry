@@ -9,5 +9,5 @@ source_urls = [
 ]
 size_bytes = 800000000
 format = "gz"
-post_download_action = "decompress"
+post_download_action = "noop"
 license = "public domain (NCBI)"
