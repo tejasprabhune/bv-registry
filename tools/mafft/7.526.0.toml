@@ -1,6 +1,6 @@
 [tool]
 id = "mafft"
-version = "7.526"
+version = "7.526.0"
 description = "Multiple sequence alignment using Fast Fourier Transform"
 homepage = "https://mafft.cbrc.jp/alignment/software/"
 license = "BSD-3-Clause"

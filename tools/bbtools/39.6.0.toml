@@ -1,6 +1,6 @@
 [tool]
 id = "bbtools"
-version = "39.06"
+version = "39.6.0"
 description = "BBTools: suite of fast, multithreaded bioinformatics tools for DNA/RNA/protein analysis"
 homepage = "https://jgi.doe.gov/data-and-tools/software-tools/bbtools/"
 license = "BSD-3-Clause"

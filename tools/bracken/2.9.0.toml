@@ -1,6 +1,6 @@
 [tool]
 id = "bracken"
-version = "2.9"
+version = "2.9.0"
 description = "Bayesian re-estimation of species-level abundance from Kraken2 classification reports"
 homepage = "https://github.com/jenniferlu717/Bracken"
 license = "GPL-3.0"

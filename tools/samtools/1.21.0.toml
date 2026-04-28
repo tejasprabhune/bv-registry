@@ -1,6 +1,6 @@
 [tool]
 id = "samtools"
-version = "1.21"
+version = "1.21.0"
 description = "Tools for manipulating next-generation sequencing data in SAM/BAM/CRAM formats"
 homepage = "http://www.htslib.org/"
 license = "MIT"

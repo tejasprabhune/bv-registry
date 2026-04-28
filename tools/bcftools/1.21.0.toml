@@ -1,6 +1,6 @@
 [tool]
 id = "bcftools"
-version = "1.21"
+version = "1.21.0"
 description = "Utilities for variant calling and manipulating VCF/BCF files"
 homepage = "http://www.htslib.org/doc/bcftools.html"
 license = "MIT"

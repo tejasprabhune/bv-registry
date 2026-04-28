@@ -1,6 +1,6 @@
 [tool]
 id = "seqtk"
-version = "1.4"
+version = "1.4.0"
 description = "Fast toolkit for processing FASTA/FASTQ sequences: subsampling, conversion, trimming"
 homepage = "https://github.com/lh3/seqtk"
 license = "MIT"

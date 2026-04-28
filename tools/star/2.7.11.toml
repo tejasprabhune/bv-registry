@@ -1,6 +1,6 @@
 [tool]
 id = "star"
-version = "2.7.11b"
+version = "2.7.11"
 description = "Spliced Transcripts Alignment to a Reference: RNA-seq aligner with splice junction detection"
 homepage = "https://github.com/alexdobin/STAR"
 license = "MIT"

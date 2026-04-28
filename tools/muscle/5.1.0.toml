@@ -1,6 +1,6 @@
 [tool]
 id = "muscle"
-version = "5.1"
+version = "5.1.0"
 description = "MUSCLE: multiple sequence alignment with high accuracy and high throughput"
 homepage = "https://www.drive5.com/muscle/"
 license = "Public Domain"

@@ -1,6 +1,6 @@
 [tool]
 id = "gatk4"
-version = "4.6.0.0"
+version = "4.6.0"
 description = "GATK4: genome analysis toolkit for variant discovery in high-throughput sequencing data"
 homepage = "https://gatk.broadinstitute.org/"
 license = "BSD-3-Clause"

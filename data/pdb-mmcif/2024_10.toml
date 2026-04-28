@@ -7,5 +7,5 @@ source_urls = [
 ]
 size_bytes = 50000000000
 format = "dir"
-post_download_action = "none"
+post_download_action = "noop"
 license = "CC0 1.0 (RCSB PDB)"

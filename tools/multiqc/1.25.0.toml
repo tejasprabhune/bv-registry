@@ -1,6 +1,6 @@
 [tool]
 id = "multiqc"
-version = "1.25"
+version = "1.25.0"
 description = "Aggregate results from bioinformatics analyses across many samples into a single report"
 homepage = "https://multiqc.info/"
 license = "GPL-3.0"

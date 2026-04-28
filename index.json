@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-28T00:24:42.637306+00:00",
+  "generated_at": "2026-04-28T20:54:46.492394+00:00",
   "tools": [
     {
       "id": "augustus",
@@ -25,9 +25,9 @@
     },
     {
       "id": "bbtools",
-      "version": "39.06",
+      "version": "39.6.0",
       "versions": [
-        "39.06"
+        "39.6.0"
       ],
       "description": "BBTools: suite of fast, multithreaded bioinformatics tools for DNA/RNA/protein analysis",
       "tier": "community",
@@ -48,9 +48,9 @@
     },
     {
       "id": "bcftools",
-      "version": "1.21",
+      "version": "1.21.0",
       "versions": [
-        "1.21"
+        "1.21.0"
       ],
       "description": "Utilities for variant calling and manipulating VCF/BCF files",
       "tier": "core",
@@ -136,9 +136,9 @@
     },
     {
       "id": "bracken",
-      "version": "2.9",
+      "version": "2.9.0",
       "versions": [
-        "2.9"
+        "2.9.0"
       ],
       "description": "Bayesian re-estimation of species-level abundance from Kraken2 classification reports",
       "tier": "community",
@@ -440,9 +440,9 @@
     },
     {
       "id": "gatk4",
-      "version": "4.6.0.0",
+      "version": "4.6.0",
       "versions": [
-        "4.6.0.0"
+        "4.6.0"
       ],
       "description": "GATK4: genome analysis toolkit for variant discovery in high-throughput sequencing data",
       "tier": "core",
@@ -527,9 +527,9 @@
     },
     {
       "id": "interproscan",
-      "version": "5.67-99.0",
+      "version": "5.67.99",
       "versions": [
-        "5.67-99.0"
+        "5.67.99"
       ],
       "description": "InterProScan: functional annotation of proteins by scanning member databases",
       "tier": "community",
@@ -614,9 +614,9 @@
     },
     {
       "id": "mafft",
-      "version": "7.526",
+      "version": "7.526.0",
       "versions": [
-        "7.526"
+        "7.526.0"
       ],
       "description": "Multiple sequence alignment using Fast Fourier Transform",
       "tier": "core",
@@ -678,9 +678,9 @@
     },
     {
       "id": "minimap2",
-      "version": "2.28",
+      "version": "2.28.0",
       "versions": [
-        "2.28"
+        "2.28.0"
       ],
       "description": "Fast sequence alignment for long reads (PacBio, Oxford Nanopore) and spliced mRNA",
       "tier": "core",
@@ -722,9 +722,9 @@
     },
     {
       "id": "multiqc",
-      "version": "1.25",
+      "version": "1.25.0",
       "versions": [
-        "1.25"
+        "1.25.0"
       ],
       "description": "Aggregate results from bioinformatics analyses across many samples into a single report",
       "tier": "core",
@@ -743,9 +743,9 @@
     },
     {
       "id": "muscle",
-      "version": "5.1",
+      "version": "5.1.0",
       "versions": [
-        "5.1"
+        "5.1.0"
       ],
       "description": "MUSCLE: multiple sequence alignment with high accuracy and high throughput",
       "tier": "community",
@@ -806,9 +806,9 @@
     },
     {
       "id": "plink",
-      "version": "1.90",
+      "version": "1.90.0",
       "versions": [
-        "1.90"
+        "1.90.0"
       ],
       "description": "Whole-genome association analysis toolset for large-scale genomic data",
       "tier": "community",
@@ -934,9 +934,9 @@
     },
     {
       "id": "samtools",
-      "version": "1.21",
+      "version": "1.21.0",
       "versions": [
-        "1.21"
+        "1.21.0"
       ],
       "description": "Tools for manipulating next-generation sequencing data in SAM/BAM/CRAM formats",
       "tier": "core",
@@ -976,9 +976,9 @@
     },
     {
       "id": "seqtk",
-      "version": "1.4",
+      "version": "1.4.0",
       "versions": [
-        "1.4"
+        "1.4.0"
       ],
       "description": "Fast toolkit for processing FASTA/FASTQ sequences: subsampling, conversion, trimming",
       "tier": "community",
@@ -1040,9 +1040,9 @@
     },
     {
       "id": "star",
-      "version": "2.7.11b",
+      "version": "2.7.11",
       "versions": [
-        "2.7.11b"
+        "2.7.11"
       ],
       "description": "Spliced Transcripts Alignment to a Reference: RNA-seq aligner with splice junction detection",
       "tier": "core",
@@ -1105,9 +1105,9 @@
     },
     {
       "id": "trimmomatic",
-      "version": "0.39",
+      "version": "0.39.0",
       "versions": [
-        "0.39"
+        "0.39.0"
       ],
       "description": "Flexible read trimming tool for Illumina NGS data",
       "tier": "community",
@@ -1258,7 +1258,7 @@
       ],
       "size_bytes": 50000000000,
       "format": "dir",
-      "post_download_action": "none",
+      "post_download_action": "noop",
       "license": "CC0 1.0 (RCSB PDB)",
       "deprecated": false
     },

@@ -1,6 +1,6 @@
 [tool]
 id = "trimmomatic"
-version = "0.39"
+version = "0.39.0"
 description = "Flexible read trimming tool for Illumina NGS data"
 homepage = "http://www.usadellab.org/cms/?page=trimmomatic"
 license = "GPL-3.0"
