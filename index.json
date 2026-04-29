@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-28T21:20:55.354308+00:00",
+  "generated_at": "2026-04-29T00:55:38.242570+00:00",
   "tools": [
     {
       "id": "augustus",
@@ -25,9 +25,9 @@
     },
     {
       "id": "bbtools",
-      "version": "39.6.0",
+      "version": "39.81.0",
       "versions": [
-        "39.6.0"
+        "39.81.0"
       ],
       "description": "BBTools: suite of fast, multithreaded bioinformatics tools for DNA/RNA/protein analysis",
       "tier": "community",
@@ -527,9 +527,9 @@
     },
     {
       "id": "interproscan",
-      "version": "5.67.99",
+      "version": "5.59.91",
       "versions": [
-        "5.67.99"
+        "5.59.91"
       ],
       "description": "InterProScan: functional annotation of proteins by scanning member databases",
       "tier": "community",
@@ -614,9 +614,9 @@
     },
     {
       "id": "mafft",
-      "version": "7.526.0",
+      "version": "7.525.0",
       "versions": [
-        "7.526.0"
+        "7.525.0"
       ],
       "description": "Multiple sequence alignment using Fast Fourier Transform",
       "tier": "core",
@@ -1004,9 +1004,9 @@
       "description": "SOLeNNoID: de novo design of solenoid repeat proteins using graph neural networks",
       "tier": "experimental",
       "maintainers": [
-        "github:wells-wood-research"
+        "github:gnik2018"
       ],
-      "homepage": "https://github.com/wells-wood-research/solenoid",
+      "homepage": "https://github.com/gnik2018/SOLeNNoID",
       "license": "MIT",
       "input_types": [
         "file"
@@ -1014,7 +1014,7 @@
       "output_types": [
         "dir"
       ],
-      "deprecated": false
+      "deprecated": true
     },
     {
       "id": "spades",
@@ -1178,7 +1178,7 @@
       ],
       "size_bytes": 800000000,
       "format": "gz",
-      "post_download_action": "decompress",
+      "post_download_action": "noop",
       "license": "public domain (NCBI)",
       "deprecated": false
     },
