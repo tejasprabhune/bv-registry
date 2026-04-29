@@ -70,15 +70,18 @@
   <div class="about-section">
     <h2>what it is</h2>
     <p>
-      <code>bv</code> installs bioinformatics tools as containers, pins them to exact image
-      digests in a lockfile, and reproduces any analysis environment with a single
-      <code>bv sync</code>. Same manifest, same lockfile, on Docker or Apptainer.
+      <code>bv</code> is a tool manager for bioinformatics, written in Rust. It
+      installs tools as OCI containers from a curated registry, pins them to
+      content-addressed digests in <code>bv.lock</code>, and reproduces the
+      pinned environment on any machine via <code>bv sync</code>. The same
+      lockfile works on Docker and on Apptainer.
     </p>
     <p>
-      No conda solver thrash, no per-tool install instructions, no "works on my machine"
-      drift between a laptop and an HPC node. Every binary a tool exposes is on PATH
-      automatically; pipelines just call <code>blastn</code> or <code>colabfold_batch</code>
-      and bv routes to the right container.
+      <code>bv add &lt;tool&gt;</code> writes <code>bv.toml</code>/<code>bv.lock</code>
+      and generates PATH shims under <code>.bv/bin/</code>. <code>bv exec
+      &lt;cmd&gt;</code> runs any command with those shims on PATH, so existing
+      pipelines that call binaries by name (Make, Snakemake, Python
+      <code>subprocess</code>) work without code changes.
     </p>
   </div>
 
