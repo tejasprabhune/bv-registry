@@ -2,10 +2,11 @@
 id = "solenoid"
 version = "1.0.0"
 description = "SOLeNNoID: de novo design of solenoid repeat proteins using graph neural networks"
-homepage = "https://github.com/wells-wood-research/solenoid"
+homepage = "https://github.com/gnik2018/SOLeNNoID"
 license = "MIT"
 tier = "experimental"
-maintainers = ["github:wells-wood-research"]
+maintainers = ["github:gnik2018"]
+deprecated = true
 
 [tool.image]
 backend = "docker"

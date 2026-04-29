@@ -9,7 +9,7 @@ maintainers = ["github:mikolmogorov"]
 
 [tool.image]
 backend = "docker"
-reference = "quay.io/biocontainers/flye:2.9.4--py39hd65a603_1"
+reference = "quay.io/biocontainers/flye:2.9.4--py39hdf45acc_2"
 
 [tool.hardware]
 cpu_cores = 16

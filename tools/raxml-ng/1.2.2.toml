@@ -9,7 +9,7 @@ maintainers = ["github:amkozlov"]
 
 [tool.image]
 backend = "docker"
-reference = "quay.io/biocontainers/raxml-ng:1.2.2--h6d1f08b_0"
+reference = "quay.io/biocontainers/raxml-ng:1.2.2--h6747034_2"
 
 [tool.hardware]
 cpu_cores = 8

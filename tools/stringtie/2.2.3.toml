@@ -9,7 +9,7 @@ maintainers = ["github:gpertea"]
 
 [tool.image]
 backend = "docker"
-reference = "quay.io/biocontainers/stringtie:2.2.3--h43eeafb_2"
+reference = "quay.io/biocontainers/stringtie:2.2.3--h29c0135_1"
 
 [tool.hardware]
 cpu_cores = 8

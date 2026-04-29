@@ -9,7 +9,7 @@ maintainers = ["github:DerrickWood"]
 
 [tool.image]
 backend = "docker"
-reference = "quay.io/biocontainers/kraken2:2.1.3--pl5321h6f949c2_0"
+reference = "quay.io/biocontainers/kraken2:2.1.3--pl5321h077b44d_4"
 
 [tool.hardware]
 cpu_cores = 8

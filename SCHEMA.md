@@ -87,6 +87,64 @@ dir
 
 Use `bv show <tool>` to see a tool's declared types, or `bv show <tool> --json` for machine-readable output.
 
+## `[tool.entrypoint]` and `[tool.subcommands]`
+
+Every manifest must declare at least one of these two sections (or both).
+
+### `[tool.entrypoint]` — single-shape tools
+
+Use for tools with one canonical invocation (BLAST, samtools, bcftools). The `command` is what runs as argv[0]; the optional `args_template` interpolates `{port_name}` from typed I/O and `{cpu_cores}`.
+
+```toml
+[tool.entrypoint]
+command = "blastn"
+args_template = "-query {query} -db {db} -out {output} -num_threads {cpu_cores}"
+
+[tool.entrypoint.env]   # optional
+MALLOC_ARENA_MAX = "4"
+```
+
+`bv run <tool>` (no args) runs the entrypoint as-is. `bv run <tool> ...args` appends user args.
+
+### `[tool.subcommands]` — multi-script tools
+
+Use for tools that bundle several scripts (typical for ML repos: genie2 has `train.py` + `sample_unconditional.py` + `sample_scaffold.py`; AlphaFold has `run_alphafold.py` + `run_alphafold_msa.py`; etc.).
+
+Each entry maps a name to the literal argv prefix:
+
+```toml
+[tool.subcommands]
+train                = ["python", "genie/train.py"]
+sample_unconditional = ["python", "genie/sample_unconditional.py"]
+sample_scaffold      = ["python", "genie/sample_scaffold.py"]
+```
+
+Invocation:
+
+```sh
+bv run genie2 train --devices 1 --num_nodes 1 --config runs/example/configuration
+bv run genie2 sample_unconditional --name base --epoch 40 --scale 0.6 --outdir outputs
+```
+
+Everything after the subcommand name is passed to the script verbatim. There is no `args_template` for subcommands — each script has its own argparse.
+
+Subcommand names stay namespaced under the tool id. They do **not** appear in `bv list --binaries`, do not become PATH shims, and cannot collide across tools (two tools may both expose a `train` subcommand without conflict).
+
+If a manifest declares only subcommands (no entrypoint), `bv run <tool>` with no args prints the available subcommand list. If it declares both, the entrypoint runs as the default and subcommands are still selectable by name.
+
+## `[tool.binaries]` (optional)
+
+Real PATH-installed executables that the image exposes. Used for tools where the binary names are conventional and unambiguous (`blastn`, `blastp`, `samtools`, `bcftools`).
+
+```toml
+[tool.binaries]
+exposed = ["blastn", "blastp", "tblastn", "tblastx", "makeblastdb"]
+```
+
+These names get a global shim and entries in the project's binary index, so `bv run blastn -query x.fa` and `blastn -query x.fa` (after `bv shim`) both work. **Do not** use `[tool.binaries]` for generic names like `train` — those belong in `[tool.subcommands]` to avoid cross-tool collision.
+
+If `[tool.binaries]` is omitted, the entrypoint command's basename is the only exposed binary. Multi-script tools with no entrypoint expose no binaries at all.
+
 ## `cache_paths`
 
 Container paths the tool writes to during normal execution and that need writable backing. Critical on apptainer (its SIF root is read-only); useful on docker too because it lets caches persist across `docker rm` invocations.

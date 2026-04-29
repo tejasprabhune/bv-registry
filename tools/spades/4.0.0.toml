@@ -9,7 +9,7 @@ maintainers = ["github:ablab"]
 
 [tool.image]
 backend = "docker"
-reference = "quay.io/biocontainers/spades:4.0.0--h5ef7509_1"
+reference = "quay.io/biocontainers/spades:4.0.0--haf24da9_4"
 
 [tool.hardware]
 cpu_cores = 16

@@ -9,7 +9,7 @@ maintainers = ["github:jenniferlu717"]
 
 [tool.image]
 backend = "docker"
-reference = "quay.io/biocontainers/bracken:2.9--py312hcf5f4e0_1"
+reference = "quay.io/biocontainers/bracken:2.9--py312h28adbb1_1"
 
 [tool.hardware]
 cpu_cores = 2

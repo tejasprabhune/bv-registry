@@ -9,7 +9,7 @@ maintainers = ["github:bwa-mem2"]
 
 [tool.image]
 backend = "docker"
-reference = "quay.io/biocontainers/bwa-mem2:2.2.1--h9a82719_4"
+reference = "quay.io/biocontainers/bwa-mem2:2.2.1--he70b90d_8"
 
 [tool.hardware]
 cpu_cores = 8

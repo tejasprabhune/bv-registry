@@ -9,7 +9,7 @@ maintainers = ["github:hyattpd"]
 
 [tool.image]
 backend = "docker"
-reference = "quay.io/biocontainers/prodigal:2.6.3--hd03093a_5"
+reference = "quay.io/biocontainers/prodigal:2.6.3--h577a1d6_11"
 
 [tool.hardware]
 cpu_cores = 1

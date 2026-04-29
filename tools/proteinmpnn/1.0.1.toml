@@ -9,7 +9,7 @@ maintainers = ["github:dauparas"]
 
 [tool.image]
 backend = "docker"
-reference = "ghcr.io/dauparas/proteinmpnn:v1.0.1"
+reference = "rosettacommons/proteinmpnn:latest"
 
 [tool.hardware]
 cpu_cores = 4

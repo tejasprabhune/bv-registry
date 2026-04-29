@@ -9,7 +9,7 @@ maintainers = ["github:iqtree"]
 
 [tool.image]
 backend = "docker"
-reference = "quay.io/biocontainers/iqtree:2.3.6--h21ec9f0_0"
+reference = "quay.io/biocontainers/iqtree:2.3.6--h503566f_1"
 
 [tool.hardware]
 cpu_cores = 8

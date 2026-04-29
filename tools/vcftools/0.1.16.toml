@@ -9,7 +9,7 @@ maintainers = ["github:vcftools"]
 
 [tool.image]
 backend = "docker"
-reference = "quay.io/biocontainers/vcftools:0.1.16--pl5321h9a82719_7"
+reference = "quay.io/biocontainers/vcftools:0.1.16--pl5321h077b44d_12"
 
 [tool.hardware]
 cpu_cores = 2

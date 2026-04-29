@@ -9,7 +9,7 @@ maintainers = ["github:biobakery"]
 
 [tool.image]
 backend = "docker"
-reference = "quay.io/biocontainers/metaphlan:4.1.1--pyhca03a8a_0"
+reference = "quay.io/biocontainers/metaphlan:4.1.1--pyhdfd78af_0"
 
 [tool.hardware]
 cpu_cores = 8

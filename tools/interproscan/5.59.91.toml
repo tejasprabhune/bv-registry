@@ -1,6 +1,6 @@
 [tool]
 id = "interproscan"
-version = "5.67.99"
+version = "5.59.91"
 description = "InterProScan: functional annotation of proteins by scanning member databases"
 homepage = "https://www.ebi.ac.uk/interpro/search/sequence/"
 license = "Apache-2.0"
@@ -9,7 +9,7 @@ maintainers = ["github:ebi-pf-team"]
 
 [tool.image]
 backend = "docker"
-reference = "quay.io/biocontainers/interproscan:5.67-99.0--pl5321hf1761c0_0"
+reference = "quay.io/biocontainers/interproscan:5.59_91.0--hec16e2b_1"
 
 [tool.hardware]
 cpu_cores = 8

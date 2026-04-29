@@ -9,7 +9,7 @@ maintainers = ["github:BenLangmead"]
 
 [tool.image]
 backend = "docker"
-reference = "quay.io/biocontainers/bowtie2:2.5.4--py39h6fed5c7_0"
+reference = "quay.io/biocontainers/bowtie2:2.5.4--he96a11b_7"
 
 [tool.hardware]
 cpu_cores = 8

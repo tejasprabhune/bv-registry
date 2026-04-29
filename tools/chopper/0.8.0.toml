@@ -9,7 +9,7 @@ maintainers = ["github:wdecoster"]
 
 [tool.image]
 backend = "docker"
-reference = "quay.io/biocontainers/chopper:0.8.0--hb9f3b41_0"
+reference = "quay.io/biocontainers/chopper:0.8.0--hdcf5f25_0"
 
 [tool.hardware]
 cpu_cores = 4

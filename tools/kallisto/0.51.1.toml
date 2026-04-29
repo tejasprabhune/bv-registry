@@ -9,7 +9,7 @@ maintainers = ["github:pachterlab"]
 
 [tool.image]
 backend = "docker"
-reference = "quay.io/biocontainers/kallisto:0.51.1--h5584807_1"
+reference = "quay.io/biocontainers/kallisto:0.51.1--h2b92561_2"
 
 [tool.hardware]
 cpu_cores = 8

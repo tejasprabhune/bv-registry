@@ -1,6 +1,6 @@
 [tool]
 id = "mafft"
-version = "7.526.0"
+version = "7.525.0"
 description = "Multiple sequence alignment using Fast Fourier Transform"
 homepage = "https://mafft.cbrc.jp/alignment/software/"
 license = "BSD-3-Clause"
@@ -9,7 +9,7 @@ maintainers = ["github:GSLBiotech"]
 
 [tool.image]
 backend = "docker"
-reference = "quay.io/biocontainers/mafft:7.526--h031d066_0"
+reference = "quay.io/biocontainers/mafft:7.525--h031d066_1"
 
 [tool.hardware]
 cpu_cores = 4

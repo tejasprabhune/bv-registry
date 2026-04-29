@@ -1,6 +1,6 @@
 [tool]
 id = "bbtools"
-version = "39.6.0"
+version = "39.81.0"
 description = "BBTools: suite of fast, multithreaded bioinformatics tools for DNA/RNA/protein analysis"
 homepage = "https://jgi.doe.gov/data-and-tools/software-tools/bbtools/"
 license = "BSD-3-Clause"
@@ -9,7 +9,7 @@ maintainers = ["github:jgi-doe"]
 
 [tool.image]
 backend = "docker"
-reference = "quay.io/biocontainers/bbtools:39.06--h92535d8_1"
+reference = "quay.io/biocontainers/bbmap:39.81--h9b5c0a0_0"
 
 [tool.hardware]
 cpu_cores = 8
