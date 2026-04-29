@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-29T02:25:30.969331+00:00",
+  "generated_at": "2026-04-29T03:56:28.722521+00:00",
   "tools": [
     {
       "id": "augustus",
@@ -1093,6 +1093,27 @@
       ],
       "output_types": [
         "file"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "tmalign",
+      "version": "20240303",
+      "versions": [
+        "20240303"
+      ],
+      "description": "TM-align sequence-order independent protein structure alignment.",
+      "tier": "community",
+      "maintainers": [],
+      "homepage": "https://github.com/pylelab/USalign",
+      "license": "BSD-like",
+      "input_types": [
+        "pdb",
+        "pdb"
+      ],
+      "output_types": [
+        "file",
+        "pdb"
       ],
       "deprecated": false
     },
