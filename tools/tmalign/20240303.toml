@@ -1,0 +1,55 @@
+# Auto-generated from Bioconda recipe by bv-ingest.
+# Fill in [[tool.inputs]] and [[tool.outputs]] before promoting to bv-registry.
+# Run `bv-ingest promote tmalign 20240303` when ready.
+
+[tool]
+id = "tmalign"
+version = "20240303"
+description = "TM-align sequence-order independent protein structure alignment."
+homepage = "https://github.com/pylelab/USalign"
+license = "BSD-like"
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/tmalign:20240303--hd63eeec_0"
+digest = "sha256:c234ca5adebd43bb94fbc01d5bf9653bca3e017913aa767ae858bffc245ba86e"
+
+[tool.hardware]
+# TODO: update if this tool has known hardware requirements
+cpu_cores = 1
+ram_gb = 2.0
+disk_gb = 1.0
+[[tool.inputs]]
+name = "structure_a"
+type = "pdb"
+cardinality = "one"
+description = "First structure to align"
+
+[[tool.inputs]]
+name = "structure_b"
+type = "pdb"
+cardinality = "one"
+description = "Reference structure"
+
+[[tool.outputs]]
+name = "alignment"
+type = "file"
+cardinality = "one"
+description = "TM-score + aligned residue mapping (text)"
+
+[[tool.outputs]]
+name = "superposition"
+type = "pdb"
+cardinality = "optional"
+description = "Rotated structure_a aligned to structure_b (-o flag)"
+
+[tool.entrypoint]
+# Auto-detected from recipe test commands. Verify this is correct.
+command = "TMalign"
+
+# Auto-detected from recipe test commands. Verify and add any missing binaries.
+[tool.binaries]
+exposed = [
+  "TMalign",
+  "TMscore",
+]
