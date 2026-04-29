@@ -6,6 +6,7 @@ source_urls = [
     "https://card.mcmaster.ca/latest/data",
 ]
 size_bytes = 4620455
+sha256 = "sha256:d80520c51ef3bae1098cd00e0c3d1d013e5785f8d8df787dcc5f435927557df9"
 format = "tar"
 post_download_action = "extract"
 license = "CC-BY 4.0 (McMaster University)"
