@@ -47,6 +47,9 @@ description = "Rotated structure_a aligned to structure_b (-o flag)"
 # Auto-detected from recipe test commands. Verify this is correct.
 command = "TMalign"
 
+[tool.subcommands]
+tmscore = ["TMscore"]
+
 # Auto-detected from recipe test commands. Verify and add any missing binaries.
 [tool.binaries]
 exposed = [
