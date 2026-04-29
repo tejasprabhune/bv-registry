@@ -1,11 +1,11 @@
 [data]
 id = "card"
 version = "3.3.0"
-description = "CARD: Comprehensive Antibiotic Resistance Database; protein and nucleotide sequences of resistance determinants (~500 MB)"
+description = "CARD: Comprehensive Antibiotic Resistance Database; protein and nucleotide sequences of resistance determinants"
 source_urls = [
     "https://card.mcmaster.ca/latest/data",
 ]
-size_bytes = 200000000
+size_bytes = 4620455
 format = "tar"
 post_download_action = "extract"
 license = "CC-BY 4.0 (McMaster University)"

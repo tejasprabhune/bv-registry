@@ -1,11 +1,11 @@
 [data]
 id = "silva-ssu"
 version = "138.1"
-description = "SILVA SSU rRNA database: comprehensive collection of aligned 16S/18S rRNA sequences for taxonomic classification (~7 GB)"
+description = "SILVA SSU rRNA database: comprehensive collection of aligned 16S/18S rRNA sequences for taxonomic classification"
 source_urls = [
     "https://www.arb-silva.de/fileadmin/silva_databases/release_138_1/Exports/SILVA_138.1_SSURef_NR99_tax_silva.fasta.gz",
 ]
-size_bytes = 25000000000
+size_bytes = 197133995
 format = "gz"
 post_download_action = "decompress"
 license = "CC-BY 4.0 (SILVA)"
