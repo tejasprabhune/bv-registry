@@ -26,13 +26,13 @@ required = true
 [tool.subcommands]
 train = [
     "python",
-    "genie/train.py",
+    "/app/genie2/genie/train.py",
 ]
 sample_scaffold = [
     "python",
-    "genie/sample_scaffold.py",
+    "/app/genie2/genie/sample_scaffold.py",
 ]
 sample_unconditional = [
     "python",
-    "genie/sample_unconditional.py",
+    "/app/genie2/genie/sample_unconditional.py",
 ]
