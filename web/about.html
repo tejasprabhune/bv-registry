@@ -86,40 +86,36 @@
   </div>
 
   <div class="about-section">
+    <h2>install</h2>
+<pre class="code-block language-bash"><code class="language-bash">curl -fsSL https://raw.githubusercontent.com/mlberkeley/bv/main/install.sh | sh
+# or: cargo install biov</code></pre>
+    <p style="font-size: 13px; opacity: 0.6; margin-top: 8px;">
+      Runs on Linux and macOS. Windows: use WSL2 with Docker Desktop's WSL2
+      backend; native Windows is not yet supported.
+    </p>
+  </div>
+
+  <div class="about-section">
     <h2>tl;dr</h2>
-<pre class="code-block language-bash"><code class="language-bash"># 1. install a container runtime (pick one)
-curl -fsSL https://get.docker.com/rootless | sh           # docker, on a laptop
-conda install -c conda-forge apptainer                    # apptainer, on HPC
+<pre class="code-block language-bash"><code class="language-bash">bv add blast
+bv exec blastn -query foo.fa -db nr
+git add bv.toml bv.lock     # commit the pin; `bv sync` reproduces anywhere</code></pre>
+  </div>
 
-# 2. install bv
-curl -fsSL https://raw.githubusercontent.com/mlberkeley/bv/main/install.sh | sh
-# or: cargo install biov
+  <div class="about-section">
+    <h2>container runtime</h2>
+    <p>
+      bv shells out to Docker or Apptainer. Install one of them first:
+    </p>
+<pre class="code-block language-bash"><code class="language-bash"># Docker, typical on a laptop
+curl -fsSL https://get.docker.com/rootless | sh
 
-# 3. fold a protein in 3 minutes (needs an NVIDIA GPU)
-mkdir protein-demo && cd protein-demo
-bv add colabfold
-
-cat > fold.py &lt;&lt; 'EOF'
-import subprocess, json, shutil
-from pathlib import Path
-
-Path("trpcage.fasta").write_text("&gt;trp-cage\nNLYIQWLKDGGPSSGRPPPS\n")
-Path("output").mkdir(exist_ok=True)
-
-cmd = ["colabfold_batch"] if shutil.which("colabfold_batch") else ["bv", "run", "colabfold_batch"]
-subprocess.run(cmd + ["--num-recycle", "3", "/workspace/trpcage.fasta", "/workspace/output"], check=True)
-
-scores = sorted(Path("output").glob("*scores*.json"))[0]
-plddt = json.loads(scores.read_text())["plddt"]
-print(f"mean pLDDT: {sum(plddt)/len(plddt):.1f}")
-EOF
-
-bv exec python3 fold.py
-
-# 4. commit and reproduce anywhere
-git add bv.toml bv.lock
-git commit -m "pin analysis environment"
-# on any other machine: `bv sync` pulls the exact same images by digest</code></pre>
+# Apptainer, typical on HPC nodes (no daemon, no root)
+conda install -c conda-forge apptainer</code></pre>
+    <p style="font-size: 13px; opacity: 0.6; margin-top: 8px;">
+      For GPU tools on Docker, install <code>nvidia-container-toolkit</code>.
+      Apptainer uses the host's NVIDIA libraries with <code>--nv</code>.
+    </p>
   </div>
 
   <div class="about-section">
