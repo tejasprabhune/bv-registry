@@ -6,6 +6,7 @@ source_urls = [
     "https://www.arb-silva.de/fileadmin/silva_databases/release_138_1/Exports/SILVA_138.1_SSURef_NR99_tax_silva.fasta.gz",
 ]
 size_bytes = 197133995
+sha256 = "sha256:7078a4e54ee962ca3108e776b8935795c744869e73e24c4718b8b5ff240410d0"
 format = "gz"
 post_download_action = "decompress"
 license = "CC-BY 4.0 (SILVA)"

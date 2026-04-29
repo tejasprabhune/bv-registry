@@ -6,6 +6,7 @@ source_urls = [
     "https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.fasta.gz",
 ]
 size_bytes = 93457057
+sha256 = "sha256:5ba5cb332fc7794ab1c02075a79c8b3d95b573f9b244a38bb53558172e1f9b7b"
 format = "gz"
 post_download_action = "decompress"
 license = "CC-BY 4.0 (UniProt)"
