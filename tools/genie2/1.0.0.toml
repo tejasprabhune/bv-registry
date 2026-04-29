@@ -1,0 +1,38 @@
+[tool]
+id = "genie2"
+version = "1.0.0"
+description = "Designing and Scaffing Proteins at the Scale of the Structural Universe"
+homepage = "https://github.com/aqlaboratory/genie2"
+license = "Apache-2.0"
+tier = "community"
+inputs = []
+outputs = []
+
+[tool.image]
+backend = "docker"
+reference = "ghcr.io/tejasprabhune/genie2:1.0.0"
+digest = "sha256:0e489b76848b0be02cd85d536718f3a6a01e08f5fad303a85109ed8ba0dcf36e"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 16.0
+disk_gb = 10.0
+
+[tool.hardware.gpu]
+required = true
+
+[tool.reference_data]
+
+[tool.subcommands]
+train = [
+    "python",
+    "genie/train.py",
+]
+sample_scaffold = [
+    "python",
+    "genie/sample_scaffold.py",
+]
+sample_unconditional = [
+    "python",
+    "genie/sample_unconditional.py",
+]
