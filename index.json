@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-29T04:02:09.367362+00:00",
+  "generated_at": "2026-04-29T04:19:36.485907+00:00",
   "tools": [
     {
       "id": "augustus",
@@ -152,6 +152,25 @@
       ],
       "output_types": [
         "tabular"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "busco",
+      "version": "6.0.0",
+      "versions": [
+        "6.0.0"
+      ],
+      "description": "Assessment of assembly completeness using Universal Single Copy Orthologs.",
+      "tier": "community",
+      "maintainers": [],
+      "homepage": "https://busco.ezlab.org",
+      "license": "MIT",
+      "input_types": [
+        "fasta"
+      ],
+      "output_types": [
+        "dir"
       ],
       "deprecated": false
     },
