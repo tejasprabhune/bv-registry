@@ -35,6 +35,6 @@ args_template = "--cpu {cpu_cores} -i {proteins} -o {output} -f TSV"
 exposed = [ "interproscan.sh",]
 
 [tool.factored]
-spec_path = "specs/interproscan/5.59.91.yaml"
+spec_path = "specs/interproscan/5.59.91.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/interproscan:5.59.91"
-image_digest = "sha256:48729e3f9d6c562d3c8f4d9aca3f3cb38d566224d40c086f95d1b2f0e0c74d17"
+image_digest = "sha256:3ea19ffbfef4bfc36ab62cb31441f9db86fb2efb5a8af9eb58d3aa7ed527fd2c"
