@@ -5,17 +5,7 @@ description = "Multiple sequence alignment using Fast Fourier Transform"
 homepage = "https://mafft.cbrc.jp/alignment/software/"
 license = "BSD-3-Clause"
 tier = "core"
-maintainers = ["github:GSLBiotech"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/mafft:7.525--h031d066_1"
-
-[tool.hardware]
-cpu_cores = 4
-ram_gb = 4.0
-disk_gb = 1.0
-
+maintainers = [ "github:GSLBiotech",]
 [[tool.inputs]]
 name = "sequences"
 type = "fasta"
@@ -28,12 +18,23 @@ type = "msa"
 cardinality = "one"
 description = "Multiple sequence alignment in FASTA format"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/mafft:7.525--h031d066_1"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 4.0
+disk_gb = 1.0
+
 [tool.entrypoint]
 command = "mafft"
 args_template = "--auto --thread {cpu_cores} --out {alignment} {sequences}"
 
 [tool.binaries]
-exposed = [
-  "mafft", "mafft-linsi", "mafft-ginsi", "mafft-einsi",
-  "mafft-fftnsi", "mafft-fftns", "mafft-nwnsi", "mafft-nwns",
-]
+exposed = [ "mafft", "mafft-linsi", "mafft-ginsi", "mafft-einsi", "mafft-fftnsi", "mafft-fftns", "mafft-nwnsi", "mafft-nwns",]
+
+[tool.factored]
+spec_path = "specs/mafft/7.525.0.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/mafft:7.525.0"
+image_digest = "sha256:2819c19a05c63bfefc7e4bc4b1e327115cfff62518352a7558b7b243ef9256d1"
