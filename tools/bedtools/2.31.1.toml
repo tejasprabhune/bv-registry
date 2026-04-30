@@ -5,17 +5,7 @@ description = "Swiss-army knife for genome arithmetic: intersect, merge, and man
 homepage = "https://bedtools.readthedocs.io/"
 license = "GPL-2.0"
 tier = "core"
-maintainers = ["github:arq5x"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/bedtools:2.31.1--h13024bc_3"
-
-[tool.hardware]
-cpu_cores = 2
-ram_gb = 8.0
-disk_gb = 2.0
-
+maintainers = [ "github:arq5x",]
 [[tool.inputs]]
 name = "a"
 type = "bam"
@@ -34,9 +24,23 @@ type = "file"
 cardinality = "one"
 description = "Genomic interval results"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/bedtools:2.31.1--h13024bc_3"
+
+[tool.hardware]
+cpu_cores = 2
+ram_gb = 8.0
+disk_gb = 2.0
+
 [tool.entrypoint]
 command = "bedtools"
 args_template = "intersect -a {a} -b {b} > {output}"
 
 [tool.binaries]
-exposed = ["bedtools"]
+exposed = [ "bedtools",]
+
+[tool.factored]
+spec_path = "specs/bedtools/2.31.1.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/bedtools:2.31.1"
+image_digest = "sha256:e2c817e57934a3198531e3715499c179e2338cb748026ec2954084c884fece56"
