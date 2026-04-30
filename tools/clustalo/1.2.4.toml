@@ -5,17 +5,7 @@ description = "Clustal Omega: fast and scalable multiple sequence aligner for pr
 homepage = "http://www.clustal.org/omega/"
 license = "GPL-2.0"
 tier = "community"
-maintainers = ["github:GSLBiotech"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/clustalo:1.2.4--h87f3376_5"
-
-[tool.hardware]
-cpu_cores = 4
-ram_gb = 4.0
-disk_gb = 1.0
-
+maintainers = [ "github:GSLBiotech",]
 [[tool.inputs]]
 name = "sequences"
 type = "fasta"
@@ -28,9 +18,23 @@ type = "msa"
 cardinality = "one"
 description = "Multiple sequence alignment"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/clustalo:1.2.4--h87f3376_5"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 4.0
+disk_gb = 1.0
+
 [tool.entrypoint]
 command = "clustalo"
 args_template = "--threads={cpu_cores} -i {sequences} -o {alignment} --outfmt=fa"
 
 [tool.binaries]
-exposed = ["clustalo"]
+exposed = [ "clustalo",]
+
+[tool.factored]
+spec_path = "specs/clustalo/1.2.4.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/clustalo:1.2.4"
+image_digest = "sha256:7710fdd2f17a9d592a691a13fa7f25a8b9d814832e1f049924df633e3c6ec0a0"
