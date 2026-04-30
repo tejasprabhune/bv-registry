@@ -41,6 +41,6 @@ args_template = "-i {genome} -a {proteins} -f gff -o {genes}"
 exposed = [ "prodigal",]
 
 [tool.factored]
-spec_path = "specs/prodigal/2.6.3.yaml"
+spec_path = "specs/prodigal/2.6.3.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/prodigal:2.6.3"
 image_digest = "sha256:9c33dbb6e5dc53224452f39ef0495f45e00e6b8cba73b004384b723b339a5c1b"
