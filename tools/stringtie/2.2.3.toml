@@ -37,4 +37,4 @@ exposed = [ "stringtie",]
 [tool.factored]
 spec_path = "specs/stringtie/2.2.3.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/stringtie:2.2.3"
-image_digest = "sha256:52cf5593d93e465c26ad196b0a68252aaf10f014e00985ee7283a3c3b066af1f"
+image_digest = "sha256:ba72d1e7d5956dff31fcf373be2752408ab289e94021a1fead669a4ff5c3f0d4"
