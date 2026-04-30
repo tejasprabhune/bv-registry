@@ -35,6 +35,6 @@ args_template = "--threads {cpu_cores} --fastq {reads} > {report}"
 exposed = [ "NanoStat",]
 
 [tool.factored]
-spec_path = "specs/nanostat/1.6.0.yaml"
+spec_path = "specs/nanostat/1.6.0.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/nanostat:1.6.0"
-image_digest = "sha256:1d7bc93b09dc0299d57b8cef1ac5eaca5aec090dd115901f5efd4528e55bf813"
+image_digest = "sha256:f5af32172caf21024b696ef0f83ead88d7d22cc86aba82550258adb25b8d1344"
