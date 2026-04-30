@@ -37,4 +37,4 @@ exposed = [ "multiqc",]
 [tool.factored]
 spec_path = "specs/multiqc/1.25.0.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/multiqc:1.25.0"
-image_digest = "sha256:09e73ef524e9e59335f74c84470f25f1154db49cc8a95bcc2ca987cd4b661a8b"
+image_digest = "sha256:29aa437a65bf299cca4dfde8a87ef7f5e24567f333fe0a9d68dc2e666a30ce7f"
