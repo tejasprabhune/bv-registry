@@ -43,4 +43,4 @@ exposed = [ "trim_galore", "cutadapt",]
 [tool.factored]
 spec_path = "specs/trim-galore/0.6.10.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/trim-galore:0.6.10"
-image_digest = "sha256:282a929e1047eb402db4434336533ed687856236716ebd9a4263c29b01338080"
+image_digest = "sha256:47805c52245f8735843e0e46b279fb541a024a1b80a6b2bc2a10b4dbe3c1ce81"
