@@ -53,4 +53,4 @@ exposed = [ "TMalign", "TMscore",]
 [tool.factored]
 spec_path = "specs/tmalign/2024.3.3.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/tmalign:2024.3.3"
-image_digest = "sha256:609d58e67ce7c5dcd212afe631e1ed8dcee3b29c55a753ae1326b3d6047dcf9c"
+image_digest = "sha256:74fac097b3a27babb70912bd4ab964ecae726b309ec07bfa79725486175fc6c7"
