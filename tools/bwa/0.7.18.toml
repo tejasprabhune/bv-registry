@@ -47,6 +47,6 @@ args_template = "mem -t {cpu_cores} {reference} {reads_r1} {reads_r2} > {alignme
 exposed = [ "bwa",]
 
 [tool.factored]
-spec_path = "specs/bwa/0.7.18.yaml"
+spec_path = "specs/bwa/0.7.18.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/bwa:0.7.18"
 image_digest = "sha256:b2fb1a972c5d484a2e20e2c6088211418052f18b18eaef1ba1b9f8708713a95b"
