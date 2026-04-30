@@ -43,4 +43,4 @@ exposed = [ "hisat2", "hisat2-build", "hisat2-inspect",]
 [tool.factored]
 spec_path = "specs/hisat2/2.2.1.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/hisat2:2.2.1"
-image_digest = "sha256:efaf480838002ccbad982b40dfd43fd679bccec5ee44d16e8a3b1cd23b54b642"
+image_digest = "sha256:b51ba11c2290696a58d13e6a6d67e0653538bd8b40a87d948898c181313557ac"
