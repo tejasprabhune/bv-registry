@@ -43,4 +43,4 @@ exposed = [ "mmseqs",]
 [tool.factored]
 spec_path = "specs/mmseqs2/17.0.0.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/mmseqs2:17.0.0"
-image_digest = "sha256:2724e266ae24f90ad8025e3af2ce3423f67419def6b36a54c4b912b0bea4ce45"
+image_digest = "sha256:671f164050ed85ae952b3bbc8592221cf411f1820b2781f43ea611f99c2d659c"
