@@ -35,6 +35,6 @@ args_template = "-s {alignment} -nt {cpu_cores} -bb 1000 -pre {output_prefix}"
 exposed = [ "iqtree2",]
 
 [tool.factored]
-spec_path = "specs/iqtree2/2.3.6.yaml"
+spec_path = "specs/iqtree2/2.3.6.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/iqtree2:2.3.6"
 image_digest = "sha256:4ea4e324205f4cca23f1341fbf34dd349d216af3dd26ac6e904cf5e983a208f8"
