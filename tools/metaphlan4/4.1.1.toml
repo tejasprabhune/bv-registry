@@ -37,4 +37,4 @@ exposed = [ "metaphlan", "merge_metaphlan_tables.py", "strainphlan",]
 [tool.factored]
 spec_path = "specs/metaphlan4/4.1.1.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/metaphlan4:4.1.1"
-image_digest = "sha256:8ff5f6217993b5651b6962002b9ec5731d1113d79b6021d9a9653f945b984b4f"
+image_digest = "sha256:2973dbe3c14c1d5c11b2ac968c7fabc465ab21ad1bdf3cec46c5b6f0f61f075a"
