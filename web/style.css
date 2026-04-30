@@ -75,8 +75,18 @@ header .page-wrap {
   font-size: 13px;
   font-style: italic;
 }
-.header-links a { opacity: 0.55; text-decoration: none; }
+.header-links a {
+  opacity: 0.55;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
+}
 .header-links a:hover { opacity: 1; }
+.header-links a.active {
+  opacity: 1;
+  border-bottom-color: currentColor;
+  pointer-events: none;
+}
 
 /* Prism syntax theme: shared by docs.html and about.html.
    Only token colors live here; surrounding `pre`/`code` boxes are styled per-page. */

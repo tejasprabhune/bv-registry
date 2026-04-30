@@ -54,11 +54,13 @@
 <header>
   <div class="page-wrap">
     <h1 class="site-title">bv</h1>
-    <p class="site-subtitle">a uv-style tool manager for bioinformatics</p>
+    <p class="site-subtitle">a tool manager for bioinformatics</p>
     <div class="header-links">
       <a href="index.html">tools</a>
       <a href="data.html">data</a>
+      <a href="about.html" class="active">about</a>
       <a href="docs.html">docs</a>
+      <a href="design.html">design</a>
       <a href="https://github.com/tejasprabhune/bv">bv repo</a>
       <a href="https://github.com/tejasprabhune/bv-registry">registry repo</a>
     </div>
@@ -68,20 +70,39 @@
 <div class="about-wrap">
 
   <div class="about-section">
-    <h2>what it is</h2>
+    <h2>the problem</h2>
     <p>
-      <code>bv</code> is a tool manager for bioinformatics, written in Rust. It
-      installs tools as OCI containers from a curated registry, pins them to
-      content-addressed digests in <code>bv.lock</code>, and reproduces the
-      pinned environment on any machine via <code>bv sync</code>. The same
-      lockfile works on Docker and on Apptainer.
+      Bioinformatics pipelines fail in predictable ways. Conda environments drift
+      between machines. Pinning a version string (<code>samtools==1.20</code>)
+      means something different three months later when its dependencies change.
+      Docker fixes the runtime environment, but most workflows record only a tag
+      in their config—and tags are mutable.
     </p>
     <p>
-      <code>bv add &lt;tool&gt;</code> writes <code>bv.toml</code>/<code>bv.lock</code>
-      and generates PATH shims under <code>.bv/bin/</code>. <code>bv exec
-      &lt;cmd&gt;</code> runs any command with those shims on PATH, so existing
-      pipelines that call binaries by name (Make, Snakemake, Python
-      <code>subprocess</code>) work without code changes.
+      The result: analyses that ran fine in January produce different output in
+      March, or don't run at all on the HPC cluster because Docker isn't
+      permitted there.
+    </p>
+  </div>
+
+  <div class="about-section">
+    <h2>what bv does</h2>
+    <p>
+      <code>bv</code> records the sha256 manifest digest of every tool in
+      <code>bv.lock</code>. That hash covers the exact image bytes pulled and
+      run—not a tag, not a version string. Commit the lockfile; on any other
+      machine, <code>bv sync</code> reproduces that state by digest or fails loudly.
+    </p>
+    <p>
+      <code>bv add &lt;tool&gt;</code> writes <code>bv.toml</code> and
+      <code>bv.lock</code> and generates PATH shims under <code>.bv/bin/</code>.
+      Existing scripts that call <code>blastn</code> or <code>samtools</code> by
+      name work without modification—no wrappers, no activation step.
+    </p>
+    <p>
+      The same lockfile works on Docker (typical on laptops) and Apptainer
+      (typical on HPC clusters where Docker is not available). Same image, same
+      digest, different runtime.
     </p>
   </div>
 
@@ -105,16 +126,19 @@ git add bv.toml bv.lock     # commit the pin; `bv sync` reproduces anywhere</cod
   <div class="about-section">
     <h2>container runtime</h2>
     <p>
-      bv shells out to Docker or Apptainer. Install one of them first:
+      bv shells out to Docker or Apptainer—install one first:
     </p>
 <pre class="code-block language-bash"><code class="language-bash"># Docker, typical on a laptop
 curl -fsSL https://get.docker.com/rootless | sh
 
-# Apptainer, typical on HPC nodes (no daemon, no root)
+# Apptainer, typical on HPC nodes (no daemon, no root required)
 conda install -c conda-forge apptainer</code></pre>
     <p style="font-size: 13px; opacity: 0.6; margin-top: 8px;">
-      For GPU tools on Docker, install <code>nvidia-container-toolkit</code>.
-      Apptainer uses the host's NVIDIA libraries with <code>--nv</code>.
+      Docker is the simpler choice on a laptop. Apptainer runs without a daemon
+      and doesn't need root—which is why most HPC clusters allow it where Docker
+      is not. For GPU tools on Docker, install
+      <code>nvidia-container-toolkit</code>. Apptainer uses the host's NVIDIA
+      libraries directly with <code>--nv</code>.
     </p>
   </div>
 
@@ -122,6 +146,7 @@ conda install -c conda-forge apptainer</code></pre>
     <h2>links</h2>
     <div class="links-row">
       <a href="index.html">browse the registry</a>
+      <a href="design.html">design decisions</a>
       <a href="https://github.com/tejasprabhune/bv">github.com/tejasprabhune/bv</a>
       <a href="https://github.com/tejasprabhune/bv-registry">github.com/tejasprabhune/bv-registry</a>
     </div>
