@@ -248,6 +248,7 @@
       <li><a href="#dev-commands">dev commands</a></li>
       <li><a href="#adding-command">adding a command</a></li>
       <li><a href="#conformance">conformance (bv-conformance)</a></li>
+      <li><a href="#conformance-sweep">conformance sweep</a></li>
       <li><a href="#bench">benchmark (bv-bench)</a></li>
     </ul>
     <h3>bv-registry</h3>
@@ -335,6 +336,42 @@ bv conformance samtools --digest sha256:abc123...</code></pre>
     <p>The library is in <code>bv-conformance/src/runner.rs</code>. The entry point is <code>runner::run(manifest, image_digest, runtime)</code>, which returns a <code>ConformanceResult</code> with per-binary pass/fail messages.</p>
     <div class="callout">
       The conformance suite also runs in registry CI on every PR that touches <code>tools/**</code>, and on a weekly schedule for the full set of core tools. See <code>.github/workflows/conformance.yml</code> in bv-registry.
+    </div>
+
+    <h3 id="conformance-sweep">conformance sweep</h3>
+    <p>A conformance sweep runs <code>bv conform --all</code> against every tool in the registry to verify that each tool's declared binaries produce correct output. Run a sweep before merging changes that affect many tools, or after a builder upgrade.</p>
+
+    <h4>prerequisites</h4>
+    <ul>
+      <li>Docker running locally</li>
+      <li><code>bv</code> installed and on your PATH</li>
+      <li>The registry cloned locally (only needed if you pass <code>--registry</code>)</li>
+    </ul>
+
+    <h4>running a sweep</h4>
+<pre class="language-bash"><code class="language-bash"># full sweep, skipping GPU-only tools and tools that require reference data
+bv conform --all --skip-gpu --skip-reference-data
+
+# single tool
+bv conform samtools</code></pre>
+
+    <h4>output status codes</h4>
+    <table>
+      <tr><th>status</th><th>meaning</th></tr>
+      <tr><td><code>PASS</code></td><td>all declared binaries responded to at least one probe</td></tr>
+      <tr><td><code>FAIL</code></td><td>one or more binaries did not respond to any probe</td></tr>
+      <tr><td><code>SKIP</code></td><td>tool was excluded by a flag (<code>--skip-gpu</code>, <code>--skip-reference-data</code>) or has no declared binaries</td></tr>
+      <tr><td><code>ERR</code></td><td>the tool's image could not be pulled or the container failed to start</td></tr>
+    </table>
+
+    <h4>when a tool fails</h4>
+    <ol>
+      <li>Check the tool's manifest <code>conformance</code> section to see which binaries are declared and what probes are expected.</li>
+      <li>Rebuild the image using <code>bv-builder</code> or by re-running the <code>build-factored.yml</code> workflow.</li>
+      <li>Re-run <code>bv conform &lt;tool-name&gt;</code> to confirm the fix before opening a PR.</li>
+    </ol>
+    <div class="callout">
+      Conformance must pass for all affected tools before a PR can be merged to the core or community tier. The <code>conformance.yml</code> CI workflow enforces this automatically on every PR that touches <code>tools/**</code>.
     </div>
 
     <h3 id="bench">benchmark (bv-bench)</h3>

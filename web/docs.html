@@ -247,6 +247,8 @@
       <li><a href="#user-commands">core commands</a></li>
       <li><a href="#user-project">bv.toml &amp; bv.lock</a></li>
       <li><a href="#user-caches">caches</a></li>
+      <li><a href="#user-cache-mgmt">cache management</a></li>
+      <li><a href="#user-export">bv export</a></li>
       <li><a href="#user-backends">backends</a></li>
       <li><a href="#user-data">reference data</a></li>
       <li><a href="#user-trouble">troubleshooting</a></li>
@@ -305,15 +307,17 @@ cargo install biov</code></pre>
     <h3 id="user-commands">core commands</h3>
     <table>
       <tr><th>command</th><th>what it does</th></tr>
-      <tr><td><code>bv add &lt;tool&gt;[@ver]</code></td><td>resolve from the registry, pull the image, write <code>bv.toml</code> and <code>bv.lock</code>, generate shims</td></tr>
+      <tr><td><code>bv add &lt;tool&gt;[@ver] [--jobs N]</code></td><td>resolve from the registry, pull the image, write <code>bv.toml</code> and <code>bv.lock</code>, generate shims. <code>--jobs</code> controls concurrent image pulls (default: <code>min(8, num_cpus)</code>); also settable via <code>BV_JOBS</code></td></tr>
       <tr><td><code>bv run &lt;binary&gt; &lt;args&gt;</code></td><td>run a binary inside its container; current directory is mounted at <code>/workspace</code></td></tr>
-      <tr><td><code>bv exec &lt;cmd&gt;</code></td><td>run any command with the project's binaries on PATH (good for scripts, Make, Snakemake, CI)</td></tr>
+      <tr><td><code>bv exec [--no-sync] &lt;cmd&gt;</code></td><td>run any command with the project's binaries on PATH (good for scripts, Make, Snakemake, CI). auto-syncs before running unless <code>--no-sync</code> or <code>BV_EXEC_NO_SYNC=1</code> is set</td></tr>
       <tr><td><code>bv shell</code></td><td>interactive subshell with the project active</td></tr>
-      <tr><td><code>bv sync</code></td><td>pull every image pinned in <code>bv.lock</code> by digest and regenerate shims</td></tr>
+      <tr><td><code>bv sync [--jobs N]</code></td><td>pull every image pinned in <code>bv.lock</code> by digest and regenerate shims. <code>--jobs</code> controls concurrent pulls</td></tr>
       <tr><td><code>bv list [--binaries]</code></td><td>show installed tools, or the binary routing table</td></tr>
       <tr><td><code>bv search &lt;query&gt;</code></td><td>search the registry by name, description, or I/O type</td></tr>
       <tr><td><code>bv show &lt;tool&gt; [--format json|mcp|json-schema]</code></td><td>typed I/O schema and metadata</td></tr>
       <tr><td><code>bv lock [--check]</code></td><td>regenerate <code>bv.lock</code>; <code>--check</code> exits 1 if anything would change</td></tr>
+      <tr><td><code>bv cache size | list | prune</code></td><td>inspect and clean the local bv cache (tool manifests, SIFs, indexes, datasets). see <a href="#user-cache-mgmt">cache management</a></td></tr>
+      <tr><td><code>bv export --format conda [-o file]</code></td><td>emit a conda <code>environment.yml</code> from <code>bv.lock</code> for sharing with conda users. see <a href="#user-export">bv export</a></td></tr>
       <tr><td><code>bv doctor</code></td><td>environment check (runtimes, GPU, project state)</td></tr>
     </table>
 
@@ -332,6 +336,7 @@ id = "hmmer"
 
 [runtime]
 backend = "auto"      # docker | apptainer | auto (default)</code></pre>
+    <p><code>bv exec</code> automatically runs <code>bv sync</code> before the command if the lockfile has drifted (stale images or <code>bv.toml</code> newer than <code>bv.lock</code>), matching <code>uv run</code>-style behavior. Pass <code>--no-sync</code> or set <code>BV_EXEC_NO_SYNC=1</code> to skip this check and run immediately.</p>
     <p>If two tools expose the same binary name, <code>bv lock</code> fails with a clear error. Resolve it with <code>[binary_overrides]</code>:</p>
 <pre class="language-toml"><code class="language-toml">[binary_overrides]
 samtools = "samtools"   # this tool wins for the `samtools` shim</code></pre>
@@ -357,6 +362,48 @@ container_path = "/tmp/scratch"
 host_path = "~/.cache/bv/{tool}/scratch"</code></pre>
     <p>The <code>{tool}</code> token is replaced with the tool id; <code>~</code> expands to <code>$HOME</code>.</p>
 
+    <h3 id="user-cache-mgmt">cache management</h3>
+    <p>bv's local cache holds tool manifests, Apptainer SIF files, registry index clones, and reference datasets. Three subcommands let you inspect and clean it:</p>
+    <table>
+      <tr><th>command</th><th>what it does</th></tr>
+      <tr><td><code>bv cache size</code></td><td>print a per-category breakdown (manifests, SIFs, indexes, datasets, tmp) and total bytes</td></tr>
+      <tr><td><code>bv cache list</code></td><td>tabular view of every cached entry: category, name, size, and path</td></tr>
+      <tr><td><code>bv cache prune [flags]</code></td><td>remove cache entries not referenced by any known <code>bv.lock</code>, then prompt before deleting</td></tr>
+    </table>
+    <p><code>bv cache prune</code> flags:</p>
+    <table>
+      <tr><th>flag</th><th>effect</th></tr>
+      <tr><td><code>--dry-run</code></td><td>print what would be removed without deleting anything</td></tr>
+      <tr><td><code>--yes</code></td><td>skip the confirmation prompt (good for CI/scripts)</td></tr>
+      <tr><td><code>--all</code></td><td>remove everything regardless of reachability (full wipe)</td></tr>
+      <tr><td><code>--keep-recent N</code></td><td>retain the N most recently used unreferenced manifest versions per tool</td></tr>
+    </table>
+    <p>Reachability is computed from the union of <code>bv.lock</code> files bv can find: <code>$PWD/bv.lock</code> plus every <code>bv.lock</code> under directories listed in <code>BV_KNOWN_PROJECTS</code> (colon-separated paths). Tmp entries older than one hour are always swept. Non-default index clones older than 30 days are pruned regardless of reachability. Docker images pulled by bv that are no longer referenced by any lockfile are also offered for removal via <code>docker rmi</code>.</p>
+<pre class="language-bash"><code class="language-bash">bv cache size
+bv cache list
+bv cache prune --dry-run
+bv cache prune --yes
+BV_KNOWN_PROJECTS=/srv/projects/proj1:/srv/projects/proj2 bv cache prune</code></pre>
+
+    <h3 id="user-export">bv export</h3>
+    <p><code>bv export</code> reads <code>bv.lock</code> and produces a conda <code>environment.yml</code> so collaborators who use conda instead of bv can reproduce the same tool versions.</p>
+<pre class="language-bash"><code class="language-bash">bv export --format conda                  # print to stdout
+bv export --format conda -o environment.yml</code></pre>
+    <p>For every tool whose image came from <code>quay.io/biocontainers/*</code>, the YAML lists a pinned <code>bioconda::&lt;name&gt;=&lt;version&gt;</code> dependency. Tools from custom OCI images (e.g. <code>ghcr.io/*</code>) have no conda equivalent; they appear in a comment block at the bottom of the file so you know what to install by hand.</p>
+    <p>example output for a project with blast and a custom image:</p>
+<pre class="language-yaml"><code class="language-yaml">name: myproj
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - bioconda::blast=2.15.0
+  - bioconda::hmmer=3.4
+
+# Tools that have no known conda/bioconda equivalent. These come from
+# custom OCI images and would need to be installed by hand:
+#   - genie2 (image: ghcr.io/tejasprabhune/genie2:1.0.0)</code></pre>
+    <p>only <code>--format conda</code> is supported today; pixi and Dockerfile export are planned.</p>
+
     <h3 id="user-backends">backends</h3>
     <p>bv auto-detects what runtime is available. Pin it explicitly with <code>--backend</code>, the <code>BV_BACKEND</code> env var, or <code>[runtime] backend = "apptainer"</code> in <code>bv.toml</code>.</p>
     <table>
@@ -366,6 +413,8 @@ host_path = "~/.cache/bv/{tool}/scratch"</code></pre>
       <tr><td>image cache</td><td>docker image store</td><td>SIF files in <code>~/.local/share/bv/sif</code></td></tr>
       <tr><td>writable container FS</td><td>yes (upper layer)</td><td>no (use cache mounts)</td></tr>
     </table>
+
+    <p>For <code>ghcr.io</code> images, bv can pull blobs directly via HTTPS instead of going through the Docker Desktop VM. It fetches all layer blobs concurrently, assembles an OCI Image Layout tar in memory, and loads it via <code>docker load</code>. This native pull path requires Docker 28+ and is used automatically when the image registry is <code>ghcr.io</code>. Docker Hub and <code>quay.io</code> images still go through the normal <code>docker pull</code> path. Credentials are read from <code>~/.docker/config.json</code> (credential helpers, <code>credHelpers</code>, and static base64 <code>auths</code> entries are all supported).</p>
 
     <h3 id="user-data">reference data</h3>
     <p>Some tools need large reference databases (<code>kraken2</code>, <code>blast pdbaa</code>, etc.). The manifest declares them; <code>bv add</code> tells you what's needed; <code>bv data fetch</code> downloads.</p>
