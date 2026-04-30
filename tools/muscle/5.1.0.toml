@@ -37,4 +37,4 @@ exposed = [ "muscle",]
 [tool.factored]
 spec_path = "specs/muscle/5.1.0.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/muscle:5.1.0"
-image_digest = "sha256:fa3e6ffb9d4b6ab8d6fd58dd543ab19873e2c9217877a7e78d22525b01310485"
+image_digest = "sha256:cb8036b19562cde076a6adc0fa9906ef61744aa089a232dfa8c31546402d36a4"
