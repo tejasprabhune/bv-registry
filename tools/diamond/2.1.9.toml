@@ -5,17 +5,7 @@ description = "DIAMOND: fast protein/translated DNA alignment against large data
 homepage = "https://github.com/bbuchfink/diamond"
 license = "GPL-3.0"
 tier = "core"
-maintainers = ["github:bbuchfink"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/diamond:2.1.9--h43eeafb_0"
-
-[tool.hardware]
-cpu_cores = 8
-ram_gb = 16.0
-disk_gb = 5.0
-
+maintainers = [ "github:bbuchfink",]
 [[tool.inputs]]
 name = "query"
 type = "fasta"
@@ -34,9 +24,23 @@ type = "blast_tab"
 cardinality = "one"
 description = "Alignment results in tabular format"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/diamond:2.1.9--h43eeafb_0"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 16.0
+disk_gb = 5.0
+
 [tool.entrypoint]
 command = "diamond"
 args_template = "blastp --threads {cpu_cores} --query {query} --db {db} --out {output} --outfmt 6"
 
 [tool.binaries]
-exposed = ["diamond"]
+exposed = [ "diamond",]
+
+[tool.factored]
+spec_path = "specs/diamond/2.1.9.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/diamond:2.1.9"
+image_digest = "sha256:1ad96dc4bc15dd4e8f488388d0371a396c0e051583b3f0316834b33bb54228fe"
