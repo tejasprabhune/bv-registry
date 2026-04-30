@@ -1,6 +1,6 @@
 # bv-registry
 
-The default tool registry for [bv](https://github.com/mlberkeley/bv).
+The default tool registry for [bv](https://github.com/tejasprabhune/bv).
 
 ## Structure
 

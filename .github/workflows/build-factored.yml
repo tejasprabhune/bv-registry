@@ -1,0 +1,164 @@
+name: Build Factored OCI Images
+
+on:
+  push:
+    paths:
+      - 'specs/**/*.yaml'
+  workflow_dispatch:
+    inputs:
+      spec:
+        description: 'Spec path to rebuild (e.g. specs/samtools/1.19.2.yaml)'
+        required: false
+
+jobs:
+  detect-changed:
+    name: Detect changed specs
+    runs-on: ubuntu-latest
+    outputs:
+      specs: ${{ steps.changed.outputs.specs }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Find changed spec files
+        id: changed
+        run: |
+          if [ -n "${{ github.event.inputs.spec }}" ]; then
+            SPECS='["${{ github.event.inputs.spec }}"]'
+          else
+            SPECS=$(git diff --name-only HEAD~1 HEAD -- 'specs/**/*.yaml' \
+              | jq -R . | jq -cs .)
+          fi
+          echo "specs=$SPECS" >> "$GITHUB_OUTPUT"
+
+  build:
+    name: Build ${{ matrix.spec }}
+    needs: detect-changed
+    if: ${{ needs.detect-changed.outputs.specs != '[]' && needs.detect-changed.outputs.specs != '' }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        spec: ${{ fromJson(needs.detect-changed.outputs.specs) }}
+      fail-fast: false
+
+    permissions:
+      contents: write
+      packages: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Build bv-builder
+        working-directory: ../bv
+        run: cargo build --release -p bv-builder
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Resolve spec
+        id: resolve
+        run: |
+          ../bv/target/release/bv-builder resolve "${{ matrix.spec }}" \
+            --out /tmp/resolved.json
+          echo "packages=$(jq '.packages | length' /tmp/resolved.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Build factored image
+        id: build
+        run: |
+          ../bv/target/release/bv-builder build "${{ matrix.spec }}" \
+            --output /tmp/image.tar
+          echo "Resolved ${{ steps.resolve.outputs.packages }} packages"
+
+      - name: Push image
+        id: push
+        run: |
+          # Derive registry reference from spec path:
+          # specs/samtools/1.19.2.yaml -> ghcr.io/tejasprabhune/bv-pkg/samtools:1.19.2
+          SPEC="${{ matrix.spec }}"
+          NAME=$(basename $(dirname $SPEC))
+          VERSION=$(basename $SPEC .yaml)
+          REF="ghcr.io/${{ github.repository_owner }}/bv-pkg/${NAME}:${VERSION}"
+          ../bv/target/release/bv-builder push /tmp/image.tar "$REF"
+          DIGEST=$(cat /tmp/push-digest.txt 2>/dev/null || echo "unknown")
+          echo "ref=$REF" >> "$GITHUB_OUTPUT"
+          echo "digest=$DIGEST" >> "$GITHUB_OUTPUT"
+
+      - name: Verify pushed image
+        if: steps.push.outputs.digest != 'unknown'
+        run: |
+          ../bv/target/release/bv-builder verify \
+            "${{ steps.push.outputs.ref }}@${{ steps.push.outputs.digest }}" \
+            --digest "${{ steps.push.outputs.digest }}"
+
+      - name: Update manifest TOML with factored digest
+        run: |
+          SPEC="${{ matrix.spec }}"
+          NAME=$(basename $(dirname $SPEC))
+          VERSION=$(basename $SPEC .yaml)
+          MANIFEST_PATH="tools/${NAME}/${VERSION}.toml"
+
+          if [ -f "$MANIFEST_PATH" ]; then
+            python3 - <<'EOF'
+import sys, toml, json, os
+
+name = os.environ.get('NAME', '')
+version = os.environ.get('VERSION', '')
+manifest_path = os.environ.get('MANIFEST_PATH', '')
+ref = os.environ.get('REF', '')
+digest = os.environ.get('DIGEST', '')
+
+with open(manifest_path) as f:
+    data = toml.load(f)
+
+data['tool'].setdefault('factored', {})
+data['tool']['factored']['spec_path'] = f'specs/{name}/{version}.yaml'
+data['tool']['factored']['image_reference'] = ref
+data['tool']['factored']['image_digest'] = digest
+
+with open(manifest_path, 'w') as f:
+    toml.dump(data, f)
+
+print(f"Updated {manifest_path}")
+EOF
+          fi
+        env:
+          NAME: ${{ steps.push.outputs.ref && (matrix.spec | split('/') | nth(1)) || '' }}
+          VERSION: ${{ matrix.spec }}
+          MANIFEST_PATH: ${{ matrix.spec }}
+          REF: ${{ steps.push.outputs.ref }}
+          DIGEST: ${{ steps.push.outputs.digest }}
+
+      - name: Comment on PR with image stats
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## Factored build: \`${{ matrix.spec }}\`
+
+              - **Reference:** \`${{ steps.push.outputs.ref }}\`
+              - **Digest:** \`${{ steps.push.outputs.digest }}\`
+              - **Packages resolved:** ${{ steps.resolve.outputs.packages }}
+              - **Verification:** passed`
+            })

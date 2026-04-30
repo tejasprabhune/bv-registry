@@ -228,8 +228,8 @@
       <a href="index.html">tools</a>
       <a href="data.html">data</a>
       <a href="about.html">about</a>
-      <a href="https://github.com/mlberkeley/bv">bv repo</a>
-      <a href="https://github.com/mlberkeley/bv-registry">registry repo</a>
+      <a href="https://github.com/tejasprabhune/bv">bv repo</a>
+      <a href="https://github.com/tejasprabhune/bv-registry">registry repo</a>
     </div>
   </div>
 </header>
@@ -278,7 +278,7 @@ curl -fsSL https://get.docker.com/rootless | sh        # docker, on a laptop
 conda install -c conda-forge apptainer                 # apptainer, on HPC
 
 # 2. install bv
-curl -fsSL https://raw.githubusercontent.com/mlberkeley/bv/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/tejasprabhune/bv/main/install.sh | sh
 
 # 3. add a tool, call its binary, commit the lockfile
 mkdir myproj &amp;&amp; cd myproj
@@ -294,7 +294,7 @@ bv sync</code></pre>
     <p><strong>Docker</strong> is typical on a laptop. Use the rootless installer when you can; on a GPU box install <code>nvidia-container-toolkit</code> too.</p>
     <p><strong>Apptainer</strong> is typical on shared HPC nodes since it does not need a daemon or root. Install with conda: <code>conda install -c conda-forge apptainer</code>.</p>
     <p>Then install bv itself:</p>
-<pre class="language-bash"><code class="language-bash">curl -fsSL https://raw.githubusercontent.com/mlberkeley/bv/main/install.sh | sh
+<pre class="language-bash"><code class="language-bash">curl -fsSL https://raw.githubusercontent.com/tejasprabhune/bv/main/install.sh | sh
 # or, with cargo:
 cargo install biov</code></pre>
     <p>Verify with <code>bv doctor</code>, which prints the runtimes it can see and any missing pieces.</p>
@@ -391,7 +391,7 @@ bv publish github:user/repo@v1.0.0
 # bv builds the image, pushes to ghcr, and opens a PR to bv-registry.</code></pre>
 
     <h3 id="pub-schema">manifest schema</h3>
-    <p>A manifest lives at <code>tools/&lt;id&gt;/&lt;version&gt;.toml</code> in <a href="https://github.com/mlberkeley/bv-registry">bv-registry</a>. The full reference is in <a href="https://github.com/mlberkeley/bv-registry/blob/main/SCHEMA.md">SCHEMA.md</a>; below is the cheat sheet.</p>
+    <p>A manifest lives at <code>tools/&lt;id&gt;/&lt;version&gt;.toml</code> in <a href="https://github.com/tejasprabhune/bv-registry">bv-registry</a>. The full reference is in <a href="https://github.com/tejasprabhune/bv-registry/blob/main/SCHEMA.md">SCHEMA.md</a>; below is the cheat sheet.</p>
 <pre class="language-toml"><code class="language-toml">[tool]
 id          = "colabfold"
 version     = "1.6.0"
@@ -486,7 +486,7 @@ bv publish . --no-push --no-pr           # dry run: build, print manifest, exit<
     <ol>
       <li><strong>image</strong>: built and pushed to <code>ghcr.io/&lt;your-github-username&gt;/&lt;tool&gt;:&lt;version&gt;</code> by default, so you don't need write access to any shared org: a normal GitHub token (with <code>write:packages</code> scope) is enough. Override the namespace with <code>--push-to &lt;org&gt;</code> if you want to push somewhere else, like a lab-shared GHCR org. <code>bv</code> logs in to GHCR with your <code>GHCR_TOKEN</code>, falling back to <code>GITHUB_TOKEN</code>. Multi-arch builds use <code>--platform</code>.</li>
       <li><strong>digest</strong>: resolved by <code>docker manifest inspect</code> immediately after the push and embedded in the manifest <code>[tool.image].digest</code> for reproducibility.</li>
-      <li><strong>registry PR</strong>: a new branch <code>add-&lt;tool&gt;-&lt;version&gt;</code> is opened against <code>mlberkeley/bv-registry</code> (override with <code>--registry-repo owner/repo</code>), adding <code>tools/&lt;tool&gt;/&lt;version&gt;.toml</code>. The PR body links back to your source URL (the local path or <code>github.com/owner/repo</code>).</li>
+      <li><strong>registry PR</strong>: a new branch <code>add-&lt;tool&gt;-&lt;version&gt;</code> is opened against <code>tejasprabhune/bv-registry</code> (override with <code>--registry-repo owner/repo</code>), adding <code>tools/&lt;tool&gt;/&lt;version&gt;.toml</code>. The PR body links back to your source URL (the local path or <code>github.com/owner/repo</code>).</li>
     </ol>
     <p>Skip stages with flags: <code>--no-push</code> stops after building (manifest is printed; no GHCR write); <code>--no-pr</code> pushes the image but doesn't open the PR; passing both is a useful dry run.</p>
 
@@ -496,7 +496,7 @@ bv publish . --no-push --no-pr           # dry run: build, print manifest, exit<
     types: [published]
 jobs:
   publish:
-    uses: mlberkeley/bv/.github/workflows/bv-publish.yml@main
+    uses: tejasprabhune/bv/.github/workflows/bv-publish.yml@main
     with:
       tool-name: my-tool
     secrets:
@@ -525,7 +525,7 @@ skip = ["server-daemon"]</code></pre>
       <tr><td><code>community</code></td><td>typed I/O present, conformance passes, manifest valid. Default for new submissions.</td></tr>
       <tr><td><code>core</code></td><td>actively maintained, recognized publisher, runs on docker and apptainer, conformance passes on both.</td></tr>
     </table>
-    <p>Promotion is a separate PR by a registry maintainer. See <a href="https://github.com/mlberkeley/bv-registry/blob/main/GOVERNANCE.md">GOVERNANCE.md</a> for the full criteria.</p>
+    <p>Promotion is a separate PR by a registry maintainer. See <a href="https://github.com/tejasprabhune/bv-registry/blob/main/GOVERNANCE.md">GOVERNANCE.md</a> for the full criteria.</p>
 
     <h3 id="pub-versions">new versions</h3>
     <p>One file per version. Add <code>tools/&lt;id&gt;/&lt;newver&gt;.toml</code>; do not edit the old one. The website and <code>bv search</code> surface the latest available version per tool by default; users can request older versions explicitly with <code>bv add &lt;tool&gt;@&lt;ver&gt;</code>.</p>
@@ -544,10 +544,10 @@ bv-ingest review --staging-dir ./bv-registry-staging
 bv-ingest promote samtools 1.20 --staging-dir ./bv-registry-staging</code></pre>
 
     <h3 id="m-pipeline">the pipeline</h3>
-    <p><a href="https://github.com/mlberkeley/bv-ingest">bv-ingest</a> turns Bioconda recipes into draft manifests so the registry stays current without manual scraping. Two repos cooperate:</p>
+    <p><a href="https://github.com/tejasprabhune/bv-ingest">bv-ingest</a> turns Bioconda recipes into draft manifests so the registry stays current without manual scraping. Two repos cooperate:</p>
     <ul>
-      <li><a href="https://github.com/mlberkeley/bv-registry-staging">bv-registry-staging</a> : auto-generated drafts. Manifests start in <code>community</code> tier without typed I/O. PRs land here automatically.</li>
-      <li><a href="https://github.com/mlberkeley/bv-registry">bv-registry</a> : the live registry users pull from. Tools graduate here only after a maintainer reviews and promotes them.</li>
+      <li><a href="https://github.com/tejasprabhune/bv-registry-staging">bv-registry-staging</a> : auto-generated drafts. Manifests start in <code>community</code> tier without typed I/O. PRs land here automatically.</li>
+      <li><a href="https://github.com/tejasprabhune/bv-registry">bv-registry</a> : the live registry users pull from. Tools graduate here only after a maintainer reviews and promotes them.</li>
     </ul>
     <p>End-to-end:</p>
     <ol>
@@ -568,8 +568,8 @@ bv-ingest promote samtools 1.20 --staging-dir ./bv-registry-staging</code></pre>
       <tr><td><code>bv-ingest status --staging-dir &lt;path&gt;</code></td><td>count of staged, reviewed, and promoted manifests.</td></tr>
     </table>
     <p>Common env vars:</p>
-<pre class="language-bash"><code class="language-bash">BV_STAGING_REPO   = "mlberkeley/bv-registry-staging"
-BV_REGISTRY_REPO  = "mlberkeley/bv-registry"
+<pre class="language-bash"><code class="language-bash">BV_STAGING_REPO   = "tejasprabhune/bv-registry-staging"
+BV_REGISTRY_REPO  = "tejasprabhune/bv-registry"
 BV_BIOCONDA_CACHE = "/var/tmp/bioconda-recipes"   # local clone, optional
 GITHUB_TOKEN      = ...                            # falls back to `gh auth token`</code></pre>
 

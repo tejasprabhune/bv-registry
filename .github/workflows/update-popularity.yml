@@ -1,0 +1,55 @@
+name: Update Package Popularity
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  update:
+    name: Recompute popularity.json
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Build bv-builder
+        working-directory: ../bv
+        run: cargo build --release -p bv-builder
+
+      - name: Recompute popularity
+        run: |
+          ../bv/target/release/bv-builder pack specs/ --output popularity.json
+          echo "Top 20 packages:"
+          jq -r '.packages | to_entries | sort_by(-.value) | .[0:20] | .[] | "\(.value)\t\(.key)"' popularity.json
+
+      - name: Open PR if popularity changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: update popularity.json"
+          title: "chore: update package popularity rankings"
+          body: |
+            Automated nightly update of `popularity.json` from `bv-builder pack`.
+
+            This file drives which packages get their own OCI layer vs. the
+            shared long-tail layer in `bv-builder build --popularity`.
+          branch: auto/popularity-update
+          delete-branch: true
+          add-paths: popularity.json

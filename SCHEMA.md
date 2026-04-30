@@ -20,6 +20,26 @@ backend = "docker"
 reference = "ncbi/blast:2.15.0"
 digest = "sha256:..."   # optional; pinned at lock time
 
+# Optional: factored OCI image built by bv-builder.
+# When present, clients that support factored images pull at layer granularity.
+# Older clients fall back to [tool.image] transparently.
+[tool.factored]
+spec_path = "specs/blast/2.15.0.yaml"        # bv-builder spec used to build this
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/blast:2.15.0"
+image_digest = "sha256:..."                   # locked at build time
+repodata_snapshot_digest = "sha256:..."       # OCI referrer artifact digest
+
+[[tool.factored.layers]]
+digest = "sha256:..."
+size = 10485760
+media_type = "application/vnd.oci.image.layer.v1.tar+zstd"
+[tool.factored.layers.conda_package]
+name = "openssl"
+version = "3.2.1"
+build = "h0d4d230_0"
+channel = "conda-forge"
+sha256 = "abcdef1234..."
+
 [tool.hardware]
 cpu_cores = 4
 ram_gb = 8.0
