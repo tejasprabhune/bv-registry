@@ -41,6 +41,6 @@ args_template = "quant --threads {cpu_cores} -i /workspace/index.idx -o {quant_d
 exposed = [ "kallisto",]
 
 [tool.factored]
-spec_path = "specs/kallisto/0.51.1.yaml"
+spec_path = "specs/kallisto/0.51.1.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/kallisto:0.51.1"
-image_digest = "sha256:96fa4605c6c7db4e47dd72ec66ef7b0b28b202f3a30ae883cec20d7999a3a76d"
+image_digest = "sha256:a53e511e4585721381d3b22bea205bf360ae06faefa3710756be34a5c3649356"
