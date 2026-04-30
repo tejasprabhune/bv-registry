@@ -1,27 +1,9 @@
-# Auto-generated from Bioconda recipe by bv-ingest.
-# Fill in [[tool.inputs]] and [[tool.outputs]] before promoting to bv-registry.
-# Run `bv-ingest promote tmalign 20240303` when ready.
-
 [tool]
 id = "tmalign"
 version = "2024.3.3"
 description = "TM-align sequence-order independent protein structure alignment."
 homepage = "https://github.com/pylelab/USalign"
 license = "BSD-like"
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/tmalign:20240303--hd63eeec_0"
-digest = "sha256:c234ca5adebd43bb94fbc01d5bf9653bca3e017913aa767ae858bffc245ba86e"
-
-[tool.metadata]
-upstream_version = "20240303"
-
-[tool.hardware]
-# TODO: update if this tool has known hardware requirements
-cpu_cores = 1
-ram_gb = 2.0
-disk_gb = 1.0
 [[tool.inputs]]
 name = "structure_a"
 type = "pdb"
@@ -46,16 +28,29 @@ type = "pdb"
 cardinality = "optional"
 description = "Rotated structure_a aligned to structure_b (-o flag)"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/tmalign:20240303--hd63eeec_0"
+digest = "sha256:c234ca5adebd43bb94fbc01d5bf9653bca3e017913aa767ae858bffc245ba86e"
+
+[tool.metadata]
+upstream_version = "20240303"
+
+[tool.hardware]
+cpu_cores = 1
+ram_gb = 2.0
+disk_gb = 1.0
+
 [tool.entrypoint]
-# Auto-detected from recipe test commands. Verify this is correct.
 command = "TMalign"
 
 [tool.subcommands]
-tmscore = ["TMscore"]
+tmscore = [ "TMscore",]
 
-# Auto-detected from recipe test commands. Verify and add any missing binaries.
 [tool.binaries]
-exposed = [
-  "TMalign",
-  "TMscore",
-]
+exposed = [ "TMalign", "TMscore",]
+
+[tool.factored]
+spec_path = "specs/tmalign/2024.3.3.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/tmalign:2024.3.3"
+image_digest = "sha256:7b69267c473dd742b57fc6999c45dea3cc2ce0cd1d56441e26b707229591a5c0"
