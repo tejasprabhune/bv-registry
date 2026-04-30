@@ -49,4 +49,4 @@ exposed = [ "bwa-mem2",]
 [tool.factored]
 spec_path = "specs/bwa-mem2/2.2.1.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/bwa-mem2:2.2.1"
-image_digest = "sha256:5f6178abac77eddb09ba7766ec1abf0a42d72e2346eb54fac8ef74d6132d0652"
+image_digest = "sha256:eba0142b1aadfe8c88fffd0b6b0c70b674176840926125f405ddef27257fa2be"
