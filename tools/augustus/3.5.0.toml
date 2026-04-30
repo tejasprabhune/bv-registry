@@ -35,6 +35,6 @@ args_template = "--species=human --gff3=on {genome} > {predictions}"
 exposed = [ "augustus", "etraining", "fastBlockSearch", "filterBam", "prepareAlign",]
 
 [tool.factored]
-spec_path = "specs/augustus/3.5.0.yaml"
+spec_path = "specs/augustus/3.5.0.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/augustus:3.5.0"
-image_digest = "sha256:5bf3438859dce5052b67dc058389bd414ad11be8c615b3cc365287082353391c"
+image_digest = "sha256:ed91e411c62b17ea95634f39becfdd936b481f8c2345e851551139380552a75d"
