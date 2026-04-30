@@ -37,4 +37,4 @@ exposed = [ "interproscan.sh",]
 [tool.factored]
 spec_path = "specs/interproscan/5.59.91.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/interproscan:5.59.91"
-image_digest = "sha256:d58fd21be828bd694fc96d72db3c47b6b76a308be28290a5616deabb50a042bf"
+image_digest = "sha256:e2da86b893767f30feed8a90a66577c0cc21780f52f7743db82f34366608cec0"
