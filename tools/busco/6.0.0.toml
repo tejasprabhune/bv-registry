@@ -35,4 +35,4 @@ exposed = [ "busco",]
 [tool.factored]
 spec_path = "specs/busco/6.0.0.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/busco:6.0.0"
-image_digest = "sha256:38b16e505fd0c0fd00797ec4c24e4990accb64decc1a75b1fc6c45d257991305"
+image_digest = "sha256:19716c243786355869f5d1e1b464826de73088cd96d7ce902cc552edf8285644"
