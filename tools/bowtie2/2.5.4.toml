@@ -5,17 +5,7 @@ description = "Fast and sensitive read alignment for short reads to long referen
 homepage = "https://bowtie-bio.sourceforge.net/bowtie2/"
 license = "GPL-3.0"
 tier = "core"
-maintainers = ["github:BenLangmead"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/bowtie2:2.5.4--he96a11b_7"
-
-[tool.hardware]
-cpu_cores = 8
-ram_gb = 8.0
-disk_gb = 5.0
-
+maintainers = [ "github:BenLangmead",]
 [[tool.inputs]]
 name = "reads_r1"
 type = "fastq"
@@ -34,9 +24,23 @@ type = "sam"
 cardinality = "one"
 description = "Aligned reads in SAM format"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/bowtie2:2.5.4--he96a11b_7"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 8.0
+disk_gb = 5.0
+
 [tool.entrypoint]
 command = "bowtie2"
 args_template = "-p {cpu_cores} -x /workspace/index -1 {reads_r1} -2 {reads_r2} -S {alignment}"
 
 [tool.binaries]
-exposed = ["bowtie2", "bowtie2-build", "bowtie2-inspect"]
+exposed = [ "bowtie2", "bowtie2-build", "bowtie2-inspect",]
+
+[tool.factored]
+spec_path = "specs/bowtie2/2.5.4.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/bowtie2:2.5.4"
+image_digest = "sha256:233d6f9bf770db888d729b71678083e8588a5dc55c2352bf76c08f19380b0afb"
