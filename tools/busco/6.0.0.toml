@@ -1,24 +1,9 @@
-# Auto-generated from Bioconda recipe by bv-ingest.
-# Fill in [[tool.inputs]] and [[tool.outputs]] before promoting to bv-registry.
-# Run `bv-ingest promote busco 6.0.0` when ready.
-
 [tool]
 id = "busco"
 version = "6.0.0"
 description = "Assessment of assembly completeness using Universal Single Copy Orthologs."
 homepage = "https://busco.ezlab.org"
 license = "MIT"
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/busco:6.0.0--pyhdfd78af_3"
-digest = "sha256:9450959bc503533acf604c514712b9fd5944f9a277ef13c6026e9f4e188147cf"
-
-[tool.hardware]
-# TODO: update if this tool has known hardware requirements
-cpu_cores = 1
-ram_gb = 2.0
-disk_gb = 1.0
 [[tool.inputs]]
 name = "sequences"
 type = "fasta"
@@ -31,12 +16,23 @@ type = "dir"
 cardinality = "one"
 description = "BUSCO output dir (short_summary.txt, full_table.tsv, missing_busco_list.tsv, run_*/)"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/busco:6.0.0--pyhdfd78af_3"
+digest = "sha256:9450959bc503533acf604c514712b9fd5944f9a277ef13c6026e9f4e188147cf"
+
+[tool.hardware]
+cpu_cores = 1
+ram_gb = 2.0
+disk_gb = 1.0
+
 [tool.entrypoint]
-# Auto-detected from recipe test commands. Verify this is correct.
 command = "busco"
 
-# Auto-detected from recipe test commands. Verify and add any missing binaries.
 [tool.binaries]
-exposed = [
-  "busco",
-]
+exposed = [ "busco",]
+
+[tool.factored]
+spec_path = "specs/busco/6.0.0.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/busco:6.0.0"
+image_digest = "sha256:875e6d183f8f70203b25c705237779876d548ed5861df78c05578085ad95797b"
