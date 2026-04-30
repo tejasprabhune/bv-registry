@@ -41,6 +41,6 @@ args_template = "easy-search {query} {db} {output} tmp --threads {cpu_cores}"
 exposed = [ "mmseqs",]
 
 [tool.factored]
-spec_path = "specs/mmseqs2/17.0.0.yaml"
+spec_path = "specs/mmseqs2/17.0.0.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/mmseqs2:17.0.0"
-image_digest = "sha256:8fed8ea11eae65877f6aa085155ea55df2581e5fc308783e4c2022cd7a07f952"
+image_digest = "sha256:5b62ddb894b0d4e5097beff4de3b3a3f9eb0dfd96cde87246284e4399ef314f6"
