@@ -4,18 +4,8 @@ version = "3.3.2"
 description = "HMMER: biosequence analysis using profile hidden Markov models"
 homepage = "http://hmmer.org/"
 tier = "core"
-maintainers = ["github:EddyRivasLab"]
+maintainers = [ "github:EddyRivasLab",]
 license = "BSD-3-Clause"
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/hmmer:3.3.2--h87f3376_2"
-
-[tool.hardware]
-cpu_cores = 4
-ram_gb = 4.0
-disk_gb = 1.0
-
 [[tool.inputs]]
 name = "query"
 type = "hmm_profile"
@@ -34,13 +24,23 @@ type = "hmmer_output"
 cardinality = "one"
 description = "HMMER search results"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/hmmer:3.3.2--h87f3376_2"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 4.0
+disk_gb = 1.0
+
 [tool.entrypoint]
 command = "hmmsearch"
 args_template = "--cpu {cpu_cores} {query} {db}"
 
 [tool.binaries]
-exposed = [
-  "hmmbuild", "hmmsearch", "hmmscan", "hmmalign",
-  "hmmpress", "jackhmmer", "phmmer",
-  "hmmconvert", "hmmemit", "hmmfetch", "hmmstat",
-]
+exposed = [ "hmmbuild", "hmmsearch", "hmmscan", "hmmalign", "hmmpress", "jackhmmer", "phmmer", "hmmconvert", "hmmemit", "hmmfetch", "hmmstat",]
+
+[tool.factored]
+spec_path = "specs/hmmer/3.3.2.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/hmmer:3.3.2"
+image_digest = "sha256:5d0df26d3217fad897a9541e1a4cfd48e6d416ed1d28de5b164c71916719b804"
