@@ -5,17 +5,7 @@ description = "Fast sequence alignment for long reads (PacBio, Oxford Nanopore) 
 homepage = "https://github.com/lh3/minimap2"
 license = "MIT"
 tier = "core"
-maintainers = ["github:lh3"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/minimap2:2.28--he4a0461_3"
-
-[tool.hardware]
-cpu_cores = 8
-ram_gb = 16.0
-disk_gb = 5.0
-
+maintainers = [ "github:lh3",]
 [[tool.inputs]]
 name = "reads"
 type = "fastq"
@@ -34,9 +24,23 @@ type = "sam"
 cardinality = "one"
 description = "Alignment in SAM format"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/minimap2:2.28--he4a0461_3"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 16.0
+disk_gb = 5.0
+
 [tool.entrypoint]
 command = "minimap2"
 args_template = "-ax map-ont -t {cpu_cores} {reference} {reads} > {alignment}"
 
 [tool.binaries]
-exposed = ["minimap2"]
+exposed = [ "minimap2",]
+
+[tool.factored]
+spec_path = "specs/minimap2/2.28.0.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/minimap2:2.28.0"
+image_digest = "sha256:d4d3ecbd09bdb853276e5adaca497cd2b3e2d73c168521261f7cc3c451b7a0b0"
