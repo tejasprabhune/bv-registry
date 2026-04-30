@@ -43,4 +43,4 @@ exposed = [ "bedtools",]
 [tool.factored]
 spec_path = "specs/bedtools/2.31.1.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/bedtools:2.31.1"
-image_digest = "sha256:04dd366554ff099d1060f4e42ec9ad5ed2bd8f59a116799b12133606edc1c4ea"
+image_digest = "sha256:85cfa357e7958ea806c7a9cc8551926b4721c4b41afb7abfe5e1e02a76b63556"
