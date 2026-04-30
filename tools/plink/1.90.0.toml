@@ -35,6 +35,6 @@ args_template = "--vcf {vcf} --out {output_prefix} --make-bed --threads {cpu_cor
 exposed = [ "plink",]
 
 [tool.factored]
-spec_path = "specs/plink/1.90.0.yaml"
+spec_path = "specs/plink/1.90.0.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/plink:1.90.0"
 image_digest = "sha256:e81c27822766ce4f0475dbccc91e11da979933fbffceb5740fc4e9c40dc9a4dc"
