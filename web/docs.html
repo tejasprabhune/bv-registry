@@ -239,14 +239,7 @@
 <div class="docs-shell">
 
   <aside class="toc">
-    <h3>How it works</h3>
-    <ul>
-      <li><a href="#how-resolution">resolution</a></li>
-      <li><a href="#how-images">image construction</a></li>
-      <li><a href="#how-sharing">layer sharing</a></li>
-      <li><a href="#how-lockfile">lockfile pinning</a></li>
-    </ul>
-    <h3>End user</h3>
+    <h3>end user</h3>
     <ul>
       <li><a href="#user-tldr">tl;dr</a></li>
       <li><a href="#user-install">install</a></li>
@@ -257,7 +250,7 @@
       <li><a href="#user-data">reference data</a></li>
       <li><a href="#user-trouble">troubleshooting</a></li>
     </ul>
-    <h3>Publisher</h3>
+    <h3>publisher</h3>
     <ul>
       <li><a href="#pub-tldr">tl;dr</a></li>
       <li><a href="#pub-schema">manifest schema</a></li>
@@ -266,7 +259,7 @@
       <li><a href="#pub-tiers">tiers</a></li>
       <li><a href="#pub-versions">new versions</a></li>
     </ul>
-    <h3>Maintainer</h3>
+    <h3>maintainer</h3>
     <ul>
       <li><a href="#m-tldr">tl;dr</a></li>
       <li><a href="#m-pipeline">pipeline</a></li>
@@ -278,28 +271,7 @@
 
   <main class="doc">
 
-    <h2 id="how-it-works">How it works</h2>
-    <span class="audience-tag">dependency resolution and reproducibility</span>
-
-    <h3 id="how-resolution">resolution</h3>
-    <p>When you run <code>bv add samtools</code>, bv fetches the manifest from the registry. For tools backed by factored images, the manifest points to a build spec: a list of conda packages, channels, and a target platform.</p>
-    <p><code>bv-builder resolve</code> downloads <code>repodata.json</code> from each declared channel (bioconda, conda-forge) for the target platform subdir (<code>linux-64</code> or <code>linux-aarch64</code>, plus <code>noarch</code>). It walks the dependency graph breadth-first: start from the declared packages, queue each package's <code>depends</code> field from repodata, repeat until the queue is empty. Each package is pinned to a specific <code>name</code>, <code>version</code>, <code>build</code>, and <code>sha256</code>.</p>
-    <p>This skips the conda solver. The tradeoff: bv doesn't do full constraint satisfaction across package versions—it picks the latest match for each spec greedily. For bioinformatics tools where a published version is already a known-good combination, this is sufficient. Transitive dependencies that don't appear in any declared channel are skipped with a warning rather than aborting the build.</p>
-
-    <h3 id="how-images">image construction</h3>
-    <p><code>bv-builder build</code> downloads each pinned conda package (verifying its sha256), extracts it, and writes a single OCI layer. One conda package → one OCI layer. The layer is a reproducible tar archive: fixed modification times, deterministic file ordering, symlinks preserved. The same inputs always produce the same bytes.</p>
-    <p>Before the conda layers, bv prepends layers from a base image (<code>debian:12-slim</code> by default). This provides the dynamic linker (<code>/lib64/ld-linux-x86-64.so.2</code>) that conda-built ELF binaries need. The base layers are pulled from the registry, not rebuilt.</p>
-    <p>The OCI image config records each layer's sha256 of its <em>uncompressed</em> content (<code>diff_ids</code>, per the OCI Image spec). Docker verifies this on extraction. bv computes both the compressed and uncompressed digests and stores them separately; using the compressed digest as a DiffID—a common mistake—produces "wrong diff id calculated on extraction" errors that are hard to diagnose.</p>
-
-    <h3 id="how-sharing">layer sharing</h3>
-    <p>Two tools that both depend on openssl will each have an openssl layer in their image. If those layers were built from the same conda package (same name+version+build+sha256), the tar construction is deterministic, so the layer digests match. Container runtimes that implement content-addressable layer storage (Docker's image store, OCI distribution registries) deduplicate them automatically—that layer is stored and transferred once.</p>
-    <p>bv-builder's popularity-based packing strategy makes this more effective. Packages that appear across many tools get their own solo layers; rare tool-specific packages get batched together. The default strategy is one-per-package, so every conda package gets a solo layer regardless of popularity. When a <code>max_layers</code> limit is configured, the <code>max_layers - 2</code> most popular packages each get solo layers, and the rest are batched into a single long-tail layer.</p>
-
-    <h3 id="how-lockfile">lockfile pinning</h3>
-    <p>After pushing, <code>bv-builder</code> records the OCI manifest digest in the registry manifest file. The manifest digest is the sha256 of the manifest JSON—it covers every layer digest, the config digest, and the media types. It is not a tag. Tags are mutable; this digest is not.</p>
-    <p><code>bv add</code> reads that digest and writes it to <code>bv.lock</code>. <code>bv sync</code> pulls <em>by digest</em>. If the registry has changed since you committed the lockfile, sync fails loudly rather than silently pulling different bits. Commit <code>bv.lock</code>; that file is the reproducibility guarantee.</p>
-
-    <h2 id="user">For end users</h2>
+    <h2 id="user">for end users</h2>
     <span class="audience-tag">running tools in your project</span>
 
     <h3 id="user-tldr">tl;dr</h3>
@@ -408,7 +380,7 @@ bv run kraken2 ...      # bv mounts the data directory automatically</code></pre
       <li><strong>Conflicting binary names across tools</strong>: <code>bv lock</code> tells you exactly which binaries collide. Use <code>[binary_overrides]</code>.</li>
     </ul>
 
-    <h2 id="publisher">For publishers</h2>
+    <h2 id="publisher">for publishers</h2>
     <span class="audience-tag">adding your tool to the registry</span>
 
     <h3 id="pub-tldr">tl;dr</h3>
@@ -560,7 +532,7 @@ skip = ["server-daemon"]</code></pre>
     <h3 id="pub-versions">new versions</h3>
     <p>One file per version. Add <code>tools/&lt;id&gt;/&lt;newver&gt;.toml</code>; do not edit the old one. The website and <code>bv search</code> surface the latest available version per tool by default; users can request older versions explicitly with <code>bv add &lt;tool&gt;@&lt;ver&gt;</code>.</p>
 
-    <h2 id="maintainer">For maintainers</h2>
+    <h2 id="maintainer">for maintainers</h2>
     <span class="audience-tag">running bv-ingest, reviewing PRs, promoting tools</span>
 
     <h3 id="m-tldr">tl;dr</h3>
