@@ -5,17 +5,7 @@ description = "Approximately-maximum-likelihood phylogenetic trees from large mu
 homepage = "http://www.microbesonline.org/fasttree/"
 license = "GPL-2.0"
 tier = "community"
-maintainers = ["github:morgannprice"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/fasttree:2.1.11--h031d066_3"
-
-[tool.hardware]
-cpu_cores = 4
-ram_gb = 4.0
-disk_gb = 1.0
-
+maintainers = [ "github:morgannprice",]
 [[tool.inputs]]
 name = "alignment"
 type = "msa"
@@ -28,9 +18,23 @@ type = "file"
 cardinality = "one"
 description = "Newick format phylogenetic tree"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/fasttree:2.1.11--h031d066_3"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 4.0
+disk_gb = 1.0
+
 [tool.entrypoint]
 command = "FastTree"
 args_template = "-nt -gtr {alignment} > {tree}"
 
 [tool.binaries]
-exposed = ["FastTree", "FastTreeMP"]
+exposed = [ "FastTree", "FastTreeMP",]
+
+[tool.factored]
+spec_path = "specs/fasttree/2.1.11.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/fasttree:2.1.11"
+image_digest = "sha256:7985a56d1f53a70a5e875146308f06878dccbd3900565fd78c65cfc6dc61a461"
