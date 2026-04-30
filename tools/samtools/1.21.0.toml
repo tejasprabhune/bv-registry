@@ -35,6 +35,6 @@ args_template = "sort -@ {cpu_cores} -o {output} {input}"
 exposed = [ "samtools",]
 
 [tool.factored]
-spec_path = "specs/samtools/1.21.0.yaml"
+spec_path = "specs/samtools/1.21.0.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/samtools:1.21.0"
 image_digest = "sha256:dfe7e8f31d6814b4f76e21af0bc5be7b0c6bcaa774694b188a76c01fb86fa24d"
