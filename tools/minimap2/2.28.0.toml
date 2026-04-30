@@ -43,4 +43,4 @@ exposed = [ "minimap2",]
 [tool.factored]
 spec_path = "specs/minimap2/2.28.0.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/minimap2:2.28.0"
-image_digest = "sha256:a6baa7c58dd255e01fd12684f80b26ffd7980c0cc0b3c199f6ecd2a9a02ae155"
+image_digest = "sha256:9626f3f665688cf50b99158b00dd387aff68ae2c29179b170b6195d751500ccb"
