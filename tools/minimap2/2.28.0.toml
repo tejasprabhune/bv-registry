@@ -41,6 +41,6 @@ args_template = "-ax map-ont -t {cpu_cores} {reference} {reads} > {alignment}"
 exposed = [ "minimap2",]
 
 [tool.factored]
-spec_path = "specs/minimap2/2.28.0.yaml"
+spec_path = "specs/minimap2/2.28.0.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/minimap2:2.28.0"
-image_digest = "sha256:94e187f147158e9ad2976ccb263cb420f350c25cb7acdf9b12a20b80246036da"
+image_digest = "sha256:e2fa75656b3c6485db986cede5f4b3d7f734a89f5d1babe53455df52ef61cc19"
