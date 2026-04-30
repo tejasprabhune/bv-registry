@@ -35,6 +35,6 @@ args_template = "--threads {cpu_cores} --outdir {report_dir} {reads}"
 exposed = [ "fastqc",]
 
 [tool.factored]
-spec_path = "specs/fastqc/0.12.1.yaml"
+spec_path = "specs/fastqc/0.12.1.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/fastqc:0.12.1"
-image_digest = "sha256:1973146cef6a163e729ad7e059ef3646f7b4c2c98d9b5f728e43b1f8d3de7ab2"
+image_digest = "sha256:927bd1ae948fcb4edf24ccdb8d06bd6998f5dfab3550b13899ab691fdf3a6632"
