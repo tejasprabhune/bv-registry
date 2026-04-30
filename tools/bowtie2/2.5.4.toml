@@ -41,6 +41,6 @@ args_template = "-p {cpu_cores} -x /workspace/index -1 {reads_r1} -2 {reads_r2} 
 exposed = [ "bowtie2", "bowtie2-build", "bowtie2-inspect",]
 
 [tool.factored]
-spec_path = "specs/bowtie2/2.5.4.yaml"
+spec_path = "specs/bowtie2/2.5.4.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/bowtie2:2.5.4"
-image_digest = "sha256:98752c0432176c8d447ff495bcbfe38d2b084d24d1c7f83e154c8bebf2dceb64"
+image_digest = "sha256:907eaa4534d54d29e96664eb5ab7cd68c2951e121b1af392eaef0416789ee756"
