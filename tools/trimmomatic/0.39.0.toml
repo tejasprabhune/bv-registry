@@ -47,6 +47,6 @@ args_template = "PE -threads {cpu_cores} {reads_r1} {reads_r2} {out_r1} /dev/nul
 exposed = [ "trimmomatic",]
 
 [tool.factored]
-spec_path = "specs/trimmomatic/0.39.0.yaml"
+spec_path = "specs/trimmomatic/0.39.0.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/trimmomatic:0.39.0"
-image_digest = "sha256:4f639c14f09bc8acc4e1e9a66dcef1c66ff5906b8827b888db29080b5eda202a"
+image_digest = "sha256:accbc0052870666d192397c9b09bae4f429ebcbd98d759fe1035c7fe498737d7"
