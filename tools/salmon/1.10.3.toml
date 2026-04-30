@@ -5,17 +5,7 @@ description = "Quasi-mapping-based transcript quantification from RNA-seq data"
 homepage = "https://combine-lab.github.io/salmon/"
 license = "GPL-3.0"
 tier = "core"
-maintainers = ["github:COMBINE-lab"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/salmon:1.10.3--h6dccd9a_2"
-
-[tool.hardware]
-cpu_cores = 8
-ram_gb = 8.0
-disk_gb = 5.0
-
+maintainers = [ "github:COMBINE-lab",]
 [[tool.inputs]]
 name = "reads_r1"
 type = "fastq"
@@ -34,9 +24,23 @@ type = "dir"
 cardinality = "one"
 description = "Quantification output directory with quant.sf"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/salmon:1.10.3--h6dccd9a_2"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 8.0
+disk_gb = 5.0
+
 [tool.entrypoint]
 command = "salmon"
 args_template = "quant --threads {cpu_cores} -i /workspace/index -l A -1 {reads_r1} -2 {reads_r2} -o {quant_dir}"
 
 [tool.binaries]
-exposed = ["salmon"]
+exposed = [ "salmon",]
+
+[tool.factored]
+spec_path = "specs/salmon/1.10.3.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/salmon:1.10.3"
+image_digest = "sha256:478bd6ec5d66768012e09389a1d76f10d4528b10760046c65255c7a86567ab8d"
