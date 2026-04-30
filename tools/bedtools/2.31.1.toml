@@ -41,6 +41,6 @@ args_template = "intersect -a {a} -b {b} > {output}"
 exposed = [ "bedtools",]
 
 [tool.factored]
-spec_path = "specs/bedtools/2.31.1.yaml"
+spec_path = "specs/bedtools/2.31.1.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/bedtools:2.31.1"
 image_digest = "sha256:90411cef492aa23a6c722c47dbb6359300e100a1b49fe76a71fd66ba5485fd42"
