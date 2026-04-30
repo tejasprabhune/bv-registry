@@ -114,6 +114,23 @@
   </div>
 
   <div class="about-section">
+    <h2>install</h2>
+<pre class="code-block language-bash"><code class="language-bash">curl -fsSL https://raw.githubusercontent.com/tejasprabhune/bv/main/install.sh | sh
+# or: cargo install biov</code></pre>
+    <p style="font-size: 13px; opacity: 0.6; margin-top: 8px;">
+      Runs on Linux and macOS. Windows: use WSL2 with Docker Desktop's WSL2
+      backend; native Windows is not yet supported.
+    </p>
+  </div>
+
+  <div class="about-section">
+    <h2>tl;dr</h2>
+<pre class="code-block language-bash"><code class="language-bash">bv add blast
+bv exec blastn -query foo.fa -db nr
+git add bv.toml bv.lock     # commit the pin; `bv sync` reproduces anywhere</code></pre>
+  </div>
+
+  <div class="about-section">
     <h2>speed</h2>
     <p>
       bv starts tools ~10× faster than conda-based managers. Docker containers
@@ -196,23 +213,6 @@
       <div class="legend-item"><div class="legend-swatch" style="background:rgba(0,85,58,0.45);"></div>pixi</div>
       <div class="legend-item"><div class="legend-swatch" style="background:rgba(0,85,58,0.22);border:1px solid rgba(0,85,58,0.3);"></div>micromamba</div>
     </div>
-  </div>
-
-  <div class="about-section">
-    <h2>install</h2>
-<pre class="code-block language-bash"><code class="language-bash">curl -fsSL https://raw.githubusercontent.com/tejasprabhune/bv/main/install.sh | sh
-# or: cargo install biov</code></pre>
-    <p style="font-size: 13px; opacity: 0.6; margin-top: 8px;">
-      Runs on Linux and macOS. Windows: use WSL2 with Docker Desktop's WSL2
-      backend; native Windows is not yet supported.
-    </p>
-  </div>
-
-  <div class="about-section">
-    <h2>tl;dr</h2>
-<pre class="code-block language-bash"><code class="language-bash">bv add blast
-bv exec blastn -query foo.fa -db nr
-git add bv.toml bv.lock     # commit the pin; `bv sync` reproduces anywhere</code></pre>
   </div>
 
   <div class="about-section">
