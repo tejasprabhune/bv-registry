@@ -101,6 +101,8 @@ jobs:
 
       - name: Push image
         id: push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           _bv/target/release/bv-builder push /tmp/image.tar "${{ steps.ref.outputs.ref }}"
           DIGEST=$(cat /tmp/push-digest.txt 2>/dev/null)
