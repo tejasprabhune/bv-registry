@@ -49,4 +49,4 @@ exposed = [ "kraken2", "kraken2-build", "kraken2-inspect",]
 [tool.factored]
 spec_path = "specs/kraken2/2.1.3.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/kraken2:2.1.3"
-image_digest = "sha256:70825566e6f429000f45dbb175c450672200072e8b4bcabe2908d37dc2becd33"
+image_digest = "sha256:6693f6a268fc83c602434f136a025c39eca0c03aa8790c9bb4813d4bb1774ccd"
