@@ -5,17 +5,7 @@ description = "Bayesian re-estimation of species-level abundance from Kraken2 cl
 homepage = "https://github.com/jenniferlu717/Bracken"
 license = "GPL-3.0"
 tier = "community"
-maintainers = ["github:jenniferlu717"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/bracken:2.9--py312h28adbb1_1"
-
-[tool.hardware]
-cpu_cores = 2
-ram_gb = 8.0
-disk_gb = 2.0
-
+maintainers = [ "github:jenniferlu717",]
 [[tool.inputs]]
 name = "kraken_report"
 type = "tabular"
@@ -28,9 +18,23 @@ type = "tabular"
 cardinality = "one"
 description = "Bracken abundance estimation report"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/bracken:2.9--py312h28adbb1_1"
+
+[tool.hardware]
+cpu_cores = 2
+ram_gb = 8.0
+disk_gb = 2.0
+
 [tool.entrypoint]
 command = "bracken"
 args_template = "-d /workspace/kraken2_db -i {kraken_report} -o {bracken_report} -r 150 -l S"
 
 [tool.binaries]
-exposed = ["bracken", "bracken-build", "est_abundance.py"]
+exposed = [ "bracken", "bracken-build", "est_abundance.py",]
+
+[tool.factored]
+spec_path = "specs/bracken/2.9.0.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/bracken:2.9.0"
+image_digest = "sha256:ce0b8389263f89ab8537fce073e9ee64b9e9e61d9a7b7f10b38210ac4e028fca"
