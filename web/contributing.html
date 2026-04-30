@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>contributing — bv</title>
+  <link rel="stylesheet" href="https://use.typekit.net/bsk0vur.css">
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-toml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+  <style>
+    :root {
+      --doc-max: 1100px;
+      --side-w: 240px;
+    }
+
+    .docs-shell {
+      max-width: var(--doc-max);
+      margin: 0 auto;
+      padding: 24px 24px 80px;
+      display: grid;
+      grid-template-columns: var(--side-w) 1fr;
+      gap: 36px;
+    }
+
+    aside.toc {
+      position: sticky;
+      top: 24px;
+      align-self: start;
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
+      padding-right: 8px;
+      border-right: 1px solid var(--g15);
+    }
+    aside.toc h3 {
+      font-family: "calling-code", sans-serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      opacity: 0.42;
+      text-transform: uppercase;
+      margin: 18px 0 6px;
+    }
+    aside.toc h3:first-child { margin-top: 4px; }
+    aside.toc ul { list-style: none; padding-left: 0; }
+    aside.toc li { margin: 0; }
+    aside.toc a {
+      display: block;
+      font-size: 13px;
+      padding: 4px 0;
+      text-decoration: none;
+      opacity: 0.72;
+      line-height: 1.35;
+    }
+    aside.toc a:hover { opacity: 1; }
+
+    main.doc {
+      min-width: 0;
+      padding-bottom: 40px;
+    }
+
+    main.doc h1 {
+      font-family: "orpheuspro", serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: 38px;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin: 0 0 6px;
+    }
+    main.doc .lede {
+      font-size: 14px;
+      font-style: italic;
+      opacity: 0.55;
+      margin-bottom: 32px;
+    }
+    main.doc h2 {
+      font-family: "orpheuspro", serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: 26px;
+      letter-spacing: -0.01em;
+      margin: 48px 0 12px;
+      padding-top: 18px;
+      border-top: 1px solid var(--g);
+    }
+    main.doc h2:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+    main.doc h3 {
+      font-family: "calling-code", sans-serif;
+      font-weight: 400;
+      font-size: 18px;
+      letter-spacing: -0.005em;
+      margin: 32px 0 12px;
+      padding: 6px 0 6px 14px;
+      border-left: 3px solid var(--g);
+      color: var(--g);
+      background: linear-gradient(to right, var(--g08), transparent 60%);
+    }
+    main.doc h3::before {
+      content: "# ";
+      opacity: 0.4;
+      font-style: italic;
+    }
+    main.doc h4 {
+      font-family: "calling-code", sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      font-style: italic;
+      margin: 22px 0 8px;
+      opacity: 0.72;
+      letter-spacing: 0.01em;
+    }
+    main.doc p, main.doc li {
+      font-size: 15px;
+      line-height: 1.6;
+      opacity: 0.84;
+    }
+    main.doc p { margin: 0 0 12px; }
+    main.doc ul, main.doc ol { padding-left: 22px; margin: 0 0 14px; }
+    main.doc li { margin-bottom: 4px; }
+    main.doc a { text-decoration: underline; text-underline-offset: 2px; }
+
+    main.doc code {
+      font-family: "calling-code", sans-serif;
+      font-size: 13.5px;
+      background: var(--g08);
+      padding: 1px 5px;
+      border: 1px solid var(--g15);
+      letter-spacing: -0.01em;
+    }
+    main.doc pre {
+      background: var(--g08);
+      border: 1px solid var(--g15);
+      padding: 14px 16px;
+      font-family: "calling-code", sans-serif;
+      font-size: 13px;
+      line-height: 1.55;
+      overflow-x: auto;
+      margin: 6px 0 16px;
+      white-space: pre;
+    }
+    main.doc pre code {
+      background: transparent;
+      border: none;
+      padding: 0;
+      font-size: 13px;
+    }
+
+    main.doc table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 8px 0 18px;
+      font-size: 13.5px;
+    }
+    main.doc th, main.doc td {
+      text-align: left;
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--g15);
+      vertical-align: top;
+    }
+    main.doc th {
+      font-weight: 400;
+      font-style: italic;
+      opacity: 0.55;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid var(--g);
+    }
+
+    main.doc .callout {
+      border-left: 2px solid var(--g);
+      padding: 8px 14px;
+      margin: 14px 0 18px;
+      background: var(--g08);
+      font-size: 13.5px;
+      opacity: 0.86;
+    }
+
+    .audience-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-style: italic;
+      letter-spacing: 0.04em;
+      padding: 2px 7px;
+      border: 1px solid var(--g);
+      opacity: 0.55;
+      margin-bottom: 16px;
+    }
+
+    .header-links { margin-top: 14px; display: flex; gap: 16px; font-size: 13px; font-style: italic; }
+    .header-links a { opacity: 0.55; text-decoration: none; }
+    .header-links a:hover { opacity: 1; }
+    .header-links a.active { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
+
+    main.doc pre[class*="language-"],
+    main.doc code[class*="language-"] {
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 820px) {
+      .docs-shell { grid-template-columns: 1fr; gap: 0; }
+      aside.toc {
+        position: static;
+        max-height: none;
+        border-right: none;
+        border-bottom: 1px solid var(--g15);
+        margin-bottom: 24px;
+        padding-bottom: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="page-wrap">
+    <h1 class="site-title">bv contributing</h1>
+    <p class="site-subtitle">workspace layout, dev commands, and CI</p>
+    <div class="header-links">
+      <a href="index.html">tools</a>
+      <a href="data.html">data</a>
+      <a href="about.html">about</a>
+      <a href="docs.html">docs</a>
+      <a href="design.html">design</a>
+      <a href="contributing.html" class="active">contributing</a>
+      <a href="https://github.com/tejasprabhune/bv">bv repo</a>
+      <a href="https://github.com/tejasprabhune/bv-registry">registry repo</a>
+    </div>
+  </div>
+</header>
+
+<div class="docs-shell">
+
+  <aside class="toc">
+    <h3>setup</h3>
+    <ul>
+      <li><a href="#setup">dev setup</a></li>
+      <li><a href="#workspace">workspace layout</a></li>
+    </ul>
+    <h3>bv codebase</h3>
+    <ul>
+      <li><a href="#dev-commands">dev commands</a></li>
+      <li><a href="#adding-command">adding a command</a></li>
+      <li><a href="#conformance">conformance (bv-conformance)</a></li>
+      <li><a href="#bench">benchmark (bv-bench)</a></li>
+    </ul>
+    <h3>bv-registry</h3>
+    <ul>
+      <li><a href="#registry-layout">layout</a></li>
+      <li><a href="#adding-tool">adding a tool spec</a></li>
+      <li><a href="#builder">image builder (bv-builder)</a></li>
+      <li><a href="#registry-ci">CI workflows</a></li>
+      <li><a href="#rerunning">rerunning a failed build</a></li>
+    </ul>
+    <h3>conventions</h3>
+    <ul>
+      <li><a href="#code-style">code style</a></li>
+      <li><a href="#pr-conventions">PR conventions</a></li>
+    </ul>
+  </aside>
+
+  <main class="doc">
+
+    <h2 id="setup">dev setup</h2>
+    <span class="audience-tag">contributing to the bv codebase or registry</span>
+
+    <h3 id="setup-clone">getting started</h3>
+    <p>You need Rust stable, Docker (for integration tests), and <code>git</code>.</p>
+<pre class="language-bash"><code class="language-bash">git clone https://github.com/tejasprabhune/bv
+cd bv
+cargo build                          # build all workspace crates
+cargo test                           # unit tests only (no Docker needed)
+cargo test --test integration -- --include-ignored   # integration tests (needs Docker)</code></pre>
+    <p>Set <code>BV_CACHE_DIR</code> to a temp path so each integration test run starts with a clean cache:</p>
+<pre class="language-bash"><code class="language-bash">BV_CACHE_DIR=/tmp/bv-test cargo test --test integration -- --include-ignored</code></pre>
+    <p>Build a release binary and put it on your PATH for manual testing:</p>
+<pre class="language-bash"><code class="language-bash">cargo build --release -p bv-cli
+export PATH="$PWD/target/release:$PATH"
+bv doctor</code></pre>
+
+    <h3 id="workspace">workspace layout</h3>
+    <table>
+      <tr><th>crate</th><th>what it is</th></tr>
+      <tr><td><code>bv-cli</code></td><td>the <code>bv</code> binary. All commands live here. Depends on everything below.</td></tr>
+      <tr><td><code>bv-core</code></td><td>shared types: <code>Manifest</code>, <code>Lockfile</code>, <code>CacheLayout</code>, error types. No I/O.</td></tr>
+      <tr><td><code>bv-index</code></td><td><code>IndexBackend</code> trait plus <code>GitIndex</code>, which clones bv-registry and resolves tool lookups.</td></tr>
+      <tr><td><code>bv-runtime</code></td><td><code>ContainerRuntime</code> trait plus <code>DockerRuntime</code>. Handles pull, run, inspect, image availability.</td></tr>
+      <tr><td><code>bv-runtime-apptainer</code></td><td>Apptainer/Singularity backend. Converts OCI images to SIF files, runs with <code>--nv</code> for GPU.</td></tr>
+      <tr><td><code>bv-types</code></td><td>The <code>bv-types</code> vocabulary: FASTA, FASTQ, BAM, VCF, and ~40 others. Used for typed I/O in manifests.</td></tr>
+      <tr><td><code>bv-conformance</code></td><td>Library for smoke-testing a tool's declared binaries. Used by <code>bv conformance</code> and the registry CI.</td></tr>
+      <tr><td><code>bv-builder</code></td><td>Builds factored OCI images from conda specs (one layer per package). Used only in registry CI, not shipped in the user-facing binary.</td></tr>
+      <tr><td><code>bv-bench</code></td><td>Install-path benchmark harness: compares bv against mamba, conda, and pixi on install time, footprint, and cold-run latency.</td></tr>
+    </table>
+
+    <h2 id="dev">bv codebase</h2>
+    <span class="audience-tag">working on the bv CLI and runtime</span>
+
+    <h3 id="dev-commands">dev commands</h3>
+    <table>
+      <tr><th>command</th><th>when to use it</th></tr>
+      <tr><td><code>cargo build -p bv-cli</code></td><td>build just the CLI (faster than building the whole workspace)</td></tr>
+      <tr><td><code>cargo test -p bv-core</code></td><td>unit tests for a single crate</td></tr>
+      <tr><td><code>cargo test --test integration -- --include-ignored</code></td><td>full integration suite; needs a running Docker daemon</td></tr>
+      <tr><td><code>cargo clippy -- -D warnings</code></td><td>must be clean before opening a PR</td></tr>
+      <tr><td><code>cargo fmt --check</code></td><td>formatting check; run <code>cargo fmt</code> to fix</td></tr>
+      <tr><td><code>cargo deny check</code></td><td>license and vulnerability audit (uses <code>deny.toml</code>)</td></tr>
+    </table>
+
+    <h3 id="adding-command">adding a command</h3>
+    <ol>
+      <li>Add a variant to the relevant <code>Commands</code> or sub-command enum in <code>bv-cli/src/cli.rs</code>.</li>
+      <li>Add a <code>pub (async) fn run(...)</code> in <code>bv-cli/src/commands/&lt;name&gt;.rs</code>.</li>
+      <li>Wire it in <code>bv-cli/src/commands/mod.rs</code> and the dispatch match in <code>bv-cli/src/main.rs</code>.</li>
+      <li>Add an integration test in <code>bv-cli/tests/integration.rs</code>. Mark <code>#[ignore]</code> if Docker is required.</li>
+    </ol>
+    <p>All user-visible output goes to <code>stderr</code>. Only structured data (tables, JSON) goes to <code>stdout</code>.</p>
+
+    <h3 id="conformance">conformance (bv-conformance)</h3>
+    <p><code>bv-conformance</code> is the library behind <code>bv conformance &lt;tool&gt;</code>. It pulls the tool's image and smoke-checks each binary declared in <code>[tool.binaries]</code> by trying <code>--version</code>, <code>-version</code>, <code>--help</code>, <code>-h</code>, <code>-v</code>, <code>version</code>, and a bare invocation in order. A binary passes if any probe exits 0 or produces more than 30 bytes of output.</p>
+<pre class="language-bash"><code class="language-bash"># run locally against the live registry
+bv conformance samtools
+bv conformance samtools --backend apptainer
+
+# run against a local registry clone (useful when reviewing a new manifest)
+bv conformance samtools --registry /path/to/bv-registry
+
+# run against a specific image digest (skip the registry lookup)
+bv conformance samtools --digest sha256:abc123...</code></pre>
+    <p>The library is in <code>bv-conformance/src/runner.rs</code>. The entry point is <code>runner::run(manifest, image_digest, runtime)</code>, which returns a <code>ConformanceResult</code> with per-binary pass/fail messages.</p>
+    <div class="callout">
+      The conformance suite also runs in registry CI on every PR that touches <code>tools/**</code>, and on a weekly schedule for the full set of core tools. See <code>.github/workflows/conformance.yml</code> in bv-registry.
+    </div>
+
+    <h3 id="bench">benchmark (bv-bench)</h3>
+    <p><code>bv-bench</code> compares bv against mamba, conda, and pixi across three metrics: install time, disk footprint, and cold-run latency. It uses two fixture suites:</p>
+    <ul>
+      <li><strong>mac suite</strong> (default): all tools available on osx-arm64. mamba, conda, and pixi succeed on macOS.</li>
+      <li><strong>linux suite</strong>: includes Linux-only tools (blast, diamond, hmmer, mafft, seqkit 2.8.1). mamba/conda/pixi will fail on macOS for some fixtures, which illustrates bv's main advantage.</li>
+    </ul>
+    <p>Each suite has three fixture sizes: 1 tool, 5 tools, and 10 or 20 tools.</p>
+<pre class="language-bash"><code class="language-bash"># build the harness
+cargo build --release -p bv-bench
+
+# mac suite: bv + mamba + conda + pixi
+./target/release/bv-bench --suite mac --mamba --conda --pixi
+
+# linux suite: bv + mamba (pixi/conda will show n/a for linux-only fixtures on macOS)
+./target/release/bv-bench --suite linux --mamba --conda --pixi
+
+# output as JSON instead of a table
+./target/release/bv-bench --suite mac --mamba --json-out results.json
+
+# override the work directory (default: /tmp/bv-bench)
+./target/release/bv-bench --suite mac --mamba --work-dir /tmp/my-bench</code></pre>
+
+    <h4>how footprint is measured</h4>
+    <p>bv reads <code>image_size_bytes</code> from the <code>bv.lock</code> file that <code>bv add</code> writes. This is the compressed OCI image size for each tool. mamba, conda, and pixi report the uncompressed size of the conda environment directory.</p>
+    <p>The fixtures are defined in <code>bv-bench/src/fixture.rs</code>. The install paths (bv, mamba, conda, pixi) are in <code>bv-bench/src/main.rs</code>.</p>
+
+    <h2 id="registry">bv-registry</h2>
+    <span class="audience-tag">adding tools, rebuilding images, understanding CI</span>
+
+    <h3 id="registry-layout">layout</h3>
+<pre><code>bv-registry/
+  tools/          # manifests — one .toml per (tool, version)
+    samtools/
+      1.21.0.toml
+  specs/          # build specs for the factored OCI builder
+    samtools/
+      1.21.0.yaml
+  web/            # static website (GitHub Pages)
+  index.json      # pre-computed search index, updated by CI
+  scripts/        # update-index.py, update-popularity.py</code></pre>
+    <p>A tool entry needs both a manifest (<code>tools/</code>) and a build spec (<code>specs/</code>). The manifest describes the tool's I/O, hardware, and entrypoint. The spec tells the builder which conda packages to include and which platform to target.</p>
+
+    <h3 id="adding-tool">adding a tool spec</h3>
+    <p>For conda-based tools (the common case), add two files:</p>
+<pre class="language-bash"><code class="language-bash"># 1. build spec: tells bv-builder what to build
+cat > specs/seqtk/1.4.0.yaml &lt;&lt; 'EOF'
+name: seqtk
+version: 1.4.0
+channels:
+  - https://conda.anaconda.org/bioconda
+  - https://conda.anaconda.org/conda-forge
+packages:
+  - seqtk ==1.4.0
+entrypoint:
+  command: /opt/conda/bin/seqtk
+platform: linux/amd64
+EOF
+
+# 2. tool manifest: describes the tool for users
+cat > tools/seqtk/1.4.0.toml &lt;&lt; 'EOF'
+[tool]
+id = "seqtk"
+version = "1.4.0"
+description = "seqtk: toolkit for processing FASTA/FASTQ sequences"
+homepage = "https://github.com/lh3/seqtk"
+license = "MIT"
+tier = "community"
+maintainers = ["github:lh3"]
+
+[[tool.inputs]]
+name = "reads"
+type = "fastq"
+cardinality = "one"
+description = "Input reads"
+
+[[tool.outputs]]
+name = "reads_out"
+type = "fastq"
+cardinality = "one"
+description = "Processed reads"
+
+[tool.entrypoint]
+command = "seqtk"
+EOF</code></pre>
+    <p>Push to a branch and open a PR. CI builds the image and runs conformance automatically. You do not need to run the builder locally.</p>
+    <div class="callout">
+      The <code>[tool.image]</code> section (digest, reference) is written by CI after the build, not by hand. Leave it out of the manifest you submit.
+    </div>
+
+    <h3 id="builder">image builder (bv-builder)</h3>
+    <p><code>bv-builder</code> turns a <code>specs/&lt;tool&gt;/&lt;version&gt;.yaml</code> into a factored OCI image: one layer per conda package, pushed to <code>ghcr.io/tejasprabhune/bv-pkg/&lt;tool&gt;:&lt;version&gt;</code>. CI runs the builder automatically on every new or changed spec file.</p>
+    <p>You rarely need to run it locally, but when you do:</p>
+<pre class="language-bash"><code class="language-bash">cargo build --release -p bv-builder
+
+# resolve a spec to a pinned package list (dry run, no image built)
+./target/release/bv-builder resolve specs/samtools/1.21.0.yaml
+
+# build and save as a tar archive (does not push)
+./target/release/bv-builder build specs/samtools/1.21.0.yaml --out /tmp/samtools.tar
+
+# build and push to GHCR (needs GHCR_TOKEN or GITHUB_TOKEN in env)
+./target/release/bv-builder build specs/samtools/1.21.0.yaml --push</code></pre>
+
+    <h4>how it works</h4>
+    <ol>
+      <li><strong>resolve</strong>: downloads <code>repodata.json</code> for each channel, BFS-resolves transitive deps with numeric version comparison.</li>
+      <li><strong>build layers</strong>: downloads each conda package (<code>.conda</code> or <code>.tar.bz2</code>), extracts it into a reproducible tar layer. One layer per package.</li>
+      <li><strong>push</strong>: pushes all layers to GHCR, retrying on 429 rate-limit responses with exponential backoff (up to 8 attempts).</li>
+      <li><strong>update manifest</strong>: CI writes the pushed digest back to <code>tools/&lt;tool&gt;/&lt;version&gt;.toml</code> and commits.</li>
+    </ol>
+    <p>Large tools (metaphlan4 has ~530 packages) take 20+ minutes to push due to GHCR's per-minute blob upload limit.</p>
+
+    <h3 id="registry-ci">CI workflows</h3>
+    <table>
+      <tr><th>workflow</th><th>trigger</th><th>what it does</th></tr>
+      <tr><td><code>build-factored.yml</code></td><td>push to <code>specs/**</code>, or manual dispatch</td><td>builds and pushes OCI images for changed specs; updates digest in <code>tools/</code></td></tr>
+      <tr><td><code>conformance.yml</code></td><td>PR touching <code>tools/**</code>, weekly schedule</td><td>smoke-tests each declared binary using <code>bv conformance</code></td></tr>
+      <tr><td><code>update-index.yml</code></td><td>push to <code>tools/**</code></td><td>regenerates <code>index.json</code> for the website and <code>bv search</code></td></tr>
+      <tr><td><code>update-popularity.yml</code></td><td>weekly schedule</td><td>refreshes download counts from conda-stats</td></tr>
+      <tr><td><code>pages.yml</code></td><td>push to <code>web/**</code></td><td>deploys the static site to GitHub Pages</td></tr>
+    </table>
+
+    <h3 id="rerunning">rerunning a failed build</h3>
+    <p>Build failures are usually transient (network error downloading a conda package, or GHCR rate limit on large images). To rerun a single tool:</p>
+<pre class="language-bash"><code class="language-bash">gh workflow run build-factored.yml \
+  --repo tejasprabhune/bv-registry \
+  -f spec=specs/metaphlan4/4.1.1.yaml</code></pre>
+    <p>To rebuild all tools at once (after a breaking change to the builder, for example):</p>
+<pre class="language-bash"><code class="language-bash">gh workflow run build-factored.yml --repo tejasprabhune/bv-registry</code></pre>
+    <p>The <code>detect</code> job runs first and lists every <code>specs/**/*.yaml</code>; each spec becomes a parallel matrix job.</p>
+
+    <h2 id="conventions">conventions</h2>
+
+    <h3 id="code-style">code style</h3>
+    <ul>
+      <li>Rust edition 2024; let chains are used throughout.</li>
+      <li>All user-visible output goes to <code>stderr</code>. Only table data and machine-readable output go to <code>stdout</code>.</li>
+      <li>Color output uses <code>owo_colors</code> with <code>if_supports_color</code>; ANSI is stripped automatically in CI.</li>
+      <li>No em-dashes in comments or strings.</li>
+      <li>No <code>// ----</code> separator blocks or banner comments. Doc comments (<code>///</code>) on public items are welcome.</li>
+      <li>No multi-line comments where a well-named function or type does the same job.</li>
+      <li>No backwards-compatibility shims for removed code. Delete cleanly.</li>
+    </ul>
+
+    <h3 id="pr-conventions">PR conventions</h3>
+    <ul>
+      <li>One logical change per PR.</li>
+      <li>Integration tests must pass: <code>cargo test --test integration -- --include-ignored</code>.</li>
+      <li><code>cargo clippy -- -D warnings</code> must be clean.</li>
+      <li><code>cargo fmt --check</code> must pass.</li>
+      <li>New commands need an integration test. New crate-level features need a unit test.</li>
+      <li>Registry manifests: include a build spec (<code>specs/</code>) and a tool manifest (<code>tools/</code>). Do not hand-write the image digest; CI fills it in.</li>
+    </ul>
+
+  </main>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+</html>
