@@ -37,4 +37,4 @@ exposed = [ "bracken", "bracken-build", "est_abundance.py",]
 [tool.factored]
 spec_path = "specs/bracken/2.9.0.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/bracken:2.9.0"
-image_digest = "sha256:73206a05fca1e21559bd0ed6688db463a8d1d0d35aace747f3d3f71e172e1b72"
+image_digest = "sha256:e681a3c669785bdf8a932f9b9c3b935ef74b23f659bc62dc3748d9c2a416fb4d"
