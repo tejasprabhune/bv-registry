@@ -35,6 +35,6 @@ args_template = "--threads {cpu_cores} -o {report_dir} {assembly}"
 exposed = [ "quast", "metaquast.py", "icarus.py",]
 
 [tool.factored]
-spec_path = "specs/quast/5.2.0.yaml"
+spec_path = "specs/quast/5.2.0.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/quast:5.2.0"
-image_digest = "sha256:f34d2aef4a3964aa72e62db227e0ba1308c0bc6970c735201ddc1083649ec3d5"
+image_digest = "sha256:145eccf699154aee2da6650f0823fbea414c36d483bf288729d948651b1485d4"
