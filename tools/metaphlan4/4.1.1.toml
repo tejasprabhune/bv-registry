@@ -5,17 +5,7 @@ description = "MetaPhlAn 4: metagenomic profiling using marker genes from refere
 homepage = "https://github.com/biobakery/MetaPhlAn"
 license = "MIT"
 tier = "community"
-maintainers = ["github:biobakery"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/metaphlan:4.1.1--pyhdfd78af_0"
-
-[tool.hardware]
-cpu_cores = 8
-ram_gb = 8.0
-disk_gb = 10.0
-
+maintainers = [ "github:biobakery",]
 [[tool.inputs]]
 name = "reads"
 type = "fastq"
@@ -28,9 +18,23 @@ type = "tabular"
 cardinality = "one"
 description = "Taxonomic abundance profile"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/metaphlan:4.1.1--pyhdfd78af_0"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 8.0
+disk_gb = 10.0
+
 [tool.entrypoint]
 command = "metaphlan"
 args_template = "{reads} --input_type fastq --nproc {cpu_cores} -o {profile}"
 
 [tool.binaries]
-exposed = ["metaphlan", "merge_metaphlan_tables.py", "strainphlan"]
+exposed = [ "metaphlan", "merge_metaphlan_tables.py", "strainphlan",]
+
+[tool.factored]
+spec_path = "specs/metaphlan4/4.1.1.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/metaphlan4:4.1.1"
+image_digest = "sha256:91722016fab935fa9ea9104cc848499d93e61ea2405a8fd8437c5e4e330d8324"
