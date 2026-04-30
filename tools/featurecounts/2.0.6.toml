@@ -35,6 +35,6 @@ args_template = "-T {cpu_cores} -a /workspace/annotation.gtf -o {counts} {bam}"
 exposed = [ "featureCounts",]
 
 [tool.factored]
-spec_path = "specs/featurecounts/2.0.6.yaml"
+spec_path = "specs/featurecounts/2.0.6.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/featurecounts:2.0.6"
 image_digest = "sha256:5e5565719d8406ed5139a947be96fea9ad1ef8a639cf562d208c78c3719521aa"
