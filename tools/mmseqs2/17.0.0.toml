@@ -4,18 +4,8 @@ version = "17.0.0"
 description = "MMseqs2: ultra-fast protein and nucleotide sequence search"
 homepage = "https://github.com/soedinglab/MMseqs2"
 tier = "core"
-maintainers = ["github:steineggerlab"]
+maintainers = [ "github:steineggerlab",]
 license = "GPL-3.0"
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/mmseqs2:17.b804f--hd6d6fdc_1"
-
-[tool.hardware]
-cpu_cores = 8
-ram_gb = 16.0
-disk_gb = 5.0
-
 [[tool.inputs]]
 name = "query"
 type = "fasta"
@@ -34,9 +24,23 @@ type = "mmseqs_output"
 cardinality = "one"
 description = "MMseqs2 search results"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/mmseqs2:17.b804f--hd6d6fdc_1"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 16.0
+disk_gb = 5.0
+
 [tool.entrypoint]
 command = "mmseqs"
 args_template = "easy-search {query} {db} {output} tmp --threads {cpu_cores}"
 
 [tool.binaries]
-exposed = ["mmseqs"]
+exposed = [ "mmseqs",]
+
+[tool.factored]
+spec_path = "specs/mmseqs2/17.0.0.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/mmseqs2:17.0.0"
+image_digest = "sha256:2d3bb142db83e6d210fd8b00aa86b90137704d43d51e1f54612233dd9d83fbe1"
