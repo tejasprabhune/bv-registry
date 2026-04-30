@@ -41,6 +41,6 @@ args_template = "blastp --threads {cpu_cores} --query {query} --db {db} --out {o
 exposed = [ "diamond",]
 
 [tool.factored]
-spec_path = "specs/diamond/2.1.9.yaml"
+spec_path = "specs/diamond/2.1.9.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/diamond:2.1.9"
 image_digest = "sha256:e4906fdbeb07535391e71b8e34c8f237ba0446c74b3ecab697ad014710cad345"
