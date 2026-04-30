@@ -43,4 +43,4 @@ exposed = [ "kallisto",]
 [tool.factored]
 spec_path = "specs/kallisto/0.51.1.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/kallisto:0.51.1"
-image_digest = "sha256:a21d5172b8cca06287a45a39a870f08a630c6e62ff0533a6c2f07a2d98472fb8"
+image_digest = "sha256:40c264fd4df846f501cd15158452cf0b4ba6a62737e0c662a26560f90a0fac4d"
