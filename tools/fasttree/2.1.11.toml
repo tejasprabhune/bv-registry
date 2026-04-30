@@ -35,6 +35,6 @@ args_template = "-nt -gtr {alignment} > {tree}"
 exposed = [ "FastTree", "FastTreeMP",]
 
 [tool.factored]
-spec_path = "specs/fasttree/2.1.11.yaml"
+spec_path = "specs/fasttree/2.1.11.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/fasttree:2.1.11"
 image_digest = "sha256:686339794be0bdf0d003c6011f39e8c9e26a9f74ef84c976a8bbb73134734729"
