@@ -43,4 +43,4 @@ exposed = [ "bowtie2", "bowtie2-build", "bowtie2-inspect",]
 [tool.factored]
 spec_path = "specs/bowtie2/2.5.4.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/bowtie2:2.5.4"
-image_digest = "sha256:81258f9d1ee91a78fdc44198041742996060fe7f8fc973309089da1dd6628f2f"
+image_digest = "sha256:98752c0432176c8d447ff495bcbfe38d2b084d24d1c7f83e154c8bebf2dceb64"
