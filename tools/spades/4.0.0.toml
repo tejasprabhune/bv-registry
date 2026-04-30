@@ -43,4 +43,4 @@ exposed = [ "spades.py", "metaspades.py", "plasmidspades.py", "rnaspades.py", "r
 [tool.factored]
 spec_path = "specs/spades/4.0.0.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/spades:4.0.0"
-image_digest = "sha256:efc14b445c0505d8f2e9d6a1034151adaefdc83fcab00daae1e9ce60fb8811d7"
+image_digest = "sha256:017cd972903a765703dffce5dc4eeae4509960c7f0398bd26bd6c475e387076e"
