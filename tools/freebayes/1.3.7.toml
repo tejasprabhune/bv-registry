@@ -43,4 +43,4 @@ exposed = [ "freebayes", "bamleftalign", "freebayes-parallel",]
 [tool.factored]
 spec_path = "specs/freebayes/1.3.7.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/freebayes:1.3.7"
-image_digest = "sha256:d38feee57e008aadb8e1d5dd7dab72845917bf3c0008e68eecb82d237dc496b1"
+image_digest = "sha256:cf1e43f07d78bc8710dfe64d8b93a5299232c75089c01148583dda5bb96bd450"
