@@ -5,17 +5,7 @@ description = "Graph-based alignment of reads to a reference genome; successor t
 homepage = "https://daehwankimlab.github.io/hisat2/"
 license = "GPL-3.0"
 tier = "core"
-maintainers = ["github:DaehwanKimLab"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/hisat2:2.2.1--hdbdd923_6"
-
-[tool.hardware]
-cpu_cores = 8
-ram_gb = 8.0
-disk_gb = 5.0
-
+maintainers = [ "github:DaehwanKimLab",]
 [[tool.inputs]]
 name = "reads_r1"
 type = "fastq"
@@ -34,9 +24,23 @@ type = "sam"
 cardinality = "one"
 description = "Aligned reads in SAM format"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/hisat2:2.2.1--hdbdd923_6"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 8.0
+disk_gb = 5.0
+
 [tool.entrypoint]
 command = "hisat2"
 args_template = "-p {cpu_cores} -x /workspace/index -1 {reads_r1} -2 {reads_r2} -S {alignment}"
 
 [tool.binaries]
-exposed = ["hisat2", "hisat2-build", "hisat2-inspect"]
+exposed = [ "hisat2", "hisat2-build", "hisat2-inspect",]
+
+[tool.factored]
+spec_path = "specs/hisat2/2.2.1.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/hisat2:2.2.1"
+image_digest = "sha256:efaf480838002ccbad982b40dfd43fd679bccec5ee44d16e8a3b1cd23b54b642"
