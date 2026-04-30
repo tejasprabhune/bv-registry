@@ -49,4 +49,4 @@ exposed = [ "bwa",]
 [tool.factored]
 spec_path = "specs/bwa/0.7.18.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/bwa:0.7.18"
-image_digest = "sha256:f855633a1595e21f7ead265a3fe31cc7807480424729937ea463e89b91df80c5"
+image_digest = "sha256:c6097c6f02395e04b164c462b9770555a866210363a1634ef88bdca702571e8a"
