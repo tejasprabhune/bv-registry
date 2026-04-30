@@ -35,6 +35,6 @@ args_template = "{reads} --input_type fastq --nproc {cpu_cores} -o {profile}"
 exposed = [ "metaphlan", "merge_metaphlan_tables.py", "strainphlan",]
 
 [tool.factored]
-spec_path = "specs/metaphlan4/4.1.1.yaml"
+spec_path = "specs/metaphlan4/4.1.1.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/metaphlan4:4.1.1"
-image_digest = "sha256:3c33ec48bd504136c2b7ccd46e27b37af91430bf78934cbe8ab749bcd8a23be4"
+image_digest = "sha256:6b738fc117cd440d4abd4ca9e9762f1a4dd0585ce385d256667562a125f5b3fb"
