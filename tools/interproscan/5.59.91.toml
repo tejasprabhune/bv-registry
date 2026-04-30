@@ -5,17 +5,7 @@ description = "InterProScan: functional annotation of proteins by scanning membe
 homepage = "https://www.ebi.ac.uk/interpro/search/sequence/"
 license = "Apache-2.0"
 tier = "community"
-maintainers = ["github:ebi-pf-team"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/interproscan:5.59_91.0--hec16e2b_1"
-
-[tool.hardware]
-cpu_cores = 8
-ram_gb = 16.0
-disk_gb = 30.0
-
+maintainers = [ "github:ebi-pf-team",]
 [[tool.inputs]]
 name = "proteins"
 type = "fasta[protein]"
@@ -28,9 +18,23 @@ type = "file"
 cardinality = "one"
 description = "Functional annotations in TSV/GFF3/XML format"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/interproscan:5.59_91.0--hec16e2b_1"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 16.0
+disk_gb = 30.0
+
 [tool.entrypoint]
 command = "interproscan.sh"
 args_template = "--cpu {cpu_cores} -i {proteins} -o {output} -f TSV"
 
 [tool.binaries]
-exposed = ["interproscan.sh"]
+exposed = [ "interproscan.sh",]
+
+[tool.factored]
+spec_path = "specs/interproscan/5.59.91.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/interproscan:5.59.91"
+image_digest = "sha256:d58fd21be828bd694fc96d72db3c47b6b76a308be28290a5616deabb50a042bf"
