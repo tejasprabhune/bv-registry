@@ -43,4 +43,4 @@ exposed = [ "salmon",]
 [tool.factored]
 spec_path = "specs/salmon/1.10.3.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/salmon:1.10.3"
-image_digest = "sha256:d128563c7a9d17613a9e6cf100328aca957a35982d6a192752a4f429d69c8f0b"
+image_digest = "sha256:d1737a80a0ffe2d0ec70f0e9983dc0c119ed6697cf167643c699b1ebbc079e72"
