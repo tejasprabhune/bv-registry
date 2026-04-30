@@ -35,6 +35,6 @@ args_template = "sample {input} 1000000 > {output}"
 exposed = [ "seqtk",]
 
 [tool.factored]
-spec_path = "specs/seqtk/1.4.0.yaml"
+spec_path = "specs/seqtk/1.4.0.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/seqtk:1.4.0"
 image_digest = "sha256:035775a0559d968431155750912cf4b976c055087839d0a3325ce1e72fca14be"
