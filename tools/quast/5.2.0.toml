@@ -5,17 +5,7 @@ description = "Quality assessment tool for genome assemblies"
 homepage = "https://github.com/ablab/quast"
 license = "GPL-2.0"
 tier = "community"
-maintainers = ["github:ablab"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/quast:5.2.0--py39pl5321h2add14b_1"
-
-[tool.hardware]
-cpu_cores = 4
-ram_gb = 4.0
-disk_gb = 2.0
-
+maintainers = [ "github:ablab",]
 [[tool.inputs]]
 name = "assembly"
 type = "fasta"
@@ -28,9 +18,23 @@ type = "dir"
 cardinality = "one"
 description = "QUAST reports (HTML, text, PDF)"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/quast:5.2.0--py39pl5321h2add14b_1"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 4.0
+disk_gb = 2.0
+
 [tool.entrypoint]
 command = "quast"
 args_template = "--threads {cpu_cores} -o {report_dir} {assembly}"
 
 [tool.binaries]
-exposed = ["quast", "metaquast.py", "icarus.py"]
+exposed = [ "quast", "metaquast.py", "icarus.py",]
+
+[tool.factored]
+spec_path = "specs/quast/5.2.0.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/quast:5.2.0"
+image_digest = "sha256:fa3a3424da22d6094d357258daf2fa14c3d64e797ae5b967738efd577f5ba07e"
