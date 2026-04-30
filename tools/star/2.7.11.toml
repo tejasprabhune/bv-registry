@@ -43,4 +43,4 @@ exposed = [ "STAR", "STARlong",]
 [tool.factored]
 spec_path = "specs/star/2.7.11.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/star:2.7.11"
-image_digest = "sha256:0bfe1e6668077283def6cdb3ea19afd4e69f1b95e9235c4eea700d9102084205"
+image_digest = "sha256:a7b3debea50661178961e8af403d1246ae5dc59fce184df15f1f5d1e139c0371"
