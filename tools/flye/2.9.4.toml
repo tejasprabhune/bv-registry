@@ -5,17 +5,7 @@ description = "De novo assembler for single-molecule sequencing reads (PacBio, N
 homepage = "https://github.com/mikolmogorov/Flye"
 license = "BSD-3-Clause"
 tier = "core"
-maintainers = ["github:mikolmogorov"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/flye:2.9.4--py39hdf45acc_2"
-
-[tool.hardware]
-cpu_cores = 16
-ram_gb = 32.0
-disk_gb = 50.0
-
+maintainers = [ "github:mikolmogorov",]
 [[tool.inputs]]
 name = "reads"
 type = "fastq"
@@ -28,9 +18,23 @@ type = "dir"
 cardinality = "one"
 description = "Assembly output directory with assembly.fasta"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/flye:2.9.4--py39hdf45acc_2"
+
+[tool.hardware]
+cpu_cores = 16
+ram_gb = 32.0
+disk_gb = 50.0
+
 [tool.entrypoint]
 command = "flye"
 args_template = "--nano-raw {reads} --out-dir {output_dir} --threads {cpu_cores}"
 
 [tool.binaries]
-exposed = ["flye"]
+exposed = [ "flye",]
+
+[tool.factored]
+spec_path = "specs/flye/2.9.4.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/flye:2.9.4"
+image_digest = "sha256:9e85502bc8558e19b8b3f8181e4eed54779f8e218c46f070000cca99b30588a5"
