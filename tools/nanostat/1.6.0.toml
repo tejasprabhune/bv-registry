@@ -37,4 +37,4 @@ exposed = [ "NanoStat",]
 [tool.factored]
 spec_path = "specs/nanostat/1.6.0.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/nanostat:1.6.0"
-image_digest = "sha256:6de6993740290a1d31622f68cd2383749c3c968ce43da57c84418b9f33b6472b"
+image_digest = "sha256:509e9adc8abdb8c31576eb49e438d2bdcbd3d2cb86fbc55513d7522494945f55"
