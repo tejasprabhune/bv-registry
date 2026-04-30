@@ -47,6 +47,6 @@ args_template = "threads={cpu_cores} in={reads_r1} in2={reads_r2} out={out_r1} o
 exposed = [ "bbduk.sh", "bbmerge.sh", "bbmap.sh", "bbnorm.sh", "bbsplit.sh", "bbcountunique.sh", "reformat.sh", "dedupe.sh", "tadpole.sh", "bbwrap.sh",]
 
 [tool.factored]
-spec_path = "specs/bbtools/39.81.0.yaml"
+spec_path = "specs/bbtools/39.81.0.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/bbtools:39.81.0"
-image_digest = "sha256:89431e3cedd0d2f28fafffe89dd65d6071ad087d6fc1c1c08ecf06aa5f747b15"
+image_digest = "sha256:c88746fe6ce919800a3ab3b1a1cef37168b05df9c33d235f1029444f5c1f271c"
