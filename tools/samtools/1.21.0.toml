@@ -37,4 +37,4 @@ exposed = [ "samtools",]
 [tool.factored]
 spec_path = "specs/samtools/1.21.0.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/samtools:1.21.0"
-image_digest = "sha256:21b715d273b62d62a9837568b920e309454e5314f5c6339452a1b68d4c06467a"
+image_digest = "sha256:49d620e2cd45bc9d5b44f21f3311f5b18e05fd82d6af9aa44b5098c17fa61e5d"
