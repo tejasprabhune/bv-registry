@@ -37,4 +37,4 @@ exposed = [ "bcftools",]
 [tool.factored]
 spec_path = "specs/bcftools/1.21.0.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/bcftools:1.21.0"
-image_digest = "sha256:87278f23e60274497802ed90b58667ae9fccb89f13fe07d7eda7ae38d2f3a7f3"
+image_digest = "sha256:b3da546fa20695ee0a2f2551ddc88809027f6a0dcbb5ea05d0e48f9880b999df"
