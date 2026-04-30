@@ -5,17 +5,7 @@ description = "All-in-one FASTQ preprocessor: adapter trimming, quality filterin
 homepage = "https://github.com/OpenGene/fastp"
 license = "MIT"
 tier = "core"
-maintainers = ["github:OpenGene"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/fastp:0.23.4--hadf994f_2"
-
-[tool.hardware]
-cpu_cores = 4
-ram_gb = 4.0
-disk_gb = 2.0
-
+maintainers = [ "github:OpenGene",]
 [[tool.inputs]]
 name = "reads_r1"
 type = "fastq"
@@ -40,9 +30,23 @@ type = "fastq"
 cardinality = "optional"
 description = "Trimmed reverse reads (paired-end)"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/fastp:0.23.4--hadf994f_2"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 4.0
+disk_gb = 2.0
+
 [tool.entrypoint]
 command = "fastp"
 args_template = "--thread {cpu_cores} -i {reads_r1} -I {reads_r2} -o {out_r1} -O {out_r2}"
 
 [tool.binaries]
-exposed = ["fastp"]
+exposed = [ "fastp",]
+
+[tool.factored]
+spec_path = "specs/fastp/0.23.4.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/fastp:0.23.4"
+image_digest = "sha256:39c1ec8153d119de3a654aaa5dfc22a0364e1e8a19a7366e59a8671d69c9a2d8"
