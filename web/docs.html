@@ -284,7 +284,7 @@
     <h3 id="how-resolution">resolution</h3>
     <p>When you run <code>bv add samtools</code>, bv fetches the manifest from the registry. For tools backed by factored images, the manifest points to a build spec: a list of conda packages, channels, and a target platform.</p>
     <p><code>bv-builder resolve</code> downloads <code>repodata.json</code> from each declared channel (bioconda, conda-forge) for the target platform subdir (<code>linux-64</code> or <code>linux-aarch64</code>, plus <code>noarch</code>). It walks the dependency graph breadth-first: start from the declared packages, queue each package's <code>depends</code> field from repodata, repeat until the queue is empty. Each package is pinned to a specific <code>name</code>, <code>version</code>, <code>build</code>, and <code>sha256</code>.</p>
-    <p>This skips the conda solver. No mamba, no libsolv, no Python. The tradeoff: bv doesn't do full constraint satisfaction across package versions—it picks the latest match for each spec greedily. For bioinformatics tools where a published version is already a known-good combination, this is sufficient. Transitive dependencies that don't appear in any declared channel are skipped with a warning rather than aborting the build.</p>
+    <p>This skips the conda solver. The tradeoff: bv doesn't do full constraint satisfaction across package versions—it picks the latest match for each spec greedily. For bioinformatics tools where a published version is already a known-good combination, this is sufficient. Transitive dependencies that don't appear in any declared channel are skipped with a warning rather than aborting the build.</p>
 
     <h3 id="how-images">image construction</h3>
     <p><code>bv-builder build</code> downloads each pinned conda package (verifying its sha256), extracts it, and writes a single OCI layer. One conda package → one OCI layer. The layer is a reproducible tar archive: fixed modification times, deterministic file ordering, symlinks preserved. The same inputs always produce the same bytes.</p>
@@ -320,7 +320,7 @@ git add bv.toml bv.lock &amp;&amp; git commit -m "pin tools"
 bv sync</code></pre>
 
     <h3 id="user-install">install</h3>
-    <p>bv needs Docker or Apptainer/Singularity, plus <code>git</code>. No Python, no conda.</p>
+    <p>bv needs Docker or Apptainer/Singularity, plus <code>git</code>.</p>
     <p><strong>Docker</strong> is typical on a laptop. Use the rootless installer when you can; on a GPU box install <code>nvidia-container-toolkit</code> too.</p>
     <p><strong>Apptainer</strong> is typical on shared HPC nodes since it does not need a daemon or root. Install with conda: <code>conda install -c conda-forge apptainer</code>.</p>
     <p>Then install bv itself:</p>
