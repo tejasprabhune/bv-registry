@@ -41,6 +41,6 @@ args_template = "--cpu {cpu_cores} {query} {db}"
 exposed = [ "hmmbuild", "hmmsearch", "hmmscan", "hmmalign", "hmmpress", "jackhmmer", "phmmer", "hmmconvert", "hmmemit", "hmmfetch", "hmmstat",]
 
 [tool.factored]
-spec_path = "specs/hmmer/3.3.2.yaml"
+spec_path = "specs/hmmer/3.3.2.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/hmmer:3.3.2"
 image_digest = "sha256:a2f40a202f5b54f957fdcea6a1d7e76aa8133a3aa646590e5f6445814aeda606"
