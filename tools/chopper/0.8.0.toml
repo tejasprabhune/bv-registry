@@ -5,17 +5,7 @@ description = "Quality filtering and trimming of Oxford Nanopore reads"
 homepage = "https://github.com/wdecoster/chopper"
 license = "MIT"
 tier = "community"
-maintainers = ["github:wdecoster"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/chopper:0.8.0--hdcf5f25_0"
-
-[tool.hardware]
-cpu_cores = 4
-ram_gb = 4.0
-disk_gb = 1.0
-
+maintainers = [ "github:wdecoster",]
 [[tool.inputs]]
 name = "reads"
 type = "fastq"
@@ -28,6 +18,20 @@ type = "fastq"
 cardinality = "one"
 description = "Quality-filtered reads"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/chopper:0.8.0--hdcf5f25_0"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 4.0
+disk_gb = 1.0
+
 [tool.entrypoint]
 command = "sh"
 args_template = "-c 'gunzip -c {reads} | chopper --threads {cpu_cores} --quality 8 --minlength 1000 | gzip > {output}'"
+
+[tool.factored]
+spec_path = "specs/chopper/0.8.0.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/chopper:0.8.0"
+image_digest = "sha256:f8cb04698bb14b5269196ff6404066aa3e40a93cb1b50a083af8ca0ebeecab7e"
