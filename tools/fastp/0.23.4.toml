@@ -49,4 +49,4 @@ exposed = [ "fastp",]
 [tool.factored]
 spec_path = "specs/fastp/0.23.4.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/fastp:0.23.4"
-image_digest = "sha256:20c50e867fbedcc30888d842657790ac92282bfdd689de155647f665229a0a90"
+image_digest = "sha256:428c1de79ea66f4785f2ce6d7869dbb67490e96b4b1b3609e393ac5b658f4797"
