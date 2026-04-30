@@ -5,17 +5,7 @@ description = "Prokaryotic gene recognition and translation initiation site iden
 homepage = "https://github.com/hyattpd/Prodigal"
 license = "GPL-3.0"
 tier = "core"
-maintainers = ["github:hyattpd"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/prodigal:2.6.3--h577a1d6_11"
-
-[tool.hardware]
-cpu_cores = 1
-ram_gb = 2.0
-disk_gb = 1.0
-
+maintainers = [ "github:hyattpd",]
 [[tool.inputs]]
 name = "genome"
 type = "fasta"
@@ -34,9 +24,23 @@ type = "file"
 cardinality = "one"
 description = "Gene predictions in GFF/GenBank format"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/prodigal:2.6.3--h577a1d6_11"
+
+[tool.hardware]
+cpu_cores = 1
+ram_gb = 2.0
+disk_gb = 1.0
+
 [tool.entrypoint]
 command = "prodigal"
 args_template = "-i {genome} -a {proteins} -f gff -o {genes}"
 
 [tool.binaries]
-exposed = ["prodigal"]
+exposed = [ "prodigal",]
+
+[tool.factored]
+spec_path = "specs/prodigal/2.6.3.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/prodigal:2.6.3"
+image_digest = "sha256:3fecc3f520b78bc0f6928e6e906a4b289febdfb3ab854f5cc763c5228cb5d8b3"
