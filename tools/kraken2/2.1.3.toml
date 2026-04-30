@@ -47,6 +47,6 @@ args_template = "--threads {cpu_cores} --db /workspace/kraken2_db --paired --rep
 exposed = [ "kraken2", "kraken2-build", "kraken2-inspect",]
 
 [tool.factored]
-spec_path = "specs/kraken2/2.1.3.yaml"
+spec_path = "specs/kraken2/2.1.3.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/kraken2:2.1.3"
-image_digest = "sha256:7ee2779d3f57d325ae3c07eeca8f2b72423a962fcdd867f85b228cf26be76317"
+image_digest = "sha256:4d26c6d223a07bc552380bb2b2a2df624b87a97a6076c902e2bb776196ca624f"
