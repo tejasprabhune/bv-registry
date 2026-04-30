@@ -37,4 +37,4 @@ exposed = [ "fastqc",]
 [tool.factored]
 spec_path = "specs/fastqc/0.12.1.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/fastqc:0.12.1"
-image_digest = "sha256:a422d6969ef25831406d71d3b120f8d503eed85dda871d6d164a0f15afbb2d7e"
+image_digest = "sha256:90dd1a7a321b79f05f1b1e48369f265ec6b00b1cb1cbcdd0b488d00f11a21905"
