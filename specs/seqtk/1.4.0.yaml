@@ -1,0 +1,10 @@
+name: seqtk
+version: 1.4.0
+channels:
+  - https://conda.anaconda.org/bioconda
+  - https://conda.anaconda.org/conda-forge
+packages:
+  - seqtk ==1.4
+entrypoint:
+  command: /opt/conda/bin/seqtk
+platform: linux/amd64

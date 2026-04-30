@@ -1,0 +1,10 @@
+name: mafft
+version: 7.525.0
+channels:
+  - https://conda.anaconda.org/bioconda
+  - https://conda.anaconda.org/conda-forge
+packages:
+  - mafft ==7.525
+entrypoint:
+  command: /opt/conda/bin/mafft
+platform: linux/amd64

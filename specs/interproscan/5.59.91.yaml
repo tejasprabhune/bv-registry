@@ -1,0 +1,10 @@
+name: interproscan
+version: 5.59.91
+channels:
+  - https://conda.anaconda.org/bioconda
+  - https://conda.anaconda.org/conda-forge
+packages:
+  - interproscan ==5.59_91.0
+entrypoint:
+  command: /opt/conda/bin/interproscan.sh
+platform: linux/amd64

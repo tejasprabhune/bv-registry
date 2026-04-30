@@ -1,0 +1,10 @@
+name: raxml-ng
+version: 1.2.2
+channels:
+  - https://conda.anaconda.org/bioconda
+  - https://conda.anaconda.org/conda-forge
+packages:
+  - raxml-ng ==1.2.2
+entrypoint:
+  command: /opt/conda/bin/raxml-ng
+platform: linux/amd64

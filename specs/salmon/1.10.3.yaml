@@ -1,0 +1,10 @@
+name: salmon
+version: 1.10.3
+channels:
+  - https://conda.anaconda.org/bioconda
+  - https://conda.anaconda.org/conda-forge
+packages:
+  - salmon ==1.10.3
+entrypoint:
+  command: /opt/conda/bin/salmon
+platform: linux/amd64

@@ -1,0 +1,10 @@
+name: spades
+version: 4.0.0
+channels:
+  - https://conda.anaconda.org/bioconda
+  - https://conda.anaconda.org/conda-forge
+packages:
+  - spades ==4.0.0
+entrypoint:
+  command: /opt/conda/bin/spades.py
+platform: linux/amd64

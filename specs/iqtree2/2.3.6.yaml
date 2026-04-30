@@ -1,0 +1,10 @@
+name: iqtree2
+version: 2.3.6
+channels:
+  - https://conda.anaconda.org/bioconda
+  - https://conda.anaconda.org/conda-forge
+packages:
+  - iqtree ==2.3.6
+entrypoint:
+  command: /opt/conda/bin/iqtree2
+platform: linux/amd64

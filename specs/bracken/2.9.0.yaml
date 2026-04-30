@@ -1,0 +1,10 @@
+name: bracken
+version: 2.9.0
+channels:
+  - https://conda.anaconda.org/bioconda
+  - https://conda.anaconda.org/conda-forge
+packages:
+  - bracken ==2.9
+entrypoint:
+  command: /opt/conda/bin/bracken
+platform: linux/amd64

@@ -1,0 +1,10 @@
+name: stringtie
+version: 2.2.3
+channels:
+  - https://conda.anaconda.org/bioconda
+  - https://conda.anaconda.org/conda-forge
+packages:
+  - stringtie ==2.2.3
+entrypoint:
+  command: /opt/conda/bin/stringtie
+platform: linux/amd64

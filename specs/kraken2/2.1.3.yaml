@@ -1,0 +1,10 @@
+name: kraken2
+version: 2.1.3
+channels:
+  - https://conda.anaconda.org/bioconda
+  - https://conda.anaconda.org/conda-forge
+packages:
+  - kraken2 ==2.1.3
+entrypoint:
+  command: /opt/conda/bin/kraken2
+platform: linux/amd64

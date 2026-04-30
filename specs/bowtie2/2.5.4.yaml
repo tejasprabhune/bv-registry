@@ -1,0 +1,10 @@
+name: bowtie2
+version: 2.5.4
+channels:
+  - https://conda.anaconda.org/bioconda
+  - https://conda.anaconda.org/conda-forge
+packages:
+  - bowtie2 ==2.5.4
+entrypoint:
+  command: /opt/conda/bin/bowtie2
+platform: linux/amd64
