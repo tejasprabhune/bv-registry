@@ -47,6 +47,6 @@ args_template = "--thread {cpu_cores} -i {reads_r1} -I {reads_r2} -o {out_r1} -O
 exposed = [ "fastp",]
 
 [tool.factored]
-spec_path = "specs/fastp/0.23.4.yaml"
+spec_path = "specs/fastp/0.23.4.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/fastp:0.23.4"
 image_digest = "sha256:97fe6a52429b732418bf17eb658459d213632b4dc1405afc87137dd344e2ddca"
