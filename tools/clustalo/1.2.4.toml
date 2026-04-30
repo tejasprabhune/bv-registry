@@ -35,6 +35,6 @@ args_template = "--threads={cpu_cores} -i {sequences} -o {alignment} --outfmt=fa
 exposed = [ "clustalo",]
 
 [tool.factored]
-spec_path = "specs/clustalo/1.2.4.yaml"
+spec_path = "specs/clustalo/1.2.4.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/clustalo:1.2.4"
 image_digest = "sha256:22992c48ccd78faf5db63d2526740d93a847472dcb6e10dfbf8b986b506524ec"
