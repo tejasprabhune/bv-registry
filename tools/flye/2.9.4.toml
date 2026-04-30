@@ -35,6 +35,6 @@ args_template = "--nano-raw {reads} --out-dir {output_dir} --threads {cpu_cores}
 exposed = [ "flye",]
 
 [tool.factored]
-spec_path = "specs/flye/2.9.4.yaml"
+spec_path = "specs/flye/2.9.4.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/flye:2.9.4"
-image_digest = "sha256:0f6e0d7f19b4509664a60a303144bf4dccec60c40ab70b68f1911c049fc4af31"
+image_digest = "sha256:4b8acaffe42ec144d47882e9267c5d6d1cd571b603853fe308e0fc1890029ebd"
