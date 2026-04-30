@@ -37,4 +37,4 @@ exposed = [ "quast", "metaquast.py", "icarus.py",]
 [tool.factored]
 spec_path = "specs/quast/5.2.0.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/quast:5.2.0"
-image_digest = "sha256:fa3a3424da22d6094d357258daf2fa14c3d64e797ae5b967738efd577f5ba07e"
+image_digest = "sha256:9b68d472cac1693dd4153edf90341d527c7336b1fdc4297ffedbfd9c326b78e5"
