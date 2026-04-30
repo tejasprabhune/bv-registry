@@ -43,4 +43,4 @@ exposed = [ "hmmbuild", "hmmsearch", "hmmscan", "hmmalign", "hmmpress", "jackhmm
 [tool.factored]
 spec_path = "specs/hmmer/3.3.2.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/hmmer:3.3.2"
-image_digest = "sha256:91abc1f007406b2fd9235c9ea51f6d933d9c7ebadd2234b5e4f33eb2c1abb889"
+image_digest = "sha256:538b2145fac977f26c4389bff546c046b968b9b7dea144fc1c2851914f5b4f90"
