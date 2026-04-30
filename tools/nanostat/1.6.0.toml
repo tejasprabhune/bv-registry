@@ -5,17 +5,7 @@ description = "Statistical summary and quality control for long-read Oxford Nano
 homepage = "https://github.com/wdecoster/NanoStat"
 license = "MIT"
 tier = "community"
-maintainers = ["github:wdecoster"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/nanostat:1.6.0--pyhdfd78af_0"
-
-[tool.hardware]
-cpu_cores = 2
-ram_gb = 4.0
-disk_gb = 1.0
-
+maintainers = [ "github:wdecoster",]
 [[tool.inputs]]
 name = "reads"
 type = "fastq"
@@ -28,9 +18,23 @@ type = "file"
 cardinality = "one"
 description = "Summary statistics in text format"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/nanostat:1.6.0--pyhdfd78af_0"
+
+[tool.hardware]
+cpu_cores = 2
+ram_gb = 4.0
+disk_gb = 1.0
+
 [tool.entrypoint]
 command = "NanoStat"
 args_template = "--threads {cpu_cores} --fastq {reads} > {report}"
 
 [tool.binaries]
-exposed = ["NanoStat"]
+exposed = [ "NanoStat",]
+
+[tool.factored]
+spec_path = "specs/nanostat/1.6.0.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/nanostat:1.6.0"
+image_digest = "sha256:837d7a6701ab63107119d2dfeb07bca50c8a5f75047e5bdc1513c567f53a5373"
