@@ -49,4 +49,4 @@ exposed = [ "bbduk.sh", "bbmerge.sh", "bbmap.sh", "bbnorm.sh", "bbsplit.sh", "bb
 [tool.factored]
 spec_path = "specs/bbtools/39.81.0.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/bbtools:39.81.0"
-image_digest = "sha256:01d643943dc096f947aeba697d1f166ae184f39fffb44a2b87331fca563a0c91"
+image_digest = "sha256:9922051e9157a7b53e1b6eea42cd4a403b518fa10c760d129fb72c4aa571e0ed"
