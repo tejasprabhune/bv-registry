@@ -35,6 +35,6 @@ args_template = "stats --threads {cpu_cores} {input}"
 exposed = [ "seqkit",]
 
 [tool.factored]
-spec_path = "specs/seqkit/2.8.1.yaml"
+spec_path = "specs/seqkit/2.8.1.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/seqkit:2.8.1"
 image_digest = "sha256:45c1fb7f3868aa4916ffed68dfedb640062ef0193ce4ef9e0627563ffff234ff"
