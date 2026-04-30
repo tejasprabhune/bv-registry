@@ -5,17 +5,7 @@ description = "Taxonomic classification of sequencing reads using exact k-mer ma
 homepage = "https://github.com/DerrickWood/kraken2"
 license = "MIT"
 tier = "core"
-maintainers = ["github:DerrickWood"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/kraken2:2.1.3--pl5321h077b44d_4"
-
-[tool.hardware]
-cpu_cores = 8
-ram_gb = 64.0
-disk_gb = 5.0
-
+maintainers = [ "github:DerrickWood",]
 [[tool.inputs]]
 name = "reads_r1"
 type = "fastq"
@@ -40,9 +30,23 @@ type = "tabular"
 cardinality = "one"
 description = "Per-read classification results"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/kraken2:2.1.3--pl5321h077b44d_4"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 64.0
+disk_gb = 5.0
+
 [tool.entrypoint]
 command = "kraken2"
 args_template = "--threads {cpu_cores} --db /workspace/kraken2_db --paired --report {report} --output {output} {reads_r1} {reads_r2}"
 
 [tool.binaries]
-exposed = ["kraken2", "kraken2-build", "kraken2-inspect"]
+exposed = [ "kraken2", "kraken2-build", "kraken2-inspect",]
+
+[tool.factored]
+spec_path = "specs/kraken2/2.1.3.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/kraken2:2.1.3"
+image_digest = "sha256:607712d03bea2d8cba22abb352671f70e45b3267acb927348fe743a215bce7d8"
