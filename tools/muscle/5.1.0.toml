@@ -35,6 +35,6 @@ args_template = "-align {sequences} -output {alignment} -threads {cpu_cores}"
 exposed = [ "muscle",]
 
 [tool.factored]
-spec_path = "specs/muscle/5.1.0.yaml"
+spec_path = "specs/muscle/5.1.0.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/muscle:5.1.0"
 image_digest = "sha256:971989606102c6241f26fe6996d6d29640d2165efb222a88594a666dfe453124"
