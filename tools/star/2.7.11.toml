@@ -41,6 +41,6 @@ args_template = "--runThreadN {cpu_cores} --genomeDir /workspace/genome --readFi
 exposed = [ "STAR", "STARlong",]
 
 [tool.factored]
-spec_path = "specs/star/2.7.11.yaml"
+spec_path = "specs/star/2.7.11.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/star:2.7.11"
 image_digest = "sha256:75f7de03f963054434d9742016e19abca6f89da3701b3ab2830015ae305ad793"
