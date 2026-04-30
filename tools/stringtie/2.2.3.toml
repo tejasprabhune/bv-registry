@@ -5,17 +5,7 @@ description = "Transcript assembly and quantification from RNA-seq alignments"
 homepage = "https://ccb.jhu.edu/software/stringtie/"
 license = "MIT"
 tier = "core"
-maintainers = ["github:gpertea"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/stringtie:2.2.3--h29c0135_1"
-
-[tool.hardware]
-cpu_cores = 8
-ram_gb = 8.0
-disk_gb = 5.0
-
+maintainers = [ "github:gpertea",]
 [[tool.inputs]]
 name = "bam"
 type = "bam"
@@ -28,9 +18,23 @@ type = "file"
 cardinality = "one"
 description = "Assembled transcripts in GTF format with expression estimates"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/stringtie:2.2.3--h29c0135_1"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 8.0
+disk_gb = 5.0
+
 [tool.entrypoint]
 command = "stringtie"
 args_template = "-p {cpu_cores} -o {gtf} {bam}"
 
 [tool.binaries]
-exposed = ["stringtie"]
+exposed = [ "stringtie",]
+
+[tool.factored]
+spec_path = "specs/stringtie/2.2.3.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/stringtie:2.2.3"
+image_digest = "sha256:2725357514b1d2e8e8d591269255b09455fc61f79f8e0a1b8d07b35681b8df34"
