@@ -110,6 +110,8 @@ jobs:
 
       - name: Verify pushed image
         if: steps.push.outputs.digest != ''
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           _bv/target/release/bv-builder verify \
             "${{ steps.ref.outputs.ref }}@${{ steps.push.outputs.digest }}" \
