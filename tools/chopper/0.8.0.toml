@@ -34,4 +34,4 @@ args_template = "-c 'gunzip -c {reads} | chopper --threads {cpu_cores} --quality
 [tool.factored]
 spec_path = "specs/chopper/0.8.0.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/chopper:0.8.0"
-image_digest = "sha256:a5e3591c23740fd7c5407d50168fd7676d9f528660ddf177e68edb2834806f69"
+image_digest = "sha256:e9490030e854bbde5214e59d124728d8d8c7dc0fbfd19d8a6ed5ce8624587f4c"
