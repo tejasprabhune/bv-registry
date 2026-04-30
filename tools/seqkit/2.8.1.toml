@@ -37,4 +37,4 @@ exposed = [ "seqkit",]
 [tool.factored]
 spec_path = "specs/seqkit/2.8.1.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/seqkit:2.8.1"
-image_digest = "sha256:ff93e4c003816f4c36cb614cf84e0afd045337f0a89e20d30cba2cb71966aac5"
+image_digest = "sha256:92dd68163bcf779af7392205ca43365f2f31d016edad6aa3acbbd67f0beb5452"
