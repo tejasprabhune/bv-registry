@@ -5,17 +5,7 @@ description = "Quality control analysis tool for high-throughput sequencing data
 homepage = "https://www.bioinformatics.babraham.ac.uk/projects/fastqc/"
 license = "GPL-3.0"
 tier = "core"
-maintainers = ["github:s-andrews"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/fastqc:0.12.1--hdfd78af_0"
-
-[tool.hardware]
-cpu_cores = 4
-ram_gb = 4.0
-disk_gb = 1.0
-
+maintainers = [ "github:s-andrews",]
 [[tool.inputs]]
 name = "reads"
 type = "fastq"
@@ -28,9 +18,23 @@ type = "dir"
 cardinality = "one"
 description = "HTML and zip QC reports"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/fastqc:0.12.1--hdfd78af_0"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 4.0
+disk_gb = 1.0
+
 [tool.entrypoint]
 command = "fastqc"
 args_template = "--threads {cpu_cores} --outdir {report_dir} {reads}"
 
 [tool.binaries]
-exposed = ["fastqc"]
+exposed = [ "fastqc",]
+
+[tool.factored]
+spec_path = "specs/fastqc/0.12.1.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/fastqc:0.12.1"
+image_digest = "sha256:a088971f220bfe90e8bcaa1995a01a039eb41708f1a17667fe875dc7457dd3cf"
