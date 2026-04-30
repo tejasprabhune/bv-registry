@@ -37,4 +37,4 @@ exposed = [ "iqtree2",]
 [tool.factored]
 spec_path = "specs/iqtree2/2.3.6.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/iqtree2:2.3.6"
-image_digest = "sha256:312a7ad319f877540ced720371f4b8a17ae401a5934042e73072e3a28066473f"
+image_digest = "sha256:4ee6e5b9550ad5c723cbe76d96e7cac89a1d435da573257d5cd0bb645c0eab6b"
