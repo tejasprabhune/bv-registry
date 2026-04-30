@@ -5,17 +5,7 @@ description = "Spliced Transcripts Alignment to a Reference: RNA-seq aligner wit
 homepage = "https://github.com/alexdobin/STAR"
 license = "MIT"
 tier = "core"
-maintainers = ["github:alexdobin"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/star:2.7.11b--h43eeafb_0"
-
-[tool.hardware]
-cpu_cores = 8
-ram_gb = 32.0
-disk_gb = 30.0
-
+maintainers = [ "github:alexdobin",]
 [[tool.inputs]]
 name = "reads_r1"
 type = "fastq"
@@ -34,9 +24,23 @@ type = "bam"
 cardinality = "one"
 description = "Aligned reads in BAM format"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/star:2.7.11b--h43eeafb_0"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 32.0
+disk_gb = 30.0
+
 [tool.entrypoint]
 command = "STAR"
 args_template = "--runThreadN {cpu_cores} --genomeDir /workspace/genome --readFilesIn {reads_r1} {reads_r2} --outSAMtype BAM SortedByCoordinate --outFileNamePrefix /workspace/star_"
 
 [tool.binaries]
-exposed = ["STAR", "STARlong"]
+exposed = [ "STAR", "STARlong",]
+
+[tool.factored]
+spec_path = "specs/star/2.7.11.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/star:2.7.11"
+image_digest = "sha256:9ad6990e3276c7ac0c70cf45eea6e0771bce98ffc4a5ba65da8abb31b2de6330"
