@@ -37,4 +37,4 @@ exposed = [ "vcftools",]
 [tool.factored]
 spec_path = "specs/vcftools/0.1.16.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/vcftools:0.1.16"
-image_digest = "sha256:f24f2c9a2da1c0f3432175a3a3dae890b97b11308f554f72ce882ff69207b2af"
+image_digest = "sha256:65ee38e88534661f33d9e0da4c50c01e48ccfee1b6d239aa63862332f485e4ce"
