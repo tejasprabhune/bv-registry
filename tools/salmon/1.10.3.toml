@@ -41,6 +41,6 @@ args_template = "quant --threads {cpu_cores} -i /workspace/index -l A -1 {reads_
 exposed = [ "salmon",]
 
 [tool.factored]
-spec_path = "specs/salmon/1.10.3.yaml"
+spec_path = "specs/salmon/1.10.3.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/salmon:1.10.3"
-image_digest = "sha256:cc3b0e35ff07daa27ba70d8db76d1eeb16a8430f80000efa7a2dda29d03b3a7a"
+image_digest = "sha256:4dba7367a73617dea4676669632bbabbd17df1344cee9846b28d95c62306d97c"
