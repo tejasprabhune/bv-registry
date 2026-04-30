@@ -228,6 +228,7 @@
       <a href="about.html">about</a>
       <a href="docs.html">docs</a>
       <a href="design.html">design</a>
+      <a href="benchmarks.html">benchmarks</a>
       <a href="contributing.html" class="active">contributing</a>
       <a href="https://github.com/tejasprabhune/bv">bv repo</a>
       <a href="https://github.com/tejasprabhune/bv-registry">registry repo</a>
@@ -373,7 +374,7 @@ cargo build --release -p bv-bench
       1.21.0.toml
   specs/          # build specs for the factored OCI builder
     samtools/
-      1.21.0.yaml
+      1.21.0.toml
   web/            # static website (GitHub Pages)
   index.json      # pre-computed search index, updated by CI
   scripts/        # update-index.py, update-popularity.py</code></pre>
@@ -382,17 +383,18 @@ cargo build --release -p bv-bench
     <h3 id="adding-tool">adding a tool spec</h3>
     <p>For conda-based tools (the common case), add two files:</p>
 <pre class="language-bash"><code class="language-bash"># 1. build spec: tells bv-builder what to build
-cat > specs/seqtk/1.4.0.yaml &lt;&lt; 'EOF'
-name: seqtk
-version: 1.4.0
-channels:
-  - https://conda.anaconda.org/bioconda
-  - https://conda.anaconda.org/conda-forge
-packages:
-  - seqtk ==1.4.0
-entrypoint:
-  command: /opt/conda/bin/seqtk
-platform: linux/amd64
+cat > specs/seqtk/1.4.0.toml &lt;&lt; 'EOF'
+name = "seqtk"
+version = "1.4.0"
+channels = [
+    "https://conda.anaconda.org/bioconda",
+    "https://conda.anaconda.org/conda-forge",
+]
+packages = ["seqtk ==1.4.0"]
+platform = "linux/amd64"
+
+[entrypoint]
+command = "/opt/conda/bin/seqtk"
 EOF
 
 # 2. tool manifest: describes the tool for users
@@ -427,18 +429,18 @@ EOF</code></pre>
     </div>
 
     <h3 id="builder">image builder (bv-builder)</h3>
-    <p><code>bv-builder</code> turns a <code>specs/&lt;tool&gt;/&lt;version&gt;.yaml</code> into a factored OCI image: one layer per conda package, pushed to <code>ghcr.io/tejasprabhune/bv-pkg/&lt;tool&gt;:&lt;version&gt;</code>. CI runs the builder automatically on every new or changed spec file.</p>
+    <p><code>bv-builder</code> turns a <code>specs/&lt;tool&gt;/&lt;version&gt;.toml</code> into a factored OCI image: one layer per conda package, pushed to <code>ghcr.io/tejasprabhune/bv-pkg/&lt;tool&gt;:&lt;version&gt;</code>. CI runs the builder automatically on every new or changed spec file.</p>
     <p>You rarely need to run it locally, but when you do:</p>
 <pre class="language-bash"><code class="language-bash">cargo build --release -p bv-builder
 
 # resolve a spec to a pinned package list (dry run, no image built)
-./target/release/bv-builder resolve specs/samtools/1.21.0.yaml
+./target/release/bv-builder resolve specs/samtools/1.21.0.toml
 
 # build and save as a tar archive (does not push)
-./target/release/bv-builder build specs/samtools/1.21.0.yaml --out /tmp/samtools.tar
+./target/release/bv-builder build specs/samtools/1.21.0.toml --out /tmp/samtools.tar
 
 # build and push to GHCR (needs GHCR_TOKEN or GITHUB_TOKEN in env)
-./target/release/bv-builder build specs/samtools/1.21.0.yaml --push</code></pre>
+./target/release/bv-builder build specs/samtools/1.21.0.toml --push</code></pre>
 
     <h4>how it works</h4>
     <ol>
@@ -463,10 +465,10 @@ EOF</code></pre>
     <p>Build failures are usually transient (network error downloading a conda package, or GHCR rate limit on large images). To rerun a single tool:</p>
 <pre class="language-bash"><code class="language-bash">gh workflow run build-factored.yml \
   --repo tejasprabhune/bv-registry \
-  -f spec=specs/metaphlan4/4.1.1.yaml</code></pre>
+  -f spec=specs/metaphlan4/4.1.1.toml</code></pre>
     <p>To rebuild all tools at once (after a breaking change to the builder, for example):</p>
 <pre class="language-bash"><code class="language-bash">gh workflow run build-factored.yml --repo tejasprabhune/bv-registry</code></pre>
-    <p>The <code>detect</code> job runs first and lists every <code>specs/**/*.yaml</code>; each spec becomes a parallel matrix job.</p>
+    <p>The <code>detect</code> job runs first and lists every <code>specs/**/*.toml</code>; each spec becomes a parallel matrix job.</p>
 
     <h2 id="conventions">conventions</h2>
 

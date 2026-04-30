@@ -1,0 +1,11 @@
+name = "fasttree"
+version = "2.1.11"
+channels = [
+    "https://conda.anaconda.org/bioconda",
+    "https://conda.anaconda.org/conda-forge",
+]
+packages = ["fasttree ==2.1.11"]
+platform = "linux/amd64"
+
+[entrypoint]
+command = "/opt/conda/bin/FastTree"

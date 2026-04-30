@@ -1,0 +1,11 @@
+name = "trim-galore"
+version = "0.6.10"
+channels = [
+    "https://conda.anaconda.org/bioconda",
+    "https://conda.anaconda.org/conda-forge",
+]
+packages = ["trim-galore ==0.6.10"]
+platform = "linux/amd64"
+
+[entrypoint]
+command = "/opt/conda/bin/trim_galore"

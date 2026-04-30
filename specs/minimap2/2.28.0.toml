@@ -1,0 +1,11 @@
+name = "minimap2"
+version = "2.28.0"
+channels = [
+    "https://conda.anaconda.org/bioconda",
+    "https://conda.anaconda.org/conda-forge",
+]
+packages = ["minimap2 ==2.28"]
+platform = "linux/amd64"
+
+[entrypoint]
+command = "/opt/conda/bin/minimap2"

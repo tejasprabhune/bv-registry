@@ -1,0 +1,11 @@
+name = "tmalign"
+version = "2024.3.3"
+channels = [
+    "https://conda.anaconda.org/bioconda",
+    "https://conda.anaconda.org/conda-forge",
+]
+packages = ["tmalign ==20240303"]
+platform = "linux/amd64"
+
+[entrypoint]
+command = "/opt/conda/bin/TMalign"

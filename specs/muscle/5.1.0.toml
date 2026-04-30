@@ -1,0 +1,11 @@
+name = "muscle"
+version = "5.1.0"
+channels = [
+    "https://conda.anaconda.org/bioconda",
+    "https://conda.anaconda.org/conda-forge",
+]
+packages = ["muscle ==5.1"]
+platform = "linux/amd64"
+
+[entrypoint]
+command = "/opt/conda/bin/muscle"

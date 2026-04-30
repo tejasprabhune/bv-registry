@@ -3,11 +3,11 @@ name: Build Factored OCI Images
 on:
   push:
     paths:
-      - 'specs/**/*.yaml'
+      - 'specs/**/*.toml'
   workflow_dispatch:
     inputs:
       spec:
-        description: 'Spec path to rebuild (e.g. specs/samtools/1.19.2.yaml), or leave blank to rebuild all'
+        description: 'Spec path to rebuild (e.g. specs/samtools/1.19.2.toml), or leave blank to rebuild all'
         required: false
 
 jobs:
@@ -27,9 +27,9 @@ jobs:
           if [ -n "${{ github.event.inputs.spec }}" ]; then
             SPECS='["${{ github.event.inputs.spec }}"]'
           elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            SPECS=$(find specs -name '*.yaml' | jq -R . | jq -cs .)
+            SPECS=$(find specs -name '*.toml' | jq -R . | jq -cs .)
           else
-            SPECS=$(git diff --name-only HEAD~1 HEAD -- 'specs/**/*.yaml' \
+            SPECS=$(git diff --name-only HEAD~1 HEAD -- 'specs/**/*.toml' \
               | jq -R . | jq -cs .)
           fi
           echo "specs=$SPECS" >> "$GITHUB_OUTPUT"
@@ -101,7 +101,7 @@ jobs:
         run: |
           SPEC="${{ matrix.spec }}"
           NAME=$(basename "$(dirname "$SPEC")")
-          VERSION=$(basename "$SPEC" .yaml)
+          VERSION=$(basename "$SPEC" .toml)
           echo "name=$NAME" >> "$GITHUB_OUTPUT"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "ref=ghcr.io/${{ github.repository_owner }}/bv-pkg/${NAME}:${VERSION}" >> "$GITHUB_OUTPUT"

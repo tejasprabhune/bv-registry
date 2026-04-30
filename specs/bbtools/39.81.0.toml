@@ -1,0 +1,11 @@
+name = "bbtools"
+version = "39.81.0"
+channels = [
+    "https://conda.anaconda.org/bioconda",
+    "https://conda.anaconda.org/conda-forge",
+]
+packages = ["bbmap ==39.81"]
+platform = "linux/amd64"
+
+[entrypoint]
+command = "/opt/conda/bin/bbduk.sh"

@@ -1,0 +1,11 @@
+name = "mmseqs2"
+version = "17.0.0"
+channels = [
+    "https://conda.anaconda.org/bioconda",
+    "https://conda.anaconda.org/conda-forge",
+]
+packages = ["mmseqs2 ==17.b804f"]
+platform = "linux/amd64"
+
+[entrypoint]
+command = "/opt/conda/bin/mmseqs"
