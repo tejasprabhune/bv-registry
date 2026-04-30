@@ -35,6 +35,6 @@ args_template = "-d /workspace/kraken2_db -i {kraken_report} -o {bracken_report}
 exposed = [ "bracken", "bracken-build", "est_abundance.py",]
 
 [tool.factored]
-spec_path = "specs/bracken/2.9.0.yaml"
+spec_path = "specs/bracken/2.9.0.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/bracken:2.9.0"
-image_digest = "sha256:072d4b5580c52132abc3d916d5ba046dfe765919871123e975b8da1ae4aaf283"
+image_digest = "sha256:39ce5cf096f9aefbfda3d95500b4959b4b9cb77bf5a057b9973c7a5b7b99dd4f"
