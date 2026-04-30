@@ -37,4 +37,4 @@ exposed = [ "plink",]
 [tool.factored]
 spec_path = "specs/plink/1.90.0.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/plink:1.90.0"
-image_digest = "sha256:d33283e367427c746b6449e42a7a1879571dab81a26335624cd6995abe3985ee"
+image_digest = "sha256:813134d5242c9e705798cc0da0616c9e168af2ac3347e035eacfce498034317d"
