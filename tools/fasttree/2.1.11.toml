@@ -37,4 +37,4 @@ exposed = [ "FastTree", "FastTreeMP",]
 [tool.factored]
 spec_path = "specs/fasttree/2.1.11.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/fasttree:2.1.11"
-image_digest = "sha256:7985a56d1f53a70a5e875146308f06878dccbd3900565fd78c65cfc6dc61a461"
+image_digest = "sha256:e4e24f19fc4aecd856d71be253ddfa23a83fabb8e310ea157c4d8ea040836560"
