@@ -5,17 +5,7 @@ description = "BBTools: suite of fast, multithreaded bioinformatics tools for DN
 homepage = "https://jgi.doe.gov/data-and-tools/software-tools/bbtools/"
 license = "BSD-3-Clause"
 tier = "community"
-maintainers = ["github:jgi-doe"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/bbmap:39.81--h9b5c0a0_0"
-
-[tool.hardware]
-cpu_cores = 8
-ram_gb = 16.0
-disk_gb = 2.0
-
+maintainers = [ "github:jgi-doe",]
 [[tool.inputs]]
 name = "reads_r1"
 type = "fastq"
@@ -40,13 +30,23 @@ type = "fastq"
 cardinality = "optional"
 description = "Processed reverse reads"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/bbmap:39.81--h9b5c0a0_0"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 16.0
+disk_gb = 2.0
+
 [tool.entrypoint]
 command = "bbduk.sh"
 args_template = "threads={cpu_cores} in={reads_r1} in2={reads_r2} out={out_r1} out2={out_r2} ref=/opt/conda/opt/bbtools/resources/adapters.fa ktrim=r k=23 mink=11 hdist=1 tpe tbo"
 
 [tool.binaries]
-exposed = [
-  "bbduk.sh", "bbmerge.sh", "bbmap.sh", "bbnorm.sh",
-  "bbsplit.sh", "bbcountunique.sh", "reformat.sh",
-  "dedupe.sh", "tadpole.sh", "bbwrap.sh",
-]
+exposed = [ "bbduk.sh", "bbmerge.sh", "bbmap.sh", "bbnorm.sh", "bbsplit.sh", "bbcountunique.sh", "reformat.sh", "dedupe.sh", "tadpole.sh", "bbwrap.sh",]
+
+[tool.factored]
+spec_path = "specs/bbtools/39.81.0.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/bbtools:39.81.0"
+image_digest = "sha256:4fd56c0f6cd58bd8f37466ff3e0fe0223229a9dc177379f927893796639c4d07"
