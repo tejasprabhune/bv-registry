@@ -49,4 +49,4 @@ exposed = [ "trimmomatic",]
 [tool.factored]
 spec_path = "specs/trimmomatic/0.39.0.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/trimmomatic:0.39.0"
-image_digest = "sha256:dc5a0c11cff088e247edce7e7d6fdb8e801de31a6af1f5ebd9684a060a2ec10c"
+image_digest = "sha256:7179f6def08f571531188bd4beffcc01df7a3e69ca89d1bd1978693a2970db7f"
