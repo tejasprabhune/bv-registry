@@ -43,4 +43,4 @@ exposed = [ "diamond",]
 [tool.factored]
 spec_path = "specs/diamond/2.1.9.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/diamond:2.1.9"
-image_digest = "sha256:726c0cf579c27fb4909ce1d4d791b3f1fe09ccf86a8f12fb5737dfdaa3c9ee2e"
+image_digest = "sha256:e4906fdbeb07535391e71b8e34c8f237ba0446c74b3ecab697ad014710cad345"
