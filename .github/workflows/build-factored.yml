@@ -150,10 +150,16 @@ jobs:
 
       - name: Commit updated manifest
         if: steps.push.outputs.digest != ''
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "factored: ${{ steps.ref.outputs.name }} ${{ steps.ref.outputs.version }}"
-          file_pattern: "tools/${{ steps.ref.outputs.name }}/${{ steps.ref.outputs.version }}.toml"
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "tools/${{ steps.ref.outputs.name }}/${{ steps.ref.outputs.version }}.toml"
+          git diff --staged --quiet && exit 0
+          git commit -m "factored: ${{ steps.ref.outputs.name }} ${{ steps.ref.outputs.version }}"
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push && break
+            sleep $((i * 5))
+          done
 
       - name: Post PR comment
         if: github.event_name == 'pull_request' && steps.push.outputs.digest != ''
