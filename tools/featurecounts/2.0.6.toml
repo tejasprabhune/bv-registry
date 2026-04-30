@@ -37,4 +37,4 @@ exposed = [ "featureCounts",]
 [tool.factored]
 spec_path = "specs/featurecounts/2.0.6.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/featurecounts:2.0.6"
-image_digest = "sha256:af8bbcd7fa92f364380ca1d95b2f5b9c293bb8b65e5a94df88ed6bba5ed2b60f"
+image_digest = "sha256:cd12a4c567c170ce2a88e8da5a0189ac22e72c7ae948ad6c78d0d0c31963d47d"
