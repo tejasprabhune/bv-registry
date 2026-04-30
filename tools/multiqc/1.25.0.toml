@@ -35,6 +35,6 @@ args_template = "{analysis_dir} --outdir {report_dir}"
 exposed = [ "multiqc",]
 
 [tool.factored]
-spec_path = "specs/multiqc/1.25.0.yaml"
+spec_path = "specs/multiqc/1.25.0.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/multiqc:1.25.0"
-image_digest = "sha256:f812c4df04eb1444d315fae7a8d8f42c0e2caabdba99ff124a7b68996d29a3d5"
+image_digest = "sha256:5ee6d343cc9576445f85861305dfc46ae2c90a6b88067a65bf4e34d8e64416ea"
