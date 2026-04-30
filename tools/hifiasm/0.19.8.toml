@@ -35,6 +35,6 @@ args_template = "-o {output_prefix} -t {cpu_cores} {reads}"
 exposed = [ "hifiasm",]
 
 [tool.factored]
-spec_path = "specs/hifiasm/0.19.8.yaml"
+spec_path = "specs/hifiasm/0.19.8.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/hifiasm:0.19.8"
 image_digest = "sha256:e51557765f3e6eee72d27bb49243228bbdeb84bfe66d61652209b96ada57db41"
