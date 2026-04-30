@@ -5,17 +5,7 @@ description = "SPAdes: de Bruijn graph assembler for Illumina, PacBio, and hybri
 homepage = "https://github.com/ablab/spades"
 license = "GPL-2.0"
 tier = "core"
-maintainers = ["github:ablab"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/spades:4.0.0--haf24da9_4"
-
-[tool.hardware]
-cpu_cores = 16
-ram_gb = 32.0
-disk_gb = 50.0
-
+maintainers = [ "github:ablab",]
 [[tool.inputs]]
 name = "reads_r1"
 type = "fastq"
@@ -34,9 +24,23 @@ type = "dir"
 cardinality = "one"
 description = "Assembly output directory with contigs.fasta and scaffolds.fasta"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/spades:4.0.0--haf24da9_4"
+
+[tool.hardware]
+cpu_cores = 16
+ram_gb = 32.0
+disk_gb = 50.0
+
 [tool.entrypoint]
 command = "spades.py"
 args_template = "--threads {cpu_cores} --memory {ram_gb} -1 {reads_r1} -2 {reads_r2} -o {output_dir}"
 
 [tool.binaries]
-exposed = ["spades.py", "metaspades.py", "plasmidspades.py", "rnaspades.py", "rnaviralspades.py"]
+exposed = [ "spades.py", "metaspades.py", "plasmidspades.py", "rnaspades.py", "rnaviralspades.py",]
+
+[tool.factored]
+spec_path = "specs/spades/4.0.0.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/spades:4.0.0"
+image_digest = "sha256:cdc452247e0854a658a66ee6766f6e7038bd952772e57962a2f3b0a96fc9e259"
