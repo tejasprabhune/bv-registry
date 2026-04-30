@@ -41,6 +41,6 @@ args_template = "--threads {cpu_cores} --memory {ram_gb} -1 {reads_r1} -2 {reads
 exposed = [ "spades.py", "metaspades.py", "plasmidspades.py", "rnaspades.py", "rnaviralspades.py",]
 
 [tool.factored]
-spec_path = "specs/spades/4.0.0.yaml"
+spec_path = "specs/spades/4.0.0.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/spades:4.0.0"
-image_digest = "sha256:017cd972903a765703dffce5dc4eeae4509960c7f0398bd26bd6c475e387076e"
+image_digest = "sha256:241a705d6ddc69c5840541caa4917357e74487e5268dfbea2bc52b568362fc8a"
