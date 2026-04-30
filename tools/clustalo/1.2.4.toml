@@ -37,4 +37,4 @@ exposed = [ "clustalo",]
 [tool.factored]
 spec_path = "specs/clustalo/1.2.4.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/clustalo:1.2.4"
-image_digest = "sha256:7710fdd2f17a9d592a691a13fa7f25a8b9d814832e1f049924df633e3c6ec0a0"
+image_digest = "sha256:b332de77de7143a941fae61d4906c52fee4e08933e018eaab0601ea7cba34822"
