@@ -5,17 +5,7 @@ description = "Haplotype-resolved assembler for PacBio HiFi reads"
 homepage = "https://github.com/chhylp123/hifiasm"
 license = "MIT"
 tier = "community"
-maintainers = ["github:chhylp123"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/hifiasm:0.19.8--h43eeafb_0"
-
-[tool.hardware]
-cpu_cores = 32
-ram_gb = 64.0
-disk_gb = 100.0
-
+maintainers = [ "github:chhylp123",]
 [[tool.inputs]]
 name = "reads"
 type = "fastq"
@@ -28,9 +18,23 @@ type = "file"
 cardinality = "one"
 description = "Output prefix for haplotype GFA/FASTA files"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/hifiasm:0.19.8--h43eeafb_0"
+
+[tool.hardware]
+cpu_cores = 32
+ram_gb = 64.0
+disk_gb = 100.0
+
 [tool.entrypoint]
 command = "hifiasm"
 args_template = "-o {output_prefix} -t {cpu_cores} {reads}"
 
 [tool.binaries]
-exposed = ["hifiasm"]
+exposed = [ "hifiasm",]
+
+[tool.factored]
+spec_path = "specs/hifiasm/0.19.8.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/hifiasm:0.19.8"
+image_digest = "sha256:90a4217bd357984020c9b2b203794379063fa98d6a6ccce34f83c9dcc06cefe4"
