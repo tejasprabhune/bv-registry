@@ -37,4 +37,4 @@ exposed = [ "hifiasm",]
 [tool.factored]
 spec_path = "specs/hifiasm/0.19.8.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/hifiasm:0.19.8"
-image_digest = "sha256:1bd79c517504608a7569ae969fe0fcc6009c769dff32d3441ba1b0db28dce282"
+image_digest = "sha256:8e254c3b4473bd9af9f665e7989c61f610996451bd5984e389e5ea4df14b5fb9"
