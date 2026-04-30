@@ -43,4 +43,4 @@ exposed = [ "prodigal",]
 [tool.factored]
 spec_path = "specs/prodigal/2.6.3.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/prodigal:2.6.3"
-image_digest = "sha256:33d77a88c7ee0c21095fa3a991483d35b80245841c7a25a56528f096f38be14c"
+image_digest = "sha256:39eaa571d5a05d3641c7f6c091ce5554d4695c6da59c051d7881f47c4046b7d6"
