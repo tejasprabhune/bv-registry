@@ -5,17 +5,7 @@ description = "Pseudo-alignment based RNA-seq transcript quantification"
 homepage = "https://pachterlab.github.io/kallisto/"
 license = "BSD-2-Clause"
 tier = "core"
-maintainers = ["github:pachterlab"]
-
-[tool.image]
-backend = "docker"
-reference = "quay.io/biocontainers/kallisto:0.51.1--h2b92561_2"
-
-[tool.hardware]
-cpu_cores = 8
-ram_gb = 8.0
-disk_gb = 2.0
-
+maintainers = [ "github:pachterlab",]
 [[tool.inputs]]
 name = "reads_r1"
 type = "fastq"
@@ -34,9 +24,23 @@ type = "dir"
 cardinality = "one"
 description = "Quantification output with abundance.tsv"
 
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/kallisto:0.51.1--h2b92561_2"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 8.0
+disk_gb = 2.0
+
 [tool.entrypoint]
 command = "kallisto"
 args_template = "quant --threads {cpu_cores} -i /workspace/index.idx -o {quant_dir} {reads_r1} {reads_r2}"
 
 [tool.binaries]
-exposed = ["kallisto"]
+exposed = [ "kallisto",]
+
+[tool.factored]
+spec_path = "specs/kallisto/0.51.1.yaml"
+image_reference = "ghcr.io/tejasprabhune/bv-pkg/kallisto:0.51.1"
+image_digest = "sha256:77ee5af59f3a20a385dbfa5ef0b596bbe47f35445e0a25a3f8dede83b54b7d85"
