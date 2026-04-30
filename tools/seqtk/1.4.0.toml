@@ -37,4 +37,4 @@ exposed = [ "seqtk",]
 [tool.factored]
 spec_path = "specs/seqtk/1.4.0.yaml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/seqtk:1.4.0"
-image_digest = "sha256:f44c5ad44e04f189e84fba5f54593d23db954887bbc02cb17a7074439c3da3bf"
+image_digest = "sha256:035775a0559d968431155750912cf4b976c055087839d0a3325ce1e72fca14be"
