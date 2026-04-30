@@ -35,6 +35,6 @@ args_template = "-p {cpu_cores} -o {gtf} {bam}"
 exposed = [ "stringtie",]
 
 [tool.factored]
-spec_path = "specs/stringtie/2.2.3.yaml"
+spec_path = "specs/stringtie/2.2.3.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/stringtie:2.2.3"
-image_digest = "sha256:42df0933930d01a3f0e74e633dea39afaabc427ad413ab47a4589a814f0fa460"
+image_digest = "sha256:2d908d701bd0fead51c40cd647e31d407ffc6256b2364814a0e5d80673496d3e"
