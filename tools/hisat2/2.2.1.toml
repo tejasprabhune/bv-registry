@@ -41,6 +41,6 @@ args_template = "-p {cpu_cores} -x /workspace/index -1 {reads_r1} -2 {reads_r2} 
 exposed = [ "hisat2", "hisat2-build", "hisat2-inspect",]
 
 [tool.factored]
-spec_path = "specs/hisat2/2.2.1.yaml"
+spec_path = "specs/hisat2/2.2.1.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/hisat2:2.2.1"
-image_digest = "sha256:9adf7e06f069bf630954dc2b60731051080535d2117e020d4e1a9bbf68256bf0"
+image_digest = "sha256:8cad1951051edf4ca9180b58e358e7591d05cecbc7f6998952a4dcd6b1642fa8"
