@@ -1,0 +1,42 @@
+[tool]
+id = "paml"
+version = "4.10.10"
+description = "A package of programs for phylogenetic analyses of DNA or protein sequences using maximum likelihood"
+homepage = "https://evomics.org/resources/software/molecular-evolution-software/paml"
+license = "GPL-3.0-or-later"
+tier = "community"
+maintainers = ["github:abacus-gene"]
+
+[[tool.inputs]]
+name = "alignment"
+type = "msa"
+cardinality = "one"
+description = "Sequence alignment in PHYLIP format"
+
+[[tool.inputs]]
+name = "tree"
+type = "file"
+cardinality = "one"
+description = "Newick-format phylogenetic tree"
+
+[[tool.outputs]]
+name = "results"
+type = "file"
+cardinality = "one"
+description = "PAML output file with model estimates and likelihood scores"
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/paml:4.10.10--h87e0c26_2"
+digest = "sha256:0cc80584314881e9695926a4c0c83fa396dd9d261c8a7d67a27615bdf9ca259d"
+
+[tool.hardware]
+cpu_cores = 1
+ram_gb = 4.0
+disk_gb = 2.0
+
+[tool.entrypoint]
+command = "codeml"
+
+[tool.binaries]
+exposed = ["codeml", "baseml", "evolver", "chi2", "yn00"]
