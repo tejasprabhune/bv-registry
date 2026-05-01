@@ -1,0 +1,36 @@
+[tool]
+id = "trimal"
+version = "1.5.1"
+description = "A tool for the automated removal of spurious sequences or poorly aligned regions from a multiple sequence alignment"
+homepage = "https://trimal.readthedocs.io"
+license = "GPL-3.0-or-later"
+tier = "community"
+maintainers = ["github:inab"]
+
+[[tool.inputs]]
+name = "alignment"
+type = "msa"
+cardinality = "one"
+description = "Input multiple sequence alignment (FASTA, Clustal, PHYLIP, or similar)"
+
+[[tool.outputs]]
+name = "trimmed"
+type = "msa"
+cardinality = "one"
+description = "Trimmed multiple sequence alignment"
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/trimal:1.5.1--h9948957_0"
+digest = "sha256:2ddc872b92ac2634961cdd1f234d2d7779fccbd03b8c717e0bbbfe74dc7fb4dd"
+
+[tool.hardware]
+cpu_cores = 1
+ram_gb = 2.0
+disk_gb = 1.0
+
+[tool.entrypoint]
+command = "trimal"
+
+[tool.binaries]
+exposed = ["trimal", "readal", "statal"]
