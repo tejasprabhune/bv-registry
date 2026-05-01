@@ -1,0 +1,36 @@
+[tool]
+id = "picard"
+version = "3.4.0"
+description = "Java tools for working with NGS data in the BAM format"
+homepage = "http://broadinstitute.github.io/picard/"
+license = "MIT"
+tier = "community"
+maintainers = ["github:broadinstitute"]
+
+[[tool.inputs]]
+name = "input"
+type = "bam"
+cardinality = "one"
+description = "Input BAM/SAM/CRAM file"
+
+[[tool.outputs]]
+name = "output"
+type = "bam"
+cardinality = "one"
+description = "Output BAM/SAM/CRAM file"
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/picard:3.4.0--hdfd78af_0"
+digest = "sha256:96b49340dea0ef5bc402d865a2b02032949f13ee57151909328d4eb1b3bcecbc"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 16.0
+disk_gb = 5.0
+
+[tool.entrypoint]
+command = "picard"
+
+[tool.binaries]
+exposed = ["picard"]
