@@ -1,0 +1,36 @@
+[tool]
+id = "cd_hit"
+version = "4.8.1"
+description = "Clusters and compares protein or nucleotide sequences"
+homepage = "https://github.com/weizhongli/cdhit"
+license = "GPL-2.0-or-later"
+tier = "community"
+maintainers = ["github:weizhongli"]
+
+[[tool.inputs]]
+name = "sequences"
+type = "fasta"
+cardinality = "one"
+description = "Input protein or nucleotide sequences in FASTA format"
+
+[[tool.outputs]]
+name = "representatives"
+type = "fasta"
+cardinality = "one"
+description = "FASTA file of cluster representative sequences"
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/cd-hit:4.8.1--h5ca1c30_13"
+digest = "sha256:6cf8bf310be10dd43a85376e78d2915d2d094dd8b8c84d03c0bc13f73ab63fa2"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 16.0
+disk_gb = 5.0
+
+[tool.entrypoint]
+command = "cd-hit"
+
+[tool.binaries]
+exposed = ["cd-hit", "cd-hit-est", "cd-hit-2d", "cd-hit-est-2d"]
