@@ -1,0 +1,36 @@
+[tool]
+id = "mosdepth"
+version = "0.3.14"
+description = "Fast BAM/CRAM depth calculation for WGS, exome, or targeted sequencing"
+homepage = "https://github.com/brentp/mosdepth"
+license = "MIT"
+tier = "community"
+maintainers = ["github:brentp"]
+
+[[tool.inputs]]
+name = "bam"
+type = "bam"
+cardinality = "one"
+description = "Sorted and indexed BAM or CRAM file"
+
+[[tool.outputs]]
+name = "coverage"
+type = "tabular"
+cardinality = "one"
+description = "Per-base or per-region coverage depth (BED/tabular format)"
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/mosdepth:0.3.14--h05c3d44_0"
+digest = "sha256:50a99dc99f7ede1475976a3f562ffd682d839d69f68ce439f441dd553b3172bc"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 4.0
+disk_gb = 2.0
+
+[tool.entrypoint]
+command = "mosdepth"
+
+[tool.binaries]
+exposed = ["mosdepth"]
