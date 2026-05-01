@@ -1,0 +1,39 @@
+[tool]
+id = "mash"
+version = "2.3.0"
+description = "Fast sequence distance estimator that uses MinHash"
+homepage = "https://github.com/marbl/Mash"
+license = "BSD-3-Clause"
+tier = "community"
+maintainers = ["github:marbl"]
+
+[tool.metadata]
+upstream_version = "2.3"
+
+[[tool.inputs]]
+name = "sequences"
+type = "fasta"
+cardinality = "many"
+description = "Input sequences (FASTA or FASTQ) to sketch or compare"
+
+[[tool.outputs]]
+name = "distances"
+type = "tabular"
+cardinality = "one"
+description = "Pairwise distance estimates between sequences"
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/mash:2.3--hb105d93_10"
+digest = "sha256:57e2af229b118c706b09d864f0a14c9fa99803c1d38e5f22ef3cbdc7c2ad3c1e"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 8.0
+disk_gb = 5.0
+
+[tool.entrypoint]
+command = "mash"
+
+[tool.binaries]
+exposed = ["mash"]
