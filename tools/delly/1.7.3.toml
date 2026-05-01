@@ -1,0 +1,42 @@
+[tool]
+id = "delly"
+version = "1.7.3"
+description = "Structural variant discovery by integrated paired-end and split-read analysis"
+homepage = "https://github.com/dellytools/delly"
+license = "BSD-3-Clause"
+tier = "community"
+maintainers = ["github:dellytools"]
+
+[[tool.inputs]]
+name = "bam"
+type = "bam"
+cardinality = "one"
+description = "Sorted and indexed BAM file"
+
+[[tool.inputs]]
+name = "reference"
+type = "fasta"
+cardinality = "one"
+description = "Reference genome in FASTA format"
+
+[[tool.outputs]]
+name = "variants"
+type = "bcf"
+cardinality = "one"
+description = "Structural variant calls in BCF format"
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/delly:1.7.3--hd6466ae_0"
+digest = "sha256:97e6daaa0b8c4f0e4c77066c4152cef169ffe517ee816bc77bf8637d1f25a592"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb = 8.0
+disk_gb = 5.0
+
+[tool.entrypoint]
+command = "delly"
+
+[tool.binaries]
+exposed = ["delly"]
