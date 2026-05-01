@@ -1,0 +1,36 @@
+[tool]
+id = "orthofinder"
+version = "3.1.4"
+description = "Accurate inference of orthogroups, orthologues, gene trees and rooted species tree made easy!"
+homepage = "https://github.com/OrthoFinder/OrthoFinder"
+license = "GPL-3.0-only"
+tier = "community"
+maintainers = ["github:OrthoFinder"]
+
+[[tool.inputs]]
+name = "fasta_dir"
+type = "dir"
+cardinality = "one"
+description = "Directory of protein FASTA files, one per species"
+
+[[tool.outputs]]
+name = "results_dir"
+type = "dir"
+cardinality = "one"
+description = "OrthoFinder results directory containing orthogroups, gene trees, and species tree"
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/orthofinder:3.1.4--hdfd78af_0"
+digest = "sha256:94eae88393c1aefab39a33a04731cc616bee22514e24e0fa9834a66a832e3d6f"
+
+[tool.hardware]
+cpu_cores = 16
+ram_gb = 16.0
+disk_gb = 20.0
+
+[tool.entrypoint]
+command = "orthofinder"
+
+[tool.binaries]
+exposed = ["orthofinder"]
