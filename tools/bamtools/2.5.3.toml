@@ -1,0 +1,36 @@
+[tool]
+id = "bamtools"
+version = "2.5.3"
+description = "C++ API & command-line toolkit for working with BAM data"
+homepage = "https://github.com/pezmaster31/bamtools"
+license = "MIT"
+tier = "community"
+maintainers = ["github:pezmaster31"]
+
+[[tool.inputs]]
+name = "input"
+type = "bam"
+cardinality = "one"
+description = "Input BAM file"
+
+[[tool.outputs]]
+name = "output"
+type = "bam"
+cardinality = "one"
+description = "Output BAM file or statistics"
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/bamtools:2.5.3--he132191_0"
+digest = "sha256:b25c726fb17f173d0971615b5d907b11bfc12021b7a7744e36a630906998689b"
+
+[tool.hardware]
+cpu_cores = 2
+ram_gb = 4.0
+disk_gb = 2.0
+
+[tool.entrypoint]
+command = "bamtools"
+
+[tool.binaries]
+exposed = ["bamtools"]
