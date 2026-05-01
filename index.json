@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-04-30T02:39:31.246859+00:00",
+  "generated_at": "2026-05-01T17:13:55.578457+00:00",
   "tools": [
     {
       "id": "augustus",
@@ -20,6 +20,27 @@
       ],
       "output_types": [
         "file"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "bamtools",
+      "version": "2.5.3",
+      "versions": [
+        "2.5.3"
+      ],
+      "description": "C++ API & command-line toolkit for working with BAM data",
+      "tier": "community",
+      "maintainers": [
+        "github:pezmaster31"
+      ],
+      "homepage": "https://github.com/pezmaster31/bamtools",
+      "license": "MIT",
+      "input_types": [
+        "bam"
+      ],
+      "output_types": [
+        "bam"
       ],
       "deprecated": false
     },
@@ -221,6 +242,48 @@
       "deprecated": false
     },
     {
+      "id": "cd_hit",
+      "version": "4.8.1",
+      "versions": [
+        "4.8.1"
+      ],
+      "description": "Clusters and compares protein or nucleotide sequences",
+      "tier": "community",
+      "maintainers": [
+        "github:weizhongli"
+      ],
+      "homepage": "https://github.com/weizhongli/cdhit",
+      "license": "GPL-2.0-or-later",
+      "input_types": [
+        "fasta"
+      ],
+      "output_types": [
+        "fasta"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "centrifuge",
+      "version": "1.0.4",
+      "versions": [
+        "1.0.4"
+      ],
+      "description": "Classifier for metagenomic sequences",
+      "tier": "community",
+      "maintainers": [
+        "github:DaehwanKimLab"
+      ],
+      "homepage": "https://github.com/DaehwanKimLab/centrifuge",
+      "license": "GPL-3.0-only",
+      "input_types": [
+        "fastq"
+      ],
+      "output_types": [
+        "tabular"
+      ],
+      "deprecated": false
+    },
+    {
       "id": "chopper",
       "version": "0.8.0",
       "versions": [
@@ -303,6 +366,28 @@
       ],
       "output_types": [
         "vcf"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "delly",
+      "version": "1.7.3",
+      "versions": [
+        "1.7.3"
+      ],
+      "description": "Structural variant discovery by integrated paired-end and split-read analysis",
+      "tier": "community",
+      "maintainers": [
+        "github:dellytools"
+      ],
+      "homepage": "https://github.com/dellytools/delly",
+      "license": "BSD-3-Clause",
+      "input_types": [
+        "bam",
+        "fasta"
+      ],
+      "output_types": [
+        "bcf"
       ],
       "deprecated": false
     },
@@ -668,6 +753,27 @@
       "deprecated": false
     },
     {
+      "id": "mash",
+      "version": "2.3.0",
+      "versions": [
+        "2.3.0"
+      ],
+      "description": "Fast sequence distance estimator that uses MinHash",
+      "tier": "community",
+      "maintainers": [
+        "github:marbl"
+      ],
+      "homepage": "https://github.com/marbl/Mash",
+      "license": "BSD-3-Clause",
+      "input_types": [
+        "fasta"
+      ],
+      "output_types": [
+        "tabular"
+      ],
+      "deprecated": false
+    },
+    {
       "id": "medaka",
       "version": "1.11.3",
       "versions": [
@@ -751,6 +857,27 @@
       ],
       "output_types": [
         "mmseqs_output"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "mosdepth",
+      "version": "0.3.14",
+      "versions": [
+        "0.3.14"
+      ],
+      "description": "Fast BAM/CRAM depth calculation for WGS, exome, or targeted sequencing",
+      "tier": "community",
+      "maintainers": [
+        "github:brentp"
+      ],
+      "homepage": "https://github.com/brentp/mosdepth",
+      "license": "MIT",
+      "input_types": [
+        "bam"
+      ],
+      "output_types": [
+        "tabular"
       ],
       "deprecated": false
     },
@@ -839,6 +966,70 @@
       "deprecated": false
     },
     {
+      "id": "orthofinder",
+      "version": "3.1.4",
+      "versions": [
+        "3.1.4"
+      ],
+      "description": "Accurate inference of orthogroups, orthologues, gene trees and rooted species tree made easy!",
+      "tier": "community",
+      "maintainers": [
+        "github:OrthoFinder"
+      ],
+      "homepage": "https://github.com/OrthoFinder/OrthoFinder",
+      "license": "GPL-3.0-only",
+      "input_types": [
+        "dir"
+      ],
+      "output_types": [
+        "dir"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "paml",
+      "version": "4.10.10",
+      "versions": [
+        "4.10.10"
+      ],
+      "description": "A package of programs for phylogenetic analyses of DNA or protein sequences using maximum likelihood",
+      "tier": "community",
+      "maintainers": [
+        "github:abacus-gene"
+      ],
+      "homepage": "https://evomics.org/resources/software/molecular-evolution-software/paml",
+      "license": "GPL-3.0-or-later",
+      "input_types": [
+        "msa",
+        "file"
+      ],
+      "output_types": [
+        "file"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "picard",
+      "version": "3.4.0",
+      "versions": [
+        "3.4.0"
+      ],
+      "description": "Java tools for working with NGS data in the BAM format",
+      "tier": "community",
+      "maintainers": [
+        "github:broadinstitute"
+      ],
+      "homepage": "http://broadinstitute.github.io/picard/",
+      "license": "MIT",
+      "input_types": [
+        "bam"
+      ],
+      "output_types": [
+        "bam"
+      ],
+      "deprecated": false
+    },
+    {
       "id": "plink",
       "version": "1.90.0",
       "versions": [
@@ -878,6 +1069,27 @@
       "output_types": [
         "fasta[protein]",
         "file"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "prokka",
+      "version": "1.15.6",
+      "versions": [
+        "1.15.6"
+      ],
+      "description": "Rapid annotation of prokaryotic genomes",
+      "tier": "community",
+      "maintainers": [
+        "github:tseemann"
+      ],
+      "homepage": "https://github.com/tseemann/prokka",
+      "license": "GPL-3.0-only",
+      "input_types": [
+        "fasta"
+      ],
+      "output_types": [
+        "dir"
       ],
       "deprecated": false
     },
@@ -1030,6 +1242,48 @@
       "deprecated": false
     },
     {
+      "id": "snpeff",
+      "version": "5.4.0",
+      "versions": [
+        "5.4.0"
+      ],
+      "description": "Genetic variant annotation and effect prediction toolbox",
+      "tier": "community",
+      "maintainers": [
+        "github:pcingola"
+      ],
+      "homepage": "http://snpeff.sourceforge.net/",
+      "license": "LGPLv3",
+      "input_types": [
+        "vcf"
+      ],
+      "output_types": [
+        "vcf"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "snpsift",
+      "version": "5.4.0",
+      "versions": [
+        "5.4.0"
+      ],
+      "description": "Toolbox that allows you to filter and manipulate annotated files",
+      "tier": "community",
+      "maintainers": [
+        "github:pcingola"
+      ],
+      "homepage": "http://snpeff.sourceforge.net/SnpSift.html",
+      "license": "LGPLv3",
+      "input_types": [
+        "vcf"
+      ],
+      "output_types": [
+        "vcf"
+      ],
+      "deprecated": false
+    },
+    {
       "id": "solenoid",
       "version": "1.0.0",
       "versions": [
@@ -1155,6 +1409,27 @@
       ],
       "output_types": [
         "dir"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "trimal",
+      "version": "1.5.1",
+      "versions": [
+        "1.5.1"
+      ],
+      "description": "A tool for the automated removal of spurious sequences or poorly aligned regions from a multiple sequence alignment",
+      "tier": "community",
+      "maintainers": [
+        "github:inab"
+      ],
+      "homepage": "https://trimal.readthedocs.io",
+      "license": "GPL-3.0-or-later",
+      "input_types": [
+        "msa"
+      ],
+      "output_types": [
+        "msa"
       ],
       "deprecated": false
     },
