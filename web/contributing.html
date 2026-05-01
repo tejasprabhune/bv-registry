@@ -339,7 +339,7 @@ bv conformance samtools --digest sha256:abc123...</code></pre>
     </div>
 
     <h3 id="conformance-sweep">conformance sweep</h3>
-    <p>A conformance sweep runs <code>bv conform --all</code> against every tool in the registry to verify that each tool's declared binaries produce correct output. Run a sweep before merging changes that affect many tools, or after a builder upgrade.</p>
+    <p>A conformance sweep runs <code>bv conformance --all</code> against every tool in the registry to verify that each tool's declared binaries produce correct output. Run a sweep before merging changes that affect many tools, or after a builder upgrade.</p>
 
     <h4>prerequisites</h4>
     <ul>
@@ -350,10 +350,10 @@ bv conformance samtools --digest sha256:abc123...</code></pre>
 
     <h4>running a sweep</h4>
 <pre class="language-bash"><code class="language-bash"># full sweep, skipping GPU-only tools and tools that require reference data
-bv conform --all --skip-gpu --skip-reference-data
+bv conformance --all --skip-gpu --skip-reference-data
 
 # single tool
-bv conform samtools</code></pre>
+bv conformance samtools</code></pre>
 
     <h4>output status codes</h4>
     <table>
@@ -368,7 +368,7 @@ bv conform samtools</code></pre>
     <ol>
       <li>Check the tool's manifest <code>conformance</code> section to see which binaries are declared and what probes are expected.</li>
       <li>Rebuild the image using <code>bv-builder</code> or by re-running the <code>build-factored.yml</code> workflow.</li>
-      <li>Re-run <code>bv conform &lt;tool-name&gt;</code> to confirm the fix before opening a PR.</li>
+      <li>Re-run <code>bv conformance &lt;tool-name&gt;</code> to confirm the fix before opening a PR.</li>
     </ol>
     <div class="callout">
       Conformance must pass for all affected tools before a PR can be merged to the core or community tier. The <code>conformance.yml</code> CI workflow enforces this automatically on every PR that touches <code>tools/**</code>.
