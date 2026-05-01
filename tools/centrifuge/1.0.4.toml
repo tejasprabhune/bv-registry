@@ -1,0 +1,39 @@
+[tool]
+id = "centrifuge"
+version = "1.0.4"
+description = "Classifier for metagenomic sequences"
+homepage = "https://github.com/DaehwanKimLab/centrifuge"
+license = "GPL-3.0-only"
+tier = "community"
+maintainers = ["github:DaehwanKimLab"]
+
+[tool.metadata]
+upstream_version = "1.0.4.2"
+
+[[tool.inputs]]
+name = "reads"
+type = "fastq"
+cardinality = "one"
+description = "Input sequencing reads (FASTQ or FASTA)"
+
+[[tool.outputs]]
+name = "classifications"
+type = "tabular"
+cardinality = "one"
+description = "Per-read taxonomic classification results"
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/centrifuge:1.0.4.2--h077b44d_1"
+digest = "sha256:024d696d29f8d781c0c43b6836f6ad1983046d4adaa17e4068dd2f267142a3df"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 16.0
+disk_gb = 20.0
+
+[tool.entrypoint]
+command = "centrifuge"
+
+[tool.binaries]
+exposed = ["centrifuge", "centrifuge-build", "centrifuge-inspect"]
