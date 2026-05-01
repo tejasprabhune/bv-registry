@@ -1,0 +1,39 @@
+[tool]
+id = "snpeff"
+version = "5.4.0"
+description = "Genetic variant annotation and effect prediction toolbox"
+homepage = "http://snpeff.sourceforge.net/"
+license = "LGPLv3"
+tier = "community"
+maintainers = ["github:pcingola"]
+
+[tool.metadata]
+upstream_version = "5.4.0c"
+
+[[tool.inputs]]
+name = "input"
+type = "vcf"
+cardinality = "one"
+description = "Input VCF file with variants to annotate"
+
+[[tool.outputs]]
+name = "output"
+type = "vcf"
+cardinality = "one"
+description = "Annotated VCF with functional effect predictions"
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/snpeff:5.4.0c--hdfd78af_0"
+digest = "sha256:832e86061ab3c1ef4339ec42f10fb98c4eaaecd498cd37d2bbe747e6bcc14de7"
+
+[tool.hardware]
+cpu_cores = 2
+ram_gb = 8.0
+disk_gb = 5.0
+
+[tool.entrypoint]
+command = "snpEff"
+
+[tool.binaries]
+exposed = ["snpEff"]
