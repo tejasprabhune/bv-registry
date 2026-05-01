@@ -1,0 +1,36 @@
+[tool]
+id = "prokka"
+version = "1.15.6"
+description = "Rapid annotation of prokaryotic genomes"
+homepage = "https://github.com/tseemann/prokka"
+license = "GPL-3.0-only"
+tier = "community"
+maintainers = ["github:tseemann"]
+
+[[tool.inputs]]
+name = "input"
+type = "fasta"
+cardinality = "one"
+description = "Genome assembly in FASTA format (contigs or chromosomes)"
+
+[[tool.outputs]]
+name = "outdir"
+type = "dir"
+cardinality = "one"
+description = "Output directory containing GFF3, GenBank, protein FASTA, and summary files"
+
+[tool.image]
+backend = "docker"
+reference = "quay.io/biocontainers/prokka:1.15.6--pl5321hdfd78af_0"
+digest = "sha256:c9186d3982809766a2ec36fdaec2c57b7c9d641e48587013f8f8fe14f5eb35fc"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb = 8.0
+disk_gb = 5.0
+
+[tool.entrypoint]
+command = "prokka"
+
+[tool.binaries]
+exposed = ["prokka"]
