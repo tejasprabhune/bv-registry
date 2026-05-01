@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-05-01T17:13:55.578457+00:00",
+  "generated_at": "2026-05-01T17:57:36.603567+00:00",
   "tools": [
     {
       "id": "augustus",
@@ -1282,27 +1282,6 @@
         "vcf"
       ],
       "deprecated": false
-    },
-    {
-      "id": "solenoid",
-      "version": "1.0.0",
-      "versions": [
-        "1.0.0"
-      ],
-      "description": "SOLeNNoID: de novo design of solenoid repeat proteins using graph neural networks",
-      "tier": "experimental",
-      "maintainers": [
-        "github:gnik2018"
-      ],
-      "homepage": "https://github.com/gnik2018/SOLeNNoID",
-      "license": "MIT",
-      "input_types": [
-        "file"
-      ],
-      "output_types": [
-        "dir"
-      ],
-      "deprecated": true
     },
     {
       "id": "spades",
