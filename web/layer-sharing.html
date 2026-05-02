@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bv: layer sharing</title>
+  <link rel="stylesheet" href="https://use.typekit.net/bsk0vur.css">
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="docs.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-rust.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="page-wrap">
+    <h1 class="site-title">bv</h1>
+    <p class="site-subtitle">layer sharing: how factored OCI images dedupe across tools</p>
+    <div class="header-links">
+      <a href="index.html">tools</a>
+      <a href="data.html">data</a>
+      <a href="about.html">about</a>
+      <a href="docs.html">docs</a>
+      <a href="design.html">design</a>
+      <a href="layer-sharing.html" class="active">layer sharing</a>
+      <a href="contributing.html">contributing</a>
+      <a href="https://github.com/tejasprabhune/bv">bv repo</a>
+      <a href="https://github.com/tejasprabhune/bv-registry">registry repo</a>
+    </div>
+  </div>
+</header>
+
+<div class="docs-shell">
+
+  <aside class="toc">
+    <h3>setup</h3>
+    <ul>
+      <li><a href="#problem">the problem</a></li>
+      <li><a href="#idea">the basic idea</a></li>
+      <li><a href="#scaling">why scale breaks the naive version</a></li>
+    </ul>
+    <h3>algorithm</h3>
+    <ul>
+      <li><a href="#policy">popularity-based packing</a></li>
+      <li><a href="#stability">why it works</a></li>
+      <li><a href="#determinism">reproducible bytes</a></li>
+    </ul>
+    <h3>example</h3>
+    <ul>
+      <li><a href="#worked">three tools, one closure</a></li>
+      <li><a href="#tail">long-tail layers</a></li>
+    </ul>
+    <h3>compared</h3>
+    <ul>
+      <li><a href="#nix">vs Graham's Nix layering</a></li>
+      <li><a href="#code">where to read it</a></li>
+    </ul>
+  </aside>
+
+  <main class="doc">
+
+    <h1>layer sharing</h1>
+    <p class="lede">How bv splits a container image into one OCI layer per conda package, and how it keeps those layers identical across every tool that uses them.</p>
+
+    <h2 id="problem">the problem</h2>
+    <p>A typical bioinformatics tool ships as a single container image holding a full conda environment: the tool itself, its direct dependencies, the transitive closure of those dependencies, and conda's own bookkeeping files. The whole stack lives at one OCI manifest digest. The registry stores it as one set of layer blobs. Docker pulls it as one set of blobs.</p>
+    <p>Install <code>samtools</code>, <code>bwa</code>, and <code>bcftools</code>, and all three pull <code>htslib</code>, <code>openssl</code>, <code>libgcc-ng</code>, <code>zlib</code>, <code>ncurses</code>, <code>xz</code>, and <code>bzip2</code>. The bytes are identical across tools, but each image carries its own copy. The user pays for each shared package three times.</p>
+    <p>This is the same shape of problem Graham Christensen described for <a href="https://grahamc.com/blog/nix-and-layered-docker-images/" target="_blank" rel="noopener">Nix and layered Docker images</a>: putting an entire build closure into one tarball wastes bandwidth and storage in proportion to the redundancy across closures. The fix is structural, not incremental: build images out of layers small enough that overlap is the rule, not the exception.</p>
+
+    <h2 id="idea">the basic idea</h2>
+    <p>Build one OCI layer per conda package. Make each layer content-addressed by its bytes: same <code>(name, version, build, sha256)</code> in, same uncompressed tar out, same digest. Docker's pull-by-digest dedup then does the rest. When two images list the same layer digest, the second image only downloads what's new.</p>
+    <p>The 10th tool a user installs shares ~60–70% of its layer set with the first 9.</p>
+    <p>The whole pipeline lives in <code>bv-builder</code>:</p>
+    <ul>
+      <li><code>popularity.rs</code>: counts how often each conda package appears across the registry.</li>
+      <li><code>layering.rs</code>: given a tool's resolved package list, decides which packages get solo layers and which get batched.</li>
+      <li><code>build.rs</code>: for each layer group, downloads, extracts, writes a deterministic tar, zstd-compresses it.</li>
+      <li>The image manifest is just the list of those layer digests.</li>
+    </ul>
+
+    <h2 id="scaling">why scale breaks the naive version</h2>
+    <p>"One package per layer" works for small closures. At scale it doesn't. OCI registries impose soft limits (Docker registries reject images over ~120 layers; many runtimes warn at 64). And every layer adds a roundtrip when pulling: a 200-package image with 200 layers will rate-limit or stall.</p>
+    <p>So when there are too many packages, some have to merge into a shared layer. The catch: if the merging is arbitrary, dedup breaks. Suppose <code>samtools</code> and <code>bwa</code> both contain <code>zlib</code>. If <code>zlib</code> sits in a solo layer in <code>samtools</code> but in a long-tail layer in <code>bwa</code>, the two layer digests differ, and the user pays for <code>zlib</code> twice.</p>
+    <p>The merging policy must satisfy one rule: a package that's worth deduping must always land in the same layer structure across every tool that contains it. Then its digest is identical across tools, and dedup works.</p>
+
+    <h2 id="policy">popularity-based packing</h2>
+    <p>The strategy lives in <code>bv-builder/src/layering.rs</code>:</p>
+<pre class="language-rust"><code class="language-rust">pub enum PackingStrategy {
+    OnePerPackage,
+    PopularityBased { max_layers: usize },
+}</code></pre>
+    <p>Given a tool's resolved package list and a global popularity score per package (precomputed across the entire registry), the builder:</p>
+    <ol>
+      <li>Sorts all packages by <code>(popularity desc, name asc)</code>. Name-asc is a deterministic tie-break.</li>
+      <li>Reserves the top 2 manifest slots for <code>meta</code> (conda-meta JSON) and <code>entrypoint</code> (the <code>bv-entrypoint.sh</code> script).</li>
+      <li>Gives each of the top <code>max_layers - 2</code> packages its own solo layer.</li>
+      <li>Concatenates the rest into a single long-tail layer at the bottom of the manifest.</li>
+    </ol>
+<pre class="language-rust"><code class="language-rust">let solo_count = max_layers.saturating_sub(2).min(sorted.len());
+let (solo, tail) = sorted.split_at(solo_count);
+// solo: one LayerGroup per package
+// tail: one LayerGroup with all remaining packages</code></pre>
+    <p>The popularity score is computed once across the registry by <code>popularity.rs::compute_from_spec_dir</code>: walk every <code>tools/*/*.toml</code>, count how many tools list each package name, dump to <code>popularity.json</code>. Each per-tool build reads that file and uses it to rank.</p>
+
+    <h2 id="stability">why it works</h2>
+    <p><strong>Claim.</strong> If package <code>P</code> is among the top <code>max_layers - 2</code> most popular packages registry-wide, then <code>P</code> lands in a solo layer in every tool that contains it.</p>
+    <p>The threshold is fixed across builds. The popularity ranking is global, not per-tool. The sort key is deterministic. So if <code>openssl</code> ranks at position 4 globally, then in any tool's package list that contains <code>openssl</code>, sorting that subset by the same global key keeps <code>openssl</code> at the top of the subset (its rank within a subset is at least as high as it is globally). Within the subset, <code>openssl</code> stays inside the top <code>max_layers - 2</code> slice and gets a solo layer.</p>
+    <p>The cross-tool invariant has a test: <code>shared_popular_packages_get_solo_layers_across_tools</code> in <code>layering.rs</code> synthesizes 100 fake tools each containing seven shared packages plus a unique one, and asserts every shared package gets a solo layer in every tool.</p>
+    <p>The follow-up test, <code>shared_package_has_same_solo_group_across_tools</code>, asserts the second half of the property: same package + same <code>(name, version, build, sha256)</code> means the same input to <code>create_reproducible_layer</code>, the same compressed bytes, and therefore the same digest.</p>
+
+    <h2 id="determinism">reproducible bytes</h2>
+    <p>For dedup to fire, two builds of the same package must produce bit-identical compressed bytes. <code>bv-builder/src/build.rs::create_reproducible_layer</code> enforces:</p>
+    <ul>
+      <li><code>SOURCE_DATE_EPOCH = 0</code>: file mtimes pinned to 1970-01-01.</li>
+      <li>uid/gid set to 0; usernames and groupnames cleared.</li>
+      <li>Entries sorted by path before tar serialization.</li>
+      <li>Symlinks preserved with explicit <code>header.set_path(rel)</code>. (The <code>tar</code> crate's <code>append</code> doesn't carry the path; only <code>append_data</code> or a manual <code>set_path</code> does. Missing this dropped every symlink in early bv images.)</li>
+      <li>PAX/USTAR tar format.</li>
+      <li>zstd level 19 (deterministic given the same input).</li>
+    </ul>
+    <p>The <code>create_reproducible_layer_is_deterministic</code> test runs the pipeline twice on the same directory and asserts byte-identical output.</p>
+
+    <h2 id="worked">three tools, one closure</h2>
+    <p>Three tools, all use <code>openssl</code> and <code>zlib</code>; <code>samtools</code> also uses <code>htslib</code>; <code>bwa</code> also uses <code>bwa-bin</code>; <code>bcftools</code> also uses <code>htslib</code> and <code>bcftools-bin</code>. Set <code>max_layers = 8</code>.</p>
+    <p>Global popularity (counts in the full registry, illustrative numbers):</p>
+<pre><code>openssl       500
+zlib          480
+htslib         40
+bwa-bin         1
+bcftools-bin    1</code></pre>
+
+    <p>For <code>samtools</code> (closure: openssl, zlib, htslib):</p>
+    <ul>
+      <li>Sorted: [openssl, zlib, htslib]</li>
+      <li><code>solo_count = min(8 - 2, 3) = 3</code></li>
+      <li>Groups: <code>[openssl] [zlib] [htslib]</code> + meta + entrypoint = 5 layers total.</li>
+    </ul>
+
+    <p>For <code>bwa</code> (closure: openssl, zlib, bwa-bin):</p>
+    <ul>
+      <li>Sorted: [openssl, zlib, bwa-bin]</li>
+      <li><code>solo_count = 3</code></li>
+      <li>Groups: <code>[openssl] [zlib] [bwa-bin]</code></li>
+    </ul>
+
+    <p>For <code>bcftools</code> (closure: openssl, zlib, htslib, bcftools-bin):</p>
+    <ul>
+      <li>Sorted: [openssl, zlib, htslib, bcftools-bin]</li>
+      <li><code>solo_count = 4</code></li>
+      <li>Groups: <code>[openssl] [zlib] [htslib] [bcftools-bin]</code></li>
+    </ul>
+
+    <p>The dedup that follows from this:</p>
+    <table>
+      <tr><th>layer</th><th>appears in</th><th>bytes downloaded</th></tr>
+      <tr><td>openssl (solo)</td><td>samtools, bwa, bcftools</td><td>once total</td></tr>
+      <tr><td>zlib (solo)</td><td>samtools, bwa, bcftools</td><td>once total</td></tr>
+      <tr><td>htslib (solo)</td><td>samtools, bcftools</td><td>once total</td></tr>
+      <tr><td>bwa-bin (solo)</td><td>bwa</td><td>once</td></tr>
+      <tr><td>bcftools-bin (solo)</td><td>bcftools</td><td>once</td></tr>
+    </table>
+    <p>Same <code>(name, version, build, sha256)</code> in each tool's <code>openssl</code> layer means the same reproducible-tar input, which means the same digest, which means Docker pulls the bytes once.</p>
+
+    <h2 id="tail">long-tail layers</h2>
+    <p>Now suppose <code>weird-thing</code> has a closure of 80 packages and <code>max_layers = 64</code>:</p>
+    <ul>
+      <li><code>solo_count = min(64 - 2, 80) = 62</code></li>
+      <li>The top 62 packages globally each get a solo layer (and dedup against every other tool that contains them).</li>
+      <li>The bottom 18 land in one long-tail layer. Those packages do not dedup, but they're rare by definition, so few tools contain them.</li>
+    </ul>
+    <p>Expected dedup at the registry level is therefore close to optimal as long as the popularity distribution is heavy-tailed, which package ecosystems empirically are.</p>
+
+    <h2 id="nix">vs Graham's Nix layering</h2>
+    <p><a href="https://grahamc.com/blog/nix-and-layered-docker-images/" target="_blank" rel="noopener">Graham's Nix algorithm</a> uses each derivation's referrer count in the global build graph, plus depth and closure size as tiebreakers, and produces a topological layer ordering. bv's algorithm is the same idea, flatter: there is no equivalent global build graph for conda, so bv approximates "how reusable is this layer" with a raw cross-tool count from <code>popularity.json</code>, ranks, and slices.</p>
+    <p>What this loses to Nix-style:</p>
+    <ol>
+      <li>No closure-size tiebreak. If two packages have identical scores, the alphabetically earlier one wins (deterministic but not optimal).</li>
+      <li>No version-aware popularity. <code>openssl</code> is one bucket regardless of version. If <code>openssl 3.2</code> and <code>openssl 3.3</code> are both deployed across the registry, both inherit the same rank. This is intentional (see the comment in <code>popularity.rs</code>): it bounds layer-order churn during version bumps, at the cost of slightly less perfect dedup mid-bump.</li>
+      <li>Long-tail is one undifferentiated bag. Nix-style layering can preserve some structure inside the tail; bv flattens it.</li>
+    </ol>
+    <p>These tradeoffs are reasonable for the registry size bv targets (low thousands of tools), not Nixpkgs-scale.</p>
+
+    <h2 id="code">where to read it</h2>
+    <table>
+      <tr><th>concept</th><th>file:lines</th></tr>
+      <tr><td>popularity counting</td><td><code>bv-builder/src/popularity.rs</code></td></tr>
+      <tr><td>packing strategy</td><td><code>bv-builder/src/layering.rs</code></td></tr>
+      <tr><td>reproducible tar</td><td><code>bv-builder/src/build.rs</code> (<code>create_reproducible_layer</code>)</td></tr>
+      <tr><td>cross-tool invariant test</td><td><code>bv-builder/src/layering.rs</code> (<code>shared_popular_packages_get_solo_layers_across_tools</code>)</td></tr>
+      <tr><td>determinism test</td><td><code>bv-builder/src/build.rs</code> (<code>create_reproducible_layer_is_deterministic</code>)</td></tr>
+    </table>
+
+  </main>
+
+</div>
+
+</body>
+</html>

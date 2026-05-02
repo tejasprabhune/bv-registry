@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 360" role="img" aria-label="Bar chart: install time at 1, 5, 10 tools. bv 4.6s/35s/48s; pixi 2.0s/12s/45s; micromamba 43s/52s/99s.">
+  <style>
+    .axis-tick { font-size: 11px; font-family: "calling-code", monospace; fill: rgba(0,85,58,0.45); }
+    .axis-zero { fill: rgba(0,85,58,0.5); }
+    .bar-value { font-size: 10px; font-family: "calling-code", monospace; fill: rgba(0,85,58,0.85); }
+    .bar-value-inv { font-size: 10px; font-family: "calling-code", monospace; fill: rgba(255,255,255,0.92); }
+    .bar-label { font-size: 12px; font-family: "calling-code", monospace; fill: rgba(0,85,58,0.6); font-style: italic; }
+    .legend-text { font-size: 12px; font-family: "calling-code", monospace; fill: rgba(0,85,58,0.78); font-style: italic; }
+  </style>
+
+  <line x1="58" y1="270" x2="660" y2="270" stroke="rgba(0,85,58,0.2)" stroke-width="1"/>
+  <text x="50" y="274" text-anchor="end" class="axis-tick axis-zero">0s</text>
+  <line x1="58" y1="214.5" x2="660" y2="214.5" stroke="rgba(0,85,58,0.1)" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="50" y="218.5" text-anchor="end" class="axis-tick">25s</text>
+  <line x1="58" y1="159" x2="660" y2="159" stroke="rgba(0,85,58,0.1)" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="50" y="163" text-anchor="end" class="axis-tick">50s</text>
+  <line x1="58" y1="106.4" x2="660" y2="106.4" stroke="rgba(0,85,58,0.1)" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="50" y="110.4" text-anchor="end" class="axis-tick">75s</text>
+  <line x1="58" y1="51.8" x2="660" y2="51.8" stroke="rgba(0,85,58,0.1)" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="50" y="55.8" text-anchor="end" class="axis-tick">100s</text>
+
+  <rect x="95.3" y="260.0" width="38" height="10.0" fill="#00553A"/>
+  <text x="114.3" y="255.5" text-anchor="middle" class="bar-value">4.6s</text>
+  <rect x="139.3" y="265.5" width="38" height="4.5" fill="rgba(0,85,58,0.45)"/>
+  <text x="158.3" y="260.0" text-anchor="middle" class="bar-value">2.0s</text>
+  <rect x="183.3" y="175.3" width="38" height="94.7" fill="rgba(0,85,58,0.22)"/>
+  <text x="202.3" y="189.3" text-anchor="middle" class="bar-value">43s</text>
+  <text x="158.3" y="290" text-anchor="middle" class="bar-label">1 tool</text>
+
+  <rect x="296.0" y="194.6" width="38" height="75.4" fill="#00553A"/>
+  <text x="315.0" y="208.6" text-anchor="middle" class="bar-value-inv">35s</text>
+  <rect x="340.0" y="243.8" width="38" height="26.2" fill="rgba(0,85,58,0.45)"/>
+  <text x="359.0" y="257.8" text-anchor="middle" class="bar-value">12s</text>
+  <rect x="384.0" y="155.8" width="38" height="114.2" fill="rgba(0,85,58,0.22)"/>
+  <text x="403.0" y="169.8" text-anchor="middle" class="bar-value">52s</text>
+  <text x="359.0" y="290" text-anchor="middle" class="bar-label">5 tools</text>
+
+  <rect x="496.7" y="166.2" width="38" height="103.8" fill="#00553A"/>
+  <text x="515.7" y="180.2" text-anchor="middle" class="bar-value-inv">48s</text>
+  <rect x="540.7" y="172.0" width="38" height="98.0" fill="rgba(0,85,58,0.45)"/>
+  <text x="559.7" y="186.0" text-anchor="middle" class="bar-value">45s</text>
+  <rect x="584.7" y="55.0" width="38" height="215.0" fill="rgba(0,85,58,0.22)"/>
+  <text x="603.7" y="69.0" text-anchor="middle" class="bar-value">99s</text>
+  <text x="559.7" y="290" text-anchor="middle" class="bar-label">10 tools</text>
+
+  <g transform="translate(58, 322)">
+    <rect width="13" height="13" fill="#00553A"/>
+    <text x="20" y="11" class="legend-text">bv</text>
+    <rect x="70" width="13" height="13" fill="rgba(0,85,58,0.45)"/>
+    <text x="90" y="11" class="legend-text">pixi</text>
+    <rect x="160" width="13" height="13" fill="rgba(0,85,58,0.22)" stroke="rgba(0,85,58,0.3)"/>
+    <text x="180" y="11" class="legend-text">micromamba</text>
+  </g>
+</svg>

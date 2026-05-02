@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 320" role="img" aria-label="Bar chart: first-run latency. bv 0.35s, pixi 3.5s, micromamba 4.2s.">
+  <style>
+    .axis-tick { font-size: 11px; font-family: "calling-code", monospace; fill: rgba(0,85,58,0.45); }
+    .axis-zero { fill: rgba(0,85,58,0.5); }
+    .bar-value { font-size: 10px; font-family: "calling-code", monospace; fill: rgba(0,85,58,0.85); }
+    .bar-value-inv { font-size: 10px; font-family: "calling-code", monospace; fill: rgba(255,255,255,0.92); }
+    .bar-label { font-size: 12px; font-family: "calling-code", monospace; fill: rgba(0,85,58,0.6); font-style: italic; }
+    .legend-text { font-size: 12px; font-family: "calling-code", monospace; fill: rgba(0,85,58,0.78); font-style: italic; }
+  </style>
+
+  <line x1="58" y1="230" x2="420" y2="230" stroke="rgba(0,85,58,0.2)" stroke-width="1"/>
+  <text x="50" y="234" text-anchor="end" class="axis-tick axis-zero">0s</text>
+  <line x1="58" y1="190" x2="420" y2="190" stroke="rgba(0,85,58,0.1)" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="50" y="194" text-anchor="end" class="axis-tick">1s</text>
+  <line x1="58" y1="150" x2="420" y2="150" stroke="rgba(0,85,58,0.1)" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="50" y="154" text-anchor="end" class="axis-tick">2s</text>
+  <line x1="58" y1="110" x2="420" y2="110" stroke="rgba(0,85,58,0.1)" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="50" y="114" text-anchor="end" class="axis-tick">3s</text>
+  <line x1="58" y1="70" x2="420" y2="70" stroke="rgba(0,85,58,0.1)" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="50" y="74" text-anchor="end" class="axis-tick">4s</text>
+  <line x1="58" y1="30" x2="420" y2="30" stroke="rgba(0,85,58,0.1)" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="50" y="34" text-anchor="end" class="axis-tick">5s</text>
+
+  <rect x="94" y="216" width="70" height="14" fill="#00553A"/>
+  <text x="129" y="211" text-anchor="middle" class="bar-value">0.35s</text>
+  <text x="129" y="250" text-anchor="middle" class="bar-label">bv</text>
+
+  <rect x="204" y="90" width="70" height="140" fill="rgba(0,85,58,0.45)"/>
+  <text x="239" y="104" text-anchor="middle" class="bar-value">3.5s</text>
+  <text x="239" y="250" text-anchor="middle" class="bar-label">pixi</text>
+
+  <rect x="314" y="62" width="70" height="168" fill="rgba(0,85,58,0.22)"/>
+  <text x="349" y="76" text-anchor="middle" class="bar-value">4.2s</text>
+  <text x="349" y="250" text-anchor="middle" class="bar-label">micromamba</text>
+
+  <g transform="translate(94, 282)">
+    <rect width="13" height="13" fill="#00553A"/>
+    <text x="20" y="11" class="legend-text">bv</text>
+    <rect x="70" width="13" height="13" fill="rgba(0,85,58,0.45)"/>
+    <text x="90" y="11" class="legend-text">pixi</text>
+    <rect x="160" width="13" height="13" fill="rgba(0,85,58,0.22)" stroke="rgba(0,85,58,0.3)"/>
+    <text x="180" y="11" class="legend-text">micromamba</text>
+  </g>
+</svg>

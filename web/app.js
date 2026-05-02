@@ -47,7 +47,7 @@ function render() {
   });
 
   const countEl = document.getElementById('results-count');
-  countEl.textContent = `${filteredTools.length} tool${filteredTools.length !== 1 ? 's' : ''}`;
+  countEl.textContent = pluralize(filteredTools.length, 'tool');
 
   const grid = document.getElementById('tool-grid');
   if (filteredTools.length === 0) {
@@ -127,7 +127,7 @@ function openModal(t) {
 
   document.getElementById('modal-maintainers').innerHTML =
     (t.maintainers || []).map(h => {
-      const login = h.replace('github:', '');
+      const login = h.startsWith('github:') ? h.slice(7) : h;
       return `<div class="io-row"><a href="https://github.com/${esc(login)}" target="_blank" rel="noopener" style="font-size:13px;">@${esc(login)}</a></div>`;
     }).join('') || '<div class="io-empty">none listed</div>';
 
@@ -185,6 +185,10 @@ function populateTypeFilter() {
     opt.textContent = ty;
     sel.appendChild(opt);
   });
+}
+
+function pluralize(n, singular, plural) {
+  return `${n} ${n === 1 ? singular : (plural ?? singular + 's')}`;
 }
 
 function esc(s) {
