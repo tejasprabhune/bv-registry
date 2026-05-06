@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-05-01T17:57:36.603567+00:00",
+  "generated_at": "2026-05-06T00:24:22.168499+00:00",
   "tools": [
     {
       "id": "augustus",
@@ -327,9 +327,10 @@
     },
     {
       "id": "colabfold",
-      "version": "1.6.0",
+      "version": "1.6.1",
       "versions": [
-        "1.6.0"
+        "1.6.0",
+        "1.6.1"
       ],
       "description": "ColabFold: fast protein structure prediction combining MMseqs2 MSA with AlphaFold2",
       "tier": "core",
