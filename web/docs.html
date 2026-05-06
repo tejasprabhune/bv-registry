@@ -55,6 +55,7 @@
     <ul>
       <li><a href="#pub-tldr">tl;dr</a></li>
       <li><a href="#pub-schema">manifest schema</a></li>
+      <li><a href="#pub-types">type vocabulary</a></li>
       <li><a href="#pub-publish">bv publish</a></li>
       <li><a href="#pub-conformance">conformance tests</a></li>
       <li><a href="#pub-tiers">tiers</a></li>
@@ -290,8 +291,39 @@ cache_paths = ["/cache/colabfold"]
 [tool.binaries]
 exposed = ["colabfold_batch"]</code></pre>
     <div class="callout">
-      <strong>Typed I/O matters.</strong> Inputs and outputs use the <code>bv-types</code> vocabulary (<code>fasta</code>, <code>fasta[protein]</code>, <code>blast_tab</code>, <code>pdb</code>, etc.). Tools without typed I/O sit in the <code>experimental</code> tier and are hidden from default search results.
+      <strong>Typed I/O matters.</strong> Inputs and outputs use the <code>bv-types</code> vocabulary (<code>fasta</code>, <code>fasta[protein]</code>, <code>blast_tab</code>, <code>pdb</code>, etc.). See <a href="#pub-types">type vocabulary</a> for the full list. Tools without typed I/O sit in the <code>experimental</code> tier and are hidden from default search results.
     </div>
+
+    <h3 id="pub-types">type vocabulary</h3>
+    <p>Every <code>type</code> field in <code>[[tool.inputs]]</code> and <code>[[tool.outputs]]</code> must be one of the identifiers below. Types with a parent inherit its kind; types with no parent are roots.</p>
+    <table>
+      <tr><th>type</th><th>kind</th><th>parent</th><th>parameters</th><th>description</th></tr>
+      <tr><td><code>file</code></td><td>file</td><td></td><td></td><td>any file</td></tr>
+      <tr><td><code>dir</code></td><td>directory</td><td></td><td></td><td>any directory</td></tr>
+      <tr><td><code>tabular</code></td><td>file</td><td><code>file</code></td><td></td><td>tab-separated tabular data</td></tr>
+      <tr><td><code>fasta</code></td><td>file</td><td><code>file</code></td><td><code>alphabet</code></td><td>FASTA sequence file</td></tr>
+      <tr><td><code>fastq</code></td><td>file</td><td><code>file</code></td><td></td><td>FASTQ sequence file with per-base quality scores</td></tr>
+      <tr><td><code>sam</code></td><td>file</td><td><code>tabular</code></td><td></td><td>Sequence Alignment/Map format</td></tr>
+      <tr><td><code>bam</code></td><td>file</td><td><code>file</code></td><td></td><td>Binary Alignment Map</td></tr>
+      <tr><td><code>msa</code></td><td>file</td><td><code>file</code></td><td><code>format</code></td><td>multiple sequence alignment</td></tr>
+      <tr><td><code>pdb</code></td><td>file</td><td><code>file</code></td><td></td><td>Protein Data Bank structure file</td></tr>
+      <tr><td><code>mmcif</code></td><td>file</td><td><code>file</code></td><td></td><td>macromolecular CIF structure file</td></tr>
+      <tr><td><code>vcf</code></td><td>file</td><td><code>tabular</code></td><td></td><td>Variant Call Format</td></tr>
+      <tr><td><code>bcf</code></td><td>file</td><td><code>file</code></td><td></td><td>Binary Variant Call Format</td></tr>
+      <tr><td><code>blast_db</code></td><td>directory</td><td></td><td></td><td>BLAST database directory (phr/pin/psq files)</td></tr>
+      <tr><td><code>hmm_profile</code></td><td>file</td><td><code>file</code></td><td></td><td>HMMER profile HMM file</td></tr>
+      <tr><td><code>blast_tab</code></td><td>file</td><td><code>tabular</code></td><td></td><td>BLAST tabular output (outfmt 6)</td></tr>
+      <tr><td><code>hmmer_output</code></td><td>file</td><td><code>file</code></td><td></td><td>HMMER search output (text report)</td></tr>
+      <tr><td><code>mmseqs_db</code></td><td>directory</td><td></td><td></td><td>MMseqs2 database directory</td></tr>
+      <tr><td><code>mmseqs_output</code></td><td>file</td><td><code>file</code></td><td></td><td>MMseqs2 search results</td></tr>
+    </table>
+    <p>Append parameters in brackets: <code>fasta[protein]</code>, <code>msa[stockholm]</code>. Parameters are passed through to workflow integrations; bv does not validate the value.</p>
+    <table>
+      <tr><th>type</th><th>parameter</th><th>example values</th></tr>
+      <tr><td><code>fasta</code></td><td><code>alphabet</code></td><td><code>protein</code>, <code>dna</code>, <code>rna</code></td></tr>
+      <tr><td><code>msa</code></td><td><code>format</code></td><td><code>stockholm</code>, <code>clustal</code>, <code>fasta</code></td></tr>
+    </table>
+    <p>To add a type, open a PR against <a href="https://github.com/tejasprabhune/bv-registry">bv-registry</a> that adds an entry to <code>bv-types/types.toml</code>. Roots need <code>kind</code>; non-roots need <code>parent</code>. Every entry needs <code>description</code>.</p>
 
     <h3 id="pub-publish">bv publish</h3>
     <p><code>bv publish</code> handles fetching the source, generating a Dockerfile if you don't have one, building the image, pushing to GHCR, and opening the registry PR. It can run interactively or read a <code>bv-publish.toml</code> config.</p>
@@ -405,7 +437,7 @@ bv-ingest promote samtools 1.20 --staging-dir ./bv-registry-staging</code></pre>
       <li><strong>resolve images</strong>: query <a href="https://quay.io/biocontainers">quay.io/biocontainers</a> for the matching tag and digest. Skip tools without a published BioContainer.</li>
       <li><strong>generate manifest</strong>: write <code>tools/&lt;id&gt;/&lt;version&gt;.toml</code> in staging with hardware defaults, exposed binaries, but no typed I/O.</li>
       <li><strong>open PR</strong>: one PR per (tool, version) against bv-registry-staging.</li>
-      <li><strong>review</strong>: maintainer adds <code>[[tool.inputs]]</code> / <code>[[tool.outputs]]</code> using the <code>bv-types</code> vocabulary, and (if needed) a <code>[tool.smoke]</code> override.</li>
+      <li><strong>review</strong>: maintainer adds <code>[[tool.inputs]]</code> / <code>[[tool.outputs]]</code> using the <a href="#pub-types">type vocabulary</a>, and (if needed) a <code>[tool.smoke]</code> override.</li>
       <li><strong>promote</strong>: <code>bv-ingest promote</code> opens a PR to bv-registry. CI runs conformance; merge ships it.</li>
     </ol>
 
@@ -427,7 +459,7 @@ GITHUB_TOKEN      = ...                            # falls back to `gh auth toke
     <p>Auto-generated PRs come in tagged <code>auto-ingest</code>. The fast path:</p>
     <ol>
       <li>Check the upstream tool's docs to identify what file types its main entrypoint reads and writes.</li>
-      <li>Add <code>[[tool.inputs]]</code> / <code>[[tool.outputs]]</code> blocks. If a needed type does not exist in <code>bv-types</code>, add it there first (separate PR).</li>
+      <li>Add <code>[[tool.inputs]]</code> / <code>[[tool.outputs]]</code> blocks using the <a href="#pub-types">type vocabulary</a>. If a needed type does not exist, add it there first (separate PR).</li>
       <li>If the tool downloads model weights or writes large scratch state inside the image, add <code>cache_paths = [...]</code>. Look for clues in the upstream Dockerfile (<code>WORKDIR</code>, <code>VOLUME</code>) or run <code>bv run &lt;tool&gt;</code> on apptainer and watch for read-only-fs errors.</li>
       <li>Add a <code>[tool.smoke]</code> override only if any binary needs a non-default probe (the default loop covers <code>--version</code>, <code>-version</code>, <code>--help</code>, <code>-h</code>, <code>-v</code>, <code>version</code>).</li>
       <li>Run <code>bv conformance &lt;tool&gt;</code> locally on both backends.</li>
