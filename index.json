@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-06-07T18:09:21.381590+00:00",
+  "generated_at": "2026-08-25T20:45:00.036828+00:00",
   "tools": [
     {
       "id": "abricate",
@@ -20,6 +20,42 @@
       ],
       "output_types": [
         "tabular"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "acpype",
+      "version": "2023.10.27",
+      "versions": [
+        "2023.10.27"
+      ],
+      "description": "AnteChamber PYthon Parser interfacE: generates molecular topologies for GROMACS, CNS/XPLOR, CHARMM and AMBER from small-molecule structures using GAFF/GAFF2/AMBER atom types and AM1-BCC or Gasteiger charges via AmberTools antechamber. Also converts AMBER prmtop/inpcrd to GROMACS format (amb2gmx mode)",
+      "tier": "community",
+      "maintainers": [
+        "github:alanwilter"
+      ],
+      "homepage": "https://github.com/alanwilter/acpype",
+      "license": "GPL-3.0-only",
+      "input_types": [
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file"
+      ],
+      "output_types": [
+        "dir"
       ],
       "deprecated": false
     },
@@ -134,7 +170,7 @@
       "versions": [
         "1.2.5"
       ],
-      "description": "Molecular docking with AutoDock Vina",
+      "description": "Molecular docking and virtual screening with AutoDock Vina. Supports Vina, Vinardo and AutoDock4 scoring functions, flexible receptor side chains, simultaneous multi-ligand docking, batch mode, macrocycle docking, hydrated docking, and external affinity map I/O",
       "tier": "community",
       "maintainers": [
         "github:ccsb-scripps"
@@ -142,6 +178,10 @@
       "homepage": "https://vina.scripps.edu/",
       "license": "Apache-2.0",
       "input_types": [
+        "file",
+        "file",
+        "file",
+        "file",
         "file",
         "file"
       ],
@@ -475,6 +515,27 @@
       "deprecated": false
     },
     {
+      "id": "cas-offinder",
+      "version": "2.4.1",
+      "versions": [
+        "2.4.1"
+      ],
+      "description": "Cas-OFFinder: fast, unbiased genome-wide enumeration of potential CRISPR-Cas off-target sites. Searches a reference genome for sequences matching a guide within a given mismatch/bulge budget. Enumerates candidates only; pair with crisproff downstream to score them.",
+      "tier": "community",
+      "maintainers": [
+        "github:snugel"
+      ],
+      "homepage": "https://github.com/snugel/cas-offinder",
+      "license": "BSD-3-Clause",
+      "input_types": [
+        "file"
+      ],
+      "output_types": [
+        "tabular"
+      ],
+      "deprecated": false
+    },
+    {
       "id": "cd_hit",
       "version": "4.8.1",
       "versions": [
@@ -630,11 +691,10 @@
         "1.6.0",
         "1.6.1"
       ],
-      "description": "ColabFold: fast protein structure prediction combining MMseqs2 MSA with AlphaFold2",
+      "description": "Fast protein structure prediction using AlphaFold2 with MMseqs2-based MSA generation",
       "tier": "core",
       "maintainers": [
-        "github:sokrypton",
-        "github:steineggerlab"
+        "github:sokrypton"
       ],
       "homepage": "https://github.com/sokrypton/ColabFold",
       "license": "MIT",
@@ -642,7 +702,10 @@
         "fasta[protein]"
       ],
       "output_types": [
-        "dir"
+        "dir",
+        "pdb",
+        "file",
+        "msa[a3m]"
       ],
       "deprecated": false
     },
@@ -707,6 +770,75 @@
       ],
       "output_types": [
         "file"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "crispresso2",
+      "version": "2.3.4",
+      "versions": [
+        "2.3.4"
+      ],
+      "description": "CRISPResso2: quantification of genome editing outcomes from amplicon deep sequencing. Aligns reads to a reference amplicon and reports indel, substitution and HDR frequencies in a quantification window around the guide.",
+      "tier": "community",
+      "maintainers": [
+        "github:pinellolab"
+      ],
+      "homepage": "https://github.com/pinellolab/CRISPResso2",
+      "license": "Proprietary (MGH academic-use EULA)",
+      "input_types": [
+        "fastq",
+        "fastq",
+        "file",
+        "file",
+        "file"
+      ],
+      "output_types": [
+        "dir"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "crisproff",
+      "version": "1.1.2",
+      "versions": [
+        "1.1.2"
+      ],
+      "description": "CRISPRoff v1.1.2: thermodynamic off-target specificity scoring for CRISPR-Cas9 gRNAs using nucleic acid duplex energy parameters. Scores off-targets supplied to it; it does NOT enumerate off-targets itself (pair with cas-offinder or RIsearch2 upstream).",
+      "tier": "community",
+      "maintainers": [
+        "github:RTH-tools"
+      ],
+      "homepage": "https://github.com/RTH-tools/crisproff",
+      "license": "GPL-3.0",
+      "input_types": [
+        "fasta",
+        "file"
+      ],
+      "output_types": [
+        "tabular",
+        "tabular"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "crispron",
+      "version": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "description": "CRISPRon: deep-learning prediction of SpCas9 gRNA on-target efficiency from 30 nt sequence windows (4 nt 5' context + 20 nt spacer + NGG PAM + 3 nt 3' context). Six-model CNN ensemble; scores are predicted indel frequency in percent.",
+      "tier": "community",
+      "maintainers": [
+        "github:RTH-tools"
+      ],
+      "homepage": "https://github.com/RTH-tools/crispron",
+      "license": "AGPL-3.0",
+      "input_types": [
+        "fasta"
+      ],
+      "output_types": [
+        "dir"
       ],
       "deprecated": false
     },
@@ -1032,6 +1164,49 @@
       "deprecated": false
     },
     {
+      "id": "forecast",
+      "version": "0.3.2",
+      "versions": [
+        "0.3.2"
+      ],
+      "description": "FORECasT: predicts the distribution of CRISPR-Cas9 repair outcomes (indel alleles and their relative frequencies) for a target site, from sequence alone. Part of the SelfTarget suite.",
+      "tier": "community",
+      "maintainers": [
+        "github:felicityallen"
+      ],
+      "homepage": "https://github.com/felicityallen/SelfTarget",
+      "license": "MIT",
+      "input_types": [
+        "file",
+        "file"
+      ],
+      "output_types": [
+        "file"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "fpocket",
+      "version": "4.2.3",
+      "versions": [
+        "4.2.3"
+      ],
+      "description": "Very fast protein binding-pocket (cavity) detection via Voronoi tessellation and alpha spheres, with pocket scoring and druggability estimation. Bundles mdpocket (pocket detection over MD trajectories / conformational ensembles), dpocket (pocket descriptor extraction), and tpocket (scoring-function benchmarking)",
+      "tier": "community",
+      "maintainers": [
+        "github:Discngine"
+      ],
+      "homepage": "https://github.com/Discngine/fpocket",
+      "license": "MIT",
+      "input_types": [
+        "pdb"
+      ],
+      "output_types": [
+        "dir"
+      ],
+      "deprecated": false
+    },
+    {
       "id": "freebayes",
       "version": "1.3.7",
       "versions": [
@@ -1136,6 +1311,7 @@
       "id": "gromacs",
       "version": "2024.3",
       "versions": [
+        "2022.2.0",
         "2024.3"
       ],
       "description": "Molecular dynamics simulation suite",
@@ -2012,6 +2188,55 @@
       "deprecated": false
     },
     {
+      "id": "openbabel",
+      "version": "3.1.1",
+      "versions": [
+        "3.1.1"
+      ],
+      "description": "Chemical toolbox for file format interconversion, molecular filtering, property calculation, 2D/3D coordinate generation, energy minimization, conformer searching and SMARTS-based substructure queries. Reads and writes over 110 chemical file formats including SMILES, SDF, PDB, MOL2, CML, XYZ and InChI",
+      "tier": "community",
+      "maintainers": [
+        "github:openbabel"
+      ],
+      "homepage": "http://openbabel.org/",
+      "license": "GPL-2.0-only",
+      "input_types": [
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file"
+      ],
+      "output_types": [
+        "file"
+      ],
+      "deprecated": false
+    },
+    {
       "id": "orthofinder",
       "version": "3.1.4",
       "versions": [
@@ -2272,7 +2497,7 @@
       "versions": [
         "1.0.1"
       ],
-      "description": "ProteinMPNN: message passing neural network for protein sequence design",
+      "description": "Deep-learning protein sequence design (inverse folding): given a fixed backbone, sample amino-acid sequences predicted to fold to it. Supports monomers, multi-chain complexes, homo-oligomers, fixed/tied positions, AA-composition and PSSM bias, CA-only and soluble-protein models, and sequence scoring",
       "tier": "community",
       "maintainers": [
         "github:dauparas"
@@ -2280,7 +2505,16 @@
       "homepage": "https://github.com/dauparas/ProteinMPNN",
       "license": "MIT",
       "input_types": [
-        "pdb"
+        "pdb",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "dir"
       ],
       "output_types": [
         "dir"
@@ -2434,6 +2668,49 @@
       ],
       "output_types": [
         "fasta"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "rfdiffusion",
+      "version": "1.1.0",
+      "versions": [
+        "1.1.0"
+      ],
+      "description": "Diffusion model for protein backbone generation (RoseTTAFold-based): unconditional and symmetric oligomer design, motif scaffolding, de novo binder design, fold conditioning, and partial diffusion / design diversification",
+      "tier": "community",
+      "maintainers": [
+        "github:RosettaCommons"
+      ],
+      "homepage": "https://github.com/RosettaCommons/RFdiffusion",
+      "license": "BSD-3-Clause",
+      "input_types": [
+        "file",
+        "file",
+        "file",
+        "file",
+        "pdb",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "dir",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "file",
+        "dir"
+      ],
+      "output_types": [
+        "dir"
       ],
       "deprecated": false
     },
@@ -2753,6 +3030,27 @@
       ],
       "output_types": [
         "dir"
+      ],
+      "deprecated": false
+    },
+    {
+      "id": "sprout",
+      "version": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "description": "SPROUT: predicts CRISPR-Cas9 repair outcome statistics for a guide, trained on primary human T cells. Reports insertion fraction, insertion:deletion ratio, average insertion and deletion lengths, outcome diversity, and the most likely inserted base. Note: summary statistics, not per-allele indel profiles.",
+      "tier": "community",
+      "maintainers": [
+        "github:amirmohan"
+      ],
+      "homepage": "https://github.com/amirmohan/SPROUT",
+      "license": "Apache-2.0",
+      "input_types": [
+        "fasta"
+      ],
+      "output_types": [
+        "tabular"
       ],
       "deprecated": false
     },
@@ -3082,21 +3380,28 @@
     },
     {
       "id": "viennarna",
-      "version": "2.7.0",
+      "version": "2.7.2",
       "versions": [
-        "2.7.0"
+        "2.7.0",
+        "2.7.2"
       ],
-      "description": "ViennaRNA Package: RNA secondary structure prediction and analysis",
-      "tier": "core",
+      "description": "RNA secondary structure prediction and comparison: minimum free energy structures, partition function, base-pair probabilities, centroid/MEA structures, suboptimal and consensus structures (ViennaRNA Package)",
+      "tier": "community",
       "maintainers": [
         "github:ViennaRNA"
       ],
       "homepage": "https://www.tbi.univie.ac.at/RNA/",
-      "license": "MIT",
+      "license": "custom",
       "input_types": [
-        "fasta"
+        "fasta",
+        "file",
+        "file",
+        "file",
+        "file"
       ],
       "output_types": [
+        "file",
+        "file",
         "file"
       ],
       "deprecated": false
