@@ -1,0 +1,43 @@
+[tool]
+id          = "forecast"
+version     = "0.3.2"
+description = "FORECasT: predicts the distribution of CRISPR-Cas9 repair outcomes (indel alleles and their relative frequencies) for a target site, from sequence alone. Part of the SelfTarget suite."
+homepage    = "https://github.com/felicityallen/SelfTarget"
+license     = "MIT"
+tier        = "community"
+maintainers = [ "github:felicityallen",]
+
+[[tool.inputs]]
+name        = "target_seq"
+type        = "file"
+required    = true
+cardinality = "one"
+description = "Target region as a literal DNA string (not a file path). Must include sequence context around the cut site."
+
+[[tool.inputs]]
+name        = "pam_idx"
+type        = "file"
+required    = true
+cardinality = "one"
+description = "0-based index of the PAM within target_seq. The cut site is pam_idx - 3."
+
+[[tool.outputs]]
+name        = "output_prefix"
+type        = "file"
+required    = true
+cardinality = "one"
+description = "Output path prefix. Produces <prefix>_predictedindelsummary.txt (indel ID, filler, count out of 1000) and <prefix>_predictedreads.txt."
+
+[tool.image]
+backend   = "docker"
+reference = "quay.io/felicityallen/selftarget:0.3.2"
+digest    = "sha256:7667c548a2d87c7e6dd1b5a0fd6c94512d5573c3d06c994fddd871652aa6fb07"
+
+[tool.hardware]
+cpu_cores = 2
+ram_gb    = 4.0
+disk_gb   = 3.0
+
+[tool.entrypoint]
+command       = "sh"
+args_template = "-c 'cd /app/indel_prediction/predictor && python FORECasT.py {target_seq} {pam_idx} {output_prefix}'"

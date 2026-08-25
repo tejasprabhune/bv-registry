@@ -1,0 +1,157 @@
+[tool]
+id          = "acpype"
+version     = "2023.10.27"
+description = "AnteChamber PYthon Parser interfacE: generates molecular topologies for GROMACS, CNS/XPLOR, CHARMM and AMBER from small-molecule structures using GAFF/GAFF2/AMBER atom types and AM1-BCC or Gasteiger charges via AmberTools antechamber. Also converts AMBER prmtop/inpcrd to GROMACS format (amb2gmx mode)"
+homepage    = "https://github.com/alanwilter/acpype"
+license     = "GPL-3.0-only"
+tier        = "community"
+maintainers = [ "github:alanwilter",]
+
+[[tool.inputs]]
+name        = "input_file"
+type        = "file"
+required    = true
+cardinality = "one"
+description = "Input molecule file (-i): PDB, MOL2 or MDL/SDF format, or a SMILES string (e.g. 'CCCC'). Mandatory unless using amb2gmx mode with prmtop and inpcrd."
+
+[[tool.inputs]]
+name        = "charge_method"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Charge calculation method (-c, default bcc): bcc (AM1-BCC, recommended), gas (Gasteiger, fast but less accurate), or user (use charges already present in a MOL2 input)."
+
+[[tool.inputs]]
+name        = "net_charge"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Net molecular charge as an integer (-n). If omitted, ACPYPE attempts to guess the charge."
+
+[[tool.inputs]]
+name        = "multiplicity"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Spin multiplicity 2S+1 (-m, default 1). Set to 2 for radicals, 3 for triplets, etc."
+
+[[tool.inputs]]
+name        = "atom_type"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Atom type scheme (-a, default gaff): gaff (General Amber Force Field), gaff2, or amber (AMBER14SB-compatible types; falls back to GAFF parameters if typing fails)."
+
+[[tool.inputs]]
+name        = "base_name"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Base name for all output files (-b). Defaults to the input filename stem or the 3-letter residue name."
+
+[[tool.inputs]]
+name        = "output_format"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Which topology format(s) to generate (-o, default all): gmx (GROMACS .gro/.top/.itp), cns (CNS/XPLOR .top/.par/.inp), charmm (CHARMM .rtf/.prm/.inp), or all."
+
+[[tool.inputs]]
+name        = "engine"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "LEaP engine for building topology (-e, default tleap): tleap or pdb4amber."
+
+[[tool.inputs]]
+name        = "max_time"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Maximum wall-clock time in seconds for the antechamber charge calculation (-s, default 43200 = 12 hours)."
+
+[[tool.inputs]]
+name        = "residue_name"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Three-letter residue name for the output topology (-r). Overrides the default MOL."
+
+[[tool.inputs]]
+name        = "keyword"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Keyword string passed to sqm or mopac for the QM charge calculation (-k). Enclose in quotes."
+
+[[tool.inputs]]
+name        = "judge"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Atom/bond type judge option passed to antechamber -j (-j). Values 1-5; 5 honors mol2 bond types and is useful for charged species where default typing fails."
+
+[[tool.inputs]]
+name        = "prmtop"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "AMBER prmtop topology file (-p) for amb2gmx conversion mode. Use with inpcrd to convert existing AMBER parameters to GROMACS format."
+
+[[tool.inputs]]
+name        = "inpcrd"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "AMBER inpcrd coordinate file (-x) for amb2gmx conversion mode. Use with prmtop."
+
+[[tool.inputs]]
+name        = "force"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Force overwrite of existing output directory (-f, boolean flag). Append -f."
+
+[[tool.inputs]]
+name        = "debug"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Enable debug/verbose output (-d, boolean flag). Append -d."
+
+[[tool.outputs]]
+name        = "outdir"
+type        = "dir"
+required    = true
+cardinality = "one"
+description = "Output directory <basename>.acpype/ created in the working directory. Contains: *_GMX.gro, *_GMX.top, *_GMX.itp (GROMACS); *_CNS.top, *_CNS.par, *_CNS.inp (CNS/XPLOR); *_CHARMM.rtf, *_CHARMM.prm (CHARMM); *_AC.prmtop, *_AC.inpcrd, *_AC.lib, *_AC.frcmod (AMBER); *_bcc_gaff.mol2 (parameterized mol2); *_NEW.pdb (cleaned structure); em.mdp, md.mdp (GROMACS run parameters)."
+
+[tool.image]
+backend   = "docker"
+reference = "docker.io/acpype/acpype:latest"
+
+[tool.hardware]
+cpu_cores = 2
+ram_gb    = 4.0
+disk_gb   = 5.0
+
+[tool.entrypoint]
+command       = "acpype"
+args_template = """\
+-i {input_file} \
+-c {charge_method} \
+-n {net_charge} \
+-m {multiplicity} \
+-a {atom_type} \
+-b {base_name} \
+-o {output_format} \
+-e {engine} \
+-s {max_time} \
+-r {residue_name} \
+-k {keyword} \
+-j {judge} \
+-p {prmtop} \
+-x {inpcrd}"""
+
+[tool.binaries]
+exposed = [ "acpype",]

@@ -1,0 +1,102 @@
+[tool]
+id          = "viennarna"
+version     = "2.7.2"
+description = "RNA secondary structure prediction and comparison: minimum free energy structures, partition function, base-pair probabilities, centroid/MEA structures, suboptimal and consensus structures (ViennaRNA Package)"
+homepage    = "https://www.tbi.univie.ac.at/RNA/"
+#   https://github.com/ViennaRNA/ViennaRNA/blob/master/license.txt
+license     = "custom"
+tier        = "community"
+maintainers = [ "github:ViennaRNA",]
+
+[[tool.inputs]]
+name        = "sequences"
+type        = "fasta"
+cardinality = "one"
+description = "RNA sequence(s) to fold. Plain (one sequence per line) or FASTA; the first word of each FASTA header is used as the output-file prefix. T is auto-converted to U unless --noconv is set. Sequences up to ~32,700 nt are supported."
+
+[[tool.inputs]]
+name        = "constraints"
+type        = "file"
+cardinality = "one"
+description = "Optional — structure-constraint command file (passed via --commands, or a pseudo-dot-bracket constraint string via -C/--constraint). Encodes hard/soft constraints, forced/prohibited pairs, ligand motifs, and unstructured-domain commands."
+
+[[tool.inputs]]
+name        = "shape_data"
+type        = "file"
+cardinality = "one"
+description = "Optional — experimental structure-probing reactivities (SHAPE/DMS), two-column text (1-based position, normalized reactivity). Consumed via --shape or --sp-data and converted to pseudo-energies by the chosen probing strategy."
+
+[[tool.inputs]]
+name        = "param_file"
+type        = "file"
+cardinality = "one"
+description = "Optional — energy-parameter set read via -P/--paramFile (e.g. rna_turner2004.par, rna_turner1999.par, rna_andronescou2007.par, dna_mathews2004.par). The literal placeholder 'DNA' loads built-in DNA parameters."
+
+[[tool.inputs]]
+name        = "mod_file"
+type        = "file"
+cardinality = "one"
+description = "Optional — JSON of modified-base energy corrections read via --mod-file (complements the built-in inosine, pseudouridine, m1Psi, m5C, m6A, 7DA, purine, dihydrouridine parameter sets)."
+
+[[tool.outputs]]
+name        = "structures"
+type        = "file"
+cardinality = "one"
+description = "Per-sequence results (stdout, redirected by the args_template): the MFE structure in dot-bracket notation with free energy, and — when partition-function mode is on — the pair-probability pseudo-bracket line with ensemble free energy, the centroid structure, the MEA structure, MFE frequency, and ensemble diversity."
+
+[[tool.outputs]]
+name        = "structure_plot"
+type        = "file"
+cardinality = "one"
+description = "PostScript drawing of the MFE secondary structure, written to the working directory as <prefix>_ss.ps. Suppress with --noPS."
+
+[[tool.outputs]]
+name        = "dot_plot"
+type        = "file"
+cardinality = "one"
+description = "PostScript base-pair probability 'dot plot' (<prefix>_dp.ps), produced in partition-function mode (-p). Upper-right triangle = pair probabilities, lower-left = MFE pairs. Suppress with --noDP; stack-probability plot (<prefix>_dp2.ps) is added with -p2."
+
+[tool.image]
+backend   = "docker"
+reference = "quay.io/biocontainers/viennarna:2.7.2--py311pl5321hb7402bf_1"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb    = 8.0
+disk_gb   = 2.0
+
+[tool.entrypoint]
+command = "RNAfold"
+args_template = "--partfunc --MEA --temp=37 --dangles=2 {sequences} > {structures}"
+
+
+[tool.binaries]
+exposed = [
+    "RNAfold",
+    "RNAcofold",
+    "RNAsubopt",
+    "RNAalifold",
+    "RNALalifold",
+    "RNALfold",
+    "RNAplfold",
+    "RNAeval",
+    "RNAinverse",
+    "RNAduplex",
+    "RNAaliduplex",
+    "RNAplex",
+    "RNAsnoop",
+    "RNAup",
+    "RNAmultifold",
+    "RNAheat",
+    "RNAdos",
+    "RNA2Dfold",
+    "RNAdistance",
+    "RNApdist",
+    "RNApaln",
+    "RNAplot",
+    "RNApvmin",
+    "RNAPKplex",
+    "RNAparconv",
+    "AnalyseSeqs",
+    "AnalyseDists",
+]

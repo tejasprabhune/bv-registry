@@ -1,0 +1,155 @@
+[tool]
+id          = "gromacs"
+version     = "2022.2.0"
+description = "Molecular dynamics simulation engine (GROMACS). Performs simulations, energy minimizations, normal mode analyses and trajectory reanalysis. Supports Verlet and group cutoff schemes, PME electrostatics, GPU offloading of non-bonded/PME/bonded/update kernels, domain decomposition, replica exchange, AWH biasing, essential dynamics, and membrane embedding"
+homepage    = "https://www.gromacs.org/"
+license     = "LGPL-2.1-or-later"
+tier        = "community"
+maintainers = [ "github:gromacs",]
+
+[[tool.inputs]]
+name        = "tpr"
+type        = "file"
+required    = true
+cardinality = "one"
+description = "Portable binary run input file (-s, .tpr) produced by gmx grompp. Contains topology, coordinates, velocities, simulation parameters and force-field data — the single required input for gmx mdrun."
+
+[[tool.inputs]]
+name        = "cpi"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Checkpoint file for continuation runs (-cpi, .cpt). Restores positions, velocities, energies and box from a previous run."
+
+[[tool.inputs]]
+name        = "table"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Tabulated non-bonded potential (-table, .xvg)."
+
+[[tool.inputs]]
+name        = "tablep"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Tabulated pair interaction potential (-tablep, .xvg)."
+
+[[tool.inputs]]
+name        = "tableb"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Tabulated bonded potential (-tableb, .xvg)."
+
+[[tool.inputs]]
+name        = "rerun"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Trajectory for rerun analysis (-rerun, .xtc/.trr/.gro/.pdb). Recompute energies/forces on each frame without integrating."
+
+[[tool.inputs]]
+name        = "ei"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Essential dynamics / flooding sampling input (-ei, .edi)."
+
+[[tool.inputs]]
+name        = "awh"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Accelerated weight histogram (AWH) bias initialization (-awh, .xvg)."
+
+[[tool.inputs]]
+name        = "plumed"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "PLUMED input script (-plumed, .dat). Requires GROMACS built with PLUMED support (native in 2025+)."
+
+[[tool.inputs]]
+name        = "membed"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Membrane embedding parameters (-membed, .dat)."
+
+[[tool.inputs]]
+name        = "mp"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Topology for membrane embedding (-mp, .top)."
+
+[[tool.inputs]]
+name        = "mn"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Index file for membrane embedding (-mn, .ndx)."
+
+[[tool.outputs]]
+name        = "trajectory"
+type        = "file"
+required    = true
+cardinality = "one"
+description = "Full-precision trajectory (-o, .trr). Contains positions, velocities and forces at intervals set in the .mdp."
+
+[[tool.outputs]]
+name        = "xtc"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Compressed trajectory (-x, .xtc or .tng). Positions only at nstxout-compressed intervals."
+
+[[tool.outputs]]
+name        = "final_coords"
+type        = "file"
+required    = true
+cardinality = "one"
+description = "Structure file with final coordinates and box (-c, .gro)."
+
+[[tool.outputs]]
+name        = "energy"
+type        = "file"
+required    = true
+cardinality = "one"
+description = "Energy file (-e, .edr) containing all energy terms, temperature, pressure, volume and virial at nstenergy intervals."
+
+[[tool.outputs]]
+name        = "log"
+type        = "file"
+required    = true
+cardinality = "one"
+description = "Simulation log (-g, .log) with run parameters, performance statistics and step-by-step energy summaries."
+
+[[tool.outputs]]
+name        = "checkpoint_out"
+type        = "file"
+required    = true
+cardinality = "one"
+description = "Checkpoint file (-cpo, .cpt) written at -cpt intervals. Stores the complete simulation state for exact continuation."
+
+[tool.image]
+backend   = "docker"
+reference = "docker.io/gromacs/gromacs:2022.2"
+
+[tool.hardware]
+cpu_cores = 8
+ram_gb    = 16.0
+disk_gb   = 20.0
+
+[tool.hardware.gpu]
+required     = false
+min_vram_gb  = 8
+cuda_version = "12.0"
+
+[tool.entrypoint]
+command       = "gmx"
+args_template = "mdrun -s {tpr} -o {trajectory} -x {xtc} -c {final_coords} -e {energy} -g {log} -cpo {checkpoint_out} -cpi {cpi} -table {table} -tablep {tablep} -tableb {tableb} -rerun {rerun} -ei {ei} -awh {awh} -plumed {plumed} -membed {membed} -mp {mp} -mn {mn}"
+
+[tool.binaries]
+exposed = [ "gmx",]

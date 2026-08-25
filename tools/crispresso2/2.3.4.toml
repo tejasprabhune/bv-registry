@@ -1,0 +1,66 @@
+[tool]
+id          = "crispresso2"
+version     = "2.3.4"
+description = "CRISPResso2: quantification of genome editing outcomes from amplicon deep sequencing. Aligns reads to a reference amplicon and reports indel, substitution and HDR frequencies in a quantification window around the guide."
+homepage    = "https://github.com/pinellolab/CRISPResso2"
+license     = "Proprietary (MGH academic-use EULA)"
+tier        = "community"
+maintainers = [ "github:pinellolab",]
+
+[[tool.inputs]]
+name        = "fastq_r1"
+type        = "fastq"
+required    = true
+cardinality = "one"
+description = "Read 1 FASTQ (plain or gzipped) (-r1)"
+
+[[tool.inputs]]
+name        = "fastq_r2"
+type        = "fastq"
+required    = false
+cardinality = "optional"
+description = "Read 2 FASTQ for paired-end sequencing (-r2)"
+
+[[tool.inputs]]
+name        = "amplicon_seq"
+type        = "file"
+required    = true
+cardinality = "one"
+description = "Amplicon reference sequence as a literal DNA string, comma-separated for multiple amplicons (-a). Not a file path."
+
+[[tool.inputs]]
+name        = "guide_seq"
+type        = "file"
+required    = false
+cardinality = "optional"
+description = "sgRNA protospacer, ~20 nt WITHOUT PAM, comma-separated for multiple guides (-g). Not a file path."
+
+[[tool.inputs]]
+name        = "name"
+type        = "file"
+required    = false
+cardinality = "optional"
+description = "Run name; determines the output subdirectory CRISPResso_on_<name> (-n)"
+
+[[tool.outputs]]
+name        = "output_folder"
+type        = "dir"
+required    = true
+cardinality = "one"
+description = "Output directory (-o). Contains CRISPResso_on_<name>/ with CRISPResso2_report.html, CRISPResso2_info.json, quantification_of_editing_frequency.txt, allele/indel/substitution frequency tables and plots."
+
+[tool.image]
+backend   = "docker"
+reference = "quay.io/biocontainers/crispresso2:2.3.4--py312hfcd9dac_0"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb    = 8.0
+disk_gb   = 5.0
+
+[tool.entrypoint]
+command       = "CRISPResso"
+args_template = "-r1 {fastq_r1} -r2 {fastq_r2} -a {amplicon_seq} -g {guide_seq} -n {name} -o {output_folder} -p {cpu_cores} --place_report_in_output_folder"
+
+[tool.binaries]
+exposed = [ "CRISPResso", "CRISPRessoBatch", "CRISPRessoPooled", "CRISPRessoWGS", "CRISPRessoCompare", "CRISPRessoPooledWGSCompare", "CRISPRessoAggregate",]

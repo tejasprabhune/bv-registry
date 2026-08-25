@@ -1,0 +1,38 @@
+[tool]
+id          = "cas-offinder"
+version     = "2.4.1"
+description = "Cas-OFFinder: fast, unbiased genome-wide enumeration of potential CRISPR-Cas off-target sites. Searches a reference genome for sequences matching a guide within a given mismatch/bulge budget. Enumerates candidates only; pair with crisproff downstream to score them."
+homepage    = "https://github.com/snugel/cas-offinder"
+license     = "BSD-3-Clause"
+tier        = "community"
+maintainers = [ "github:snugel",]
+
+[[tool.inputs]]
+name        = "query"
+type        = "file"
+required    = true
+cardinality = "one"
+description = "Cas-OFFinder input file. Line 1: path to the reference genome directory or FASTA. Line 2: PAM pattern with N placeholders (e.g. NNNNNNNNNNNNNNNNNNNNNRG). Subsequent lines: guide sequence followed by allowed mismatch count."
+
+[[tool.outputs]]
+name        = "output"
+type        = "tabular"
+required    = true
+cardinality = "one"
+description = "Tab-delimited off-target hits: crRNA, chromosome, position, matched sequence, strand, mismatch count."
+
+[tool.image]
+backend   = "docker"
+reference = "quay.io/biocontainers/cas-offinder:2.4.1--h503566f_0"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb    = 16.0
+disk_gb   = 20.0
+
+[tool.entrypoint]
+command       = "cas-offinder"
+args_template = "{query} C {output}"
+
+[tool.binaries]
+exposed = [ "cas-offinder",]

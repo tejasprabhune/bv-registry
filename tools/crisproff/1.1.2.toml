@@ -1,0 +1,52 @@
+[tool]
+id          = "crisproff"
+version     = "1.1.2"
+description = "CRISPRoff v1.1.2: thermodynamic off-target specificity scoring for CRISPR-Cas9 gRNAs using nucleic acid duplex energy parameters. Scores off-targets supplied to it; it does NOT enumerate off-targets itself (pair with cas-offinder or RIsearch2 upstream)."
+homepage    = "https://github.com/RTH-tools/crisproff"
+license     = "GPL-3.0"
+tier        = "community"
+maintainers = [ "github:RTH-tools",]
+
+[[tool.inputs]]
+name        = "guides"
+type        = "fasta"
+required    = true
+cardinality = "one"
+description = "FASTA of 23-mers (20 nt spacer + 3 nt PAM), i.e. 30mer[4:27] in CRISPRon's window convention (--guides)"
+
+[[tool.inputs]]
+name        = "offtargets"
+type        = "file"
+required    = false
+cardinality = "optional"
+description = "Off-target hits for a single guide, produced upstream by cas-offinder or RIsearch2 (--offtargets). Omit to run in energy-parameter-only mode."
+
+[[tool.outputs]]
+name        = "guide_params"
+type        = "tabular"
+required    = true
+cardinality = "one"
+description = "TSV: guideID, guideSeq, RNA_DNA_eng, RNA_DNA_eng_weighted, DNA_DNA_opening, spacer_self_fold, CRISPRoff_score (--guide_params_out)"
+
+[[tool.outputs]]
+name        = "specificity_report"
+type        = "tabular"
+required    = false
+cardinality = "optional"
+description = "TSV specificity report; only written when off-target data is supplied (--specificity_report)"
+
+[tool.image]
+backend   = "docker"
+reference = "ghcr.io/alakshminarasimhan/crisproff:1.1.2"
+digest    = "sha256:2b2ddefa0a721bb6d85e7786b5e2d529f0033bc759ad29362c61937803b3a801"
+
+cache_paths = [ "/tmp",]
+
+[tool.hardware]
+cpu_cores = 2
+ram_gb    = 4.0
+disk_gb   = 2.0
+
+[tool.entrypoint]
+command       = "CRISPRspec_CRISPRoff_pipeline.py"
+args_template = "--guides {guides} --offtargets {offtargets} --guide_params_out {guide_params} --specificity_report {specificity_report} --duplex_energy_params /opt/crispron/data/model/energy_dics.pkl --no_azimuth"

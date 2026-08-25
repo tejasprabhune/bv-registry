@@ -1,0 +1,44 @@
+[tool]
+id          = "crispron"
+version     = "1.0.0"
+description = "CRISPRon: deep-learning prediction of SpCas9 gRNA on-target efficiency from 30 nt sequence windows (4 nt 5' context + 20 nt spacer + NGG PAM + 3 nt 3' context). Six-model CNN ensemble; scores are predicted indel frequency in percent."
+homepage    = "https://github.com/RTH-tools/crispron"
+license     = "AGPL-3.0"
+tier        = "community"
+maintainers = [ "github:RTH-tools",]
+
+[[tool.inputs]]
+name        = "sequences"
+type        = "fasta"
+required    = true
+cardinality = "one"
+description = "Nucleotide FASTA. Every record must be >= 30 nt. CRISPRon scans BOTH strands and emits one prediction per NGG window found, so supply one exact 30-mer per record for 1:1 guide-to-score mapping. Records containing N or IUPAC ambiguity codes reset the sliding window and are silently skipped."
+
+[[tool.outputs]]
+name        = "output_dir"
+type        = "dir"
+required    = true
+cardinality = "one"
+description = "Output directory containing crispron.csv (ID,30mer,CRISPRon), CRISPRparams.tsv (CRISPRoff energy parameters), 30mers.fa and 23mers.fa."
+
+[tool.image]
+backend   = "docker"
+reference = "ghcr.io/alakshminarasimhan/crispron:1.0.0"
+digest    = "sha256:3ac397b46a4830ced14f267c1962f923626ddda508531437729caca20976c390"
+
+cache_paths = [ "/tmp",]
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb    = 8.0
+disk_gb   = 5.0
+
+[tool.entrypoint]
+command       = "CRISPRon.sh"
+args_template = "{sequences} {output_dir}"
+
+[tool.entrypoint.env]
+TF_CPP_MIN_LOG_LEVEL = "2"
+
+[tool.binaries]
+exposed = [ "CRISPRon.sh", "get_30mers_from_fa.py", "DeepCRISPRon_eval.py",]

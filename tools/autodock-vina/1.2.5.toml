@@ -1,46 +1,78 @@
 [tool]
-id = "autodock-vina"
-version = "1.2.5"
-description = "Molecular docking with AutoDock Vina"
-homepage = "https://vina.scripps.edu/"
-license = "Apache-2.0"
-tier = "community"
+id          = "autodock-vina"
+version     = "1.2.5"
+description = "Molecular docking and virtual screening with AutoDock Vina. Supports Vina, Vinardo and AutoDock4 scoring functions, flexible receptor side chains, simultaneous multi-ligand docking, batch mode, macrocycle docking, hydrated docking, and external affinity map I/O"
+homepage    = "https://vina.scripps.edu/"
+license     = "Apache-2.0"
+tier        = "community"
 maintainers = [ "github:ccsb-scripps",]
-[[tool.inputs]]
-name = "receptor"
-type = "file"
-cardinality = "one"
-description = "Receptor PDBQT"
 
 [[tool.inputs]]
-name = "ligand"
-type = "file"
+name        = "receptor"
+type        = "file"
+required    = true
 cardinality = "one"
-description = "Ligand PDBQT"
+description = "Rigid receptor PDBQT file (--receptor)."
+
+[[tool.inputs]]
+name        = "ligand"
+type        = "file"
+required    = true
+cardinality = "one"
+description = "Ligand PDBQT file (--ligand) for single-ligand docking. For batch virtual screening use the batch input instead."
+
+[[tool.inputs]]
+name        = "flex"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Flexible receptor side chains PDBQT file (--flex)."
+
+[[tool.inputs]]
+name        = "batch"
+type        = "file"
+required    = false
+cardinality = "many"
+description = "Ligand PDBQT file(s) for batch/virtual-screening mode (--batch). Use instead of ligand; output goes to the dir input."
+
+[[tool.inputs]]
+name        = "maps"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Affinity map prefix (--maps) for pre-computed AutoGrid4 maps. When provided, receptor and search box coordinates are read from the maps instead of being specified explicitly."
+
+[[tool.inputs]]
+name        = "config"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Configuration file (--config) containing any of the above options as key=value lines. Alternative to specifying all flags on the command line."
 
 [[tool.outputs]]
-name = "out"
-type = "file"
+name        = "out"
+type        = "file"
+required    = true
 cardinality = "one"
-description = "Docked poses"
+description = "Output PDBQT file (--out) containing all docked poses ranked by affinity, with scores and RMSD from the best mode."
 
 [tool.image]
-backend = "docker"
+backend   = "docker"
 reference = "ghcr.io/tejasprabhune/bv-pkg/autodock-vina:1.2.5"
 
 [tool.hardware]
 cpu_cores = 4
-ram_gb = 8.0
-disk_gb = 5.0
+ram_gb    = 8.0
+disk_gb   = 5.0
 
 [tool.entrypoint]
-command = "vina"
+command       = "vina"
+args_template = "--receptor {receptor} --ligand {ligand} --out {out} --flex {flex} --batch {batch} --maps {maps} --config {config}"
 
 [tool.binaries]
 exposed = [ "vina",]
 
 [tool.factored]
-spec_path = "specs/autodock-vina/1.2.5.toml"
+spec_path       = "specs/autodock-vina/1.2.5.toml"
 image_reference = "ghcr.io/tejasprabhune/bv-pkg/autodock-vina:1.2.5"
-image_digest = "sha256:31765c7a5c986e495071e96b5df26e308fe11ae178b5db86bdf7bfec05ca714f"
-
+image_digest    = "sha256:31765c7a5c986e495071e96b5df26e308fe11ae178b5db86bdf7bfec05ca714f"

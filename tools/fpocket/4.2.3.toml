@@ -1,0 +1,36 @@
+[tool]
+id          = "fpocket"
+version     = "4.2.3"
+description = "Very fast protein binding-pocket (cavity) detection via Voronoi tessellation and alpha spheres, with pocket scoring and druggability estimation. Bundles mdpocket (pocket detection over MD trajectories / conformational ensembles), dpocket (pocket descriptor extraction), and tpocket (scoring-function benchmarking)"
+homepage    = "https://github.com/Discngine/fpocket"
+license     = "MIT"
+tier        = "community"
+maintainers = [ "github:Discngine",]
+
+[[tool.inputs]]
+name        = "structure"
+type        = "pdb"
+cardinality = "one"
+description = "Protein structure to analyse (fpocket -f). Standard PDB or PDBx/mmCIF (use the matching .pdb/.cif extension). Pocket detection and clustering are tuned through the entrypoint args: -m / -M set the min/max alpha-sphere radius in Angstrom (defaults 3.0 / 6.0), -i sets the minimum number of alpha spheres per pocket, -D and -r set the single- and multiple-linkage clustering distances, and -A sets the electronegative-atom threshold used by the drug score. Batch mode over a list file is also available via -F."
+
+[[tool.outputs]]
+name        = "pockets"
+type        = "dir"
+cardinality = "one"
+description = "Results directory <basename>_out written beside the input file. Contains <basename>_out.pdb (the input structure with every detected pocket appended as alpha-sphere HETATM groups, ranked by pocket score), <basename>_info.txt (per-pocket descriptors: pocket score, druggability score, alpha-sphere count, total/polar/apolar SASA, volume, mean alpha-sphere radius, hydrophobicity, etc.), a <basename>.pml PyMOL script and a VMD visualization script, and a pockets/ subdirectory holding per-pocket pocketN_atm.pdb (atoms contacted by the pocket) and pocketN_vert.pqr (alpha-sphere centers and radii)."
+
+[tool.image]
+backend   = "docker"
+reference = "docker.io/fpocket/fpocket:latest"
+
+[tool.hardware]
+cpu_cores = 2
+ram_gb    = 2.0
+disk_gb   = 2.0
+
+[tool.entrypoint]
+command       = "fpocket"
+args_template = "-f {structure}"
+
+[tool.binaries]
+exposed = [ "fpocket", "mdpocket", "dpocket", "tpocket",]

@@ -1,0 +1,220 @@
+[tool]
+id          = "rfdiffusion"
+version     = "1.1.0"
+description = "Diffusion model for protein backbone generation (RoseTTAFold-based): unconditional and symmetric oligomer design, motif scaffolding, de novo binder design, fold conditioning, and partial diffusion / design diversification"
+homepage    = "https://github.com/RosettaCommons/RFdiffusion"
+license     = "BSD-3-Clause"
+tier        = "community"
+maintainers = [ "github:RosettaCommons",]
+
+[[tool.inputs]]
+name        = "contigs"
+type        = "file"
+required    = true
+cardinality = "one"
+description = "Contig string (contigmap.contigs) defining the design layout. '[150-150]' fixed 150-residue monomer; '[100-200]' variable length; '[10-40/A163-181/10-40]' motif scaffolding with flanking de novo residues around chain A 163-181 from input_pdb; '[A1-150/0 70-100]' binder design ('/0 ' = chain break). Plain ranges = sampled de novo; chain+residue tokens = copied from input_pdb."
+
+[[tool.inputs]]
+name        = "num_designs"
+type        = "file"
+required    = true
+cardinality = "one"
+description = "Number of independent designs to generate (inference.num_designs), e.g. 10. Outputs are numbered design_0.pdb through design_<N-1>.pdb."
+
+[[tool.inputs]]
+name        = "diffuser_T"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Number of reverse-diffusion denoising steps (diffuser.T, default 50). ~20 is often sufficient and roughly 2.5x faster."
+
+[[tool.inputs]]
+name        = "partial_T"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Number of partial-diffusion steps (diffuser.partial_T). Noise an existing input_pdb backbone for this many steps and denoise to diversify it. Typical values 10-30."
+
+[[tool.inputs]]
+name        = "input_pdb"
+type        = "pdb"
+required    = false
+cardinality = "one"
+description = "Input structure (inference.input_pdb) for motif scaffolding, binder target, fold conditioning, or partial diffusion. Referenced from contigs via chain+residue tokens. Not needed for unconditional or symmetric generation."
+
+[[tool.inputs]]
+name        = "hotspot_res"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Target hotspot residues for binder design (ppi.hotspot_res), e.g. '[A30,A33,A34]'. Guides the binder interface toward these residues on the target chain."
+
+[[tool.inputs]]
+name        = "symmetry"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Symmetry type for symmetric oligomer design (inference.symmetry): cyclic (c3, c4, ...), dihedral (d2, d3, ...), tetrahedral, octahedral, icosahedral. Use with config_name=symmetry."
+
+[[tool.inputs]]
+name        = "config_name"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Hydra config group to use (--config-name, default base). Set to 'symmetry' for symmetric oligomer design."
+
+[[tool.inputs]]
+name        = "noise_scale_ca"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Scale factor for CA-atom noise during denoising (denoiser.noise_scale_ca, default 1.0). Reduce to ~0.5 for binder/constrained designs to improve success rate."
+
+[[tool.inputs]]
+name        = "noise_scale_frame"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Scale factor for frame (rotation) noise during denoising (denoiser.noise_scale_frame, default 1.0). Typically paired with noise_scale_ca."
+
+[[tool.inputs]]
+name        = "final_step"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Stop denoising at this step instead of going to t=0 (inference.final_step). Can speed up runs when full denoising is unnecessary."
+
+[[tool.inputs]]
+name        = "contig_length"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Constrain the total designed length when the contig has variable-length segments (contigmap.length), e.g. '120-150'."
+
+[[tool.inputs]]
+name        = "inpaint_seq"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Residue positions whose sequence is masked and redesigned while backbone is kept (contigmap.inpaint_seq), e.g. '[A1-5/A20-25]'."
+
+[[tool.inputs]]
+name        = "inpaint_str"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Residue positions whose structure is masked and regenerated (contigmap.inpaint_str), e.g. '[A10-15]'. Used for loop remodeling."
+
+[[tool.inputs]]
+name        = "scaffoldguided"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Enable fold conditioning (scaffoldguided.scaffoldguided, True or False). When True, the model is guided toward a target fold defined by scaffold_dir."
+
+[[tool.inputs]]
+name        = "scaffold_dir"
+type        = "dir"
+required    = false
+cardinality = "one"
+description = "Directory of secondary-structure and block-adjacency .pt files for fold conditioning (scaffoldguided.scaffold_dir), produced from PDBs with helper_scripts/make_secstruc_adj.py."
+
+[[tool.inputs]]
+name        = "ckpt_override"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Override the auto-selected checkpoint with a specific .pt file (inference.ckpt_override_path), e.g. models/Complex_beta_ckpt.pt."
+
+[[tool.inputs]]
+name        = "guiding_potentials"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "List of guiding potentials to apply during denoising (potentials.guiding_potentials), e.g. '[\"type:monomer_ROG,weight:1,min_dist:5\"]'."
+
+[[tool.inputs]]
+name        = "guide_scale"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Global scale for guiding potentials (potentials.guide_scale, default 10)."
+
+[[tool.inputs]]
+name        = "guide_decay"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Decay schedule for guiding potentials over timesteps (potentials.guide_decay): constant, linear, quadratic, cubic."
+
+[[tool.inputs]]
+name        = "cyclic"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Enable macrocyclic backbone generation (inference.cyclic, True or False)."
+
+[[tool.inputs]]
+name        = "cyc_chains"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Which chains to cyclize in macrocyclic design (inference.cyc_chains), e.g. 'a'."
+
+[[tool.inputs]]
+name        = "model_weights"
+type        = "dir"
+required    = false
+cardinality = "one"
+description = "Override checkpoint directory (inference.model_directory_path). Defaults to weights bundled in the image at /app/RFdiffusion/models."
+
+[[tool.outputs]]
+name        = "designs"
+type        = "dir"
+required    = true
+cardinality = "one"
+description = "Output directory (inference.output_prefix). Contains one design_<n>.pdb backbone per design (backbone only, designed residues as glycine), a matching design_<n>.trb metadata file (sampled contig, residue mapping, inpaint_seq, full run config), and a traj/ subdirectory of per-timestep trajectory PDBs."
+
+[tool.image]
+backend   = "docker"
+reference = "docker.io/rosettacommons/rfdiffusion:latest"
+
+[tool.hardware]
+cpu_cores = 4
+ram_gb    = 16.0
+disk_gb   = 30.0
+
+[tool.hardware.gpu]
+required     = true
+min_vram_gb  = 16
+cuda_version = "11.1"
+
+[tool.entrypoint]
+command       = "run_inference.py"
+args_template = """\
+--config-path /app/RFdiffusion/config/inference \
+--config-name {config_name} \
+inference.model_directory_path=/app/RFdiffusion/models \
+inference.output_prefix={designs}/design \
+'contigmap.contigs={contigs}' \
+inference.num_designs={num_designs} \
+diffuser.T={diffuser_T} \
+diffuser.partial_T={partial_T} \
+inference.input_pdb={input_pdb} \
+'ppi.hotspot_res={hotspot_res}' \
+inference.symmetry={symmetry} \
+denoiser.noise_scale_ca={noise_scale_ca} \
+denoiser.noise_scale_frame={noise_scale_frame} \
+inference.final_step={final_step} \
+contigmap.length={contig_length} \
+'contigmap.inpaint_seq={inpaint_seq}' \
+'contigmap.inpaint_str={inpaint_str}' \
+scaffoldguided.scaffoldguided={scaffoldguided} \
+scaffoldguided.scaffold_dir={scaffold_dir} \
+inference.ckpt_override_path={ckpt_override} \
+'potentials.guiding_potentials={guiding_potentials}' \
+potentials.guide_scale={guide_scale} \
+potentials.guide_decay={guide_decay} \
+inference.cyclic={cyclic} \
+inference.cyc_chains={cyc_chains}"""
+cache_paths   = [ "/app/RFdiffusion/schedules",]

@@ -1,0 +1,36 @@
+[tool]
+id          = "sprout"
+version     = "1.0.0"
+description = "SPROUT: predicts CRISPR-Cas9 repair outcome statistics for a guide, trained on primary human T cells. Reports insertion fraction, insertion:deletion ratio, average insertion and deletion lengths, outcome diversity, and the most likely inserted base. Note: summary statistics, not per-allele indel profiles."
+homepage    = "https://github.com/amirmohan/SPROUT"
+license     = "Apache-2.0"
+tier        = "community"
+maintainers = [ "github:amirmohan",]
+
+[[tool.inputs]]
+name        = "guides"
+type        = "fasta"
+required    = true
+cardinality = "one"
+description = "FASTA of 23-mers (20 nt spacer + 3 nt PAM), uppercase ACGT. Records that are not exactly 23 nt are skipped with a warning."
+
+[[tool.outputs]]
+name        = "output"
+type        = "tabular"
+required    = true
+cardinality = "one"
+description = "TSV: guideID, guideSeq, frac_reads_with_insertion, ins_to_del_ratio, avg_insertion_length, avg_deletion_length, diversity, diversity_class, most_likely_inserted_base"
+
+[tool.image]
+backend   = "docker"
+reference = "ghcr.io/alakshminarasimhan/sprout:1.0.0"
+digest    = "sha256:69f51308823d691508cd382aa63f6f977d36c5163e07b5cdd316bf597d640aac"
+
+[tool.hardware]
+cpu_cores = 2
+ram_gb    = 4.0
+disk_gb   = 2.0
+
+[tool.entrypoint]
+command       = "python"
+args_template = "/opt/SPROUT/sprout_cli.py --guides {guides} --out {output}"

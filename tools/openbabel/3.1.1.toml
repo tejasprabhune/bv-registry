@@ -1,0 +1,255 @@
+[tool]
+id          = "openbabel"
+version     = "3.1.1"
+description = "Chemical toolbox for file format interconversion, molecular filtering, property calculation, 2D/3D coordinate generation, energy minimization, conformer searching and SMARTS-based substructure queries. Reads and writes over 110 chemical file formats including SMILES, SDF, PDB, MOL2, CML, XYZ and InChI"
+homepage    = "http://openbabel.org/"
+license     = "GPL-2.0-only"
+tier        = "community"
+maintainers = [ "github:openbabel",]
+
+[[tool.inputs]]
+name        = "infile"
+type        = "file"
+required    = true
+cardinality = "one"
+description = "Input chemical file. The format is auto-detected from the file extension unless overridden with input_format. Supported formats include SDF, MOL, MOL2, PDB, PDBQT, CML, XYZ, SMILES, InChI and 100+ others."
+
+[[tool.inputs]]
+name        = "input_format"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Override input format (-i<fmt>, e.g. sdf, pdb, smi, mol2, xyz, cml). If omitted, detected from the file extension."
+
+[[tool.inputs]]
+name        = "output_format"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Override output format (-o<fmt>, e.g. sdf, pdb, smi, mol2, xyz, cml, pdbqt, inchi). If omitted, detected from the output file extension."
+
+[[tool.inputs]]
+name        = "first"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Start import at molecule number N (-f N). Used with last for extracting a slice from a multi-molecule file."
+
+[[tool.inputs]]
+name        = "last"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "End import at molecule number N (-l N)."
+
+[[tool.inputs]]
+name        = "pH"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Add hydrogens appropriate for the given pH value (-p pH). Ionizes all titratable centers."
+
+[[tool.inputs]]
+name        = "smarts_include"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Convert only molecules matching this SMARTS pattern (-s SMARTS)."
+
+[[tool.inputs]]
+name        = "smarts_exclude"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Convert only molecules NOT matching this SMARTS pattern (-v SMARTS)."
+
+[[tool.inputs]]
+name        = "filter"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Filter molecules by property or descriptor criteria (--filter). Flexible query syntax, e.g. 'MW<=500 rotors<=5 HBD<=5 HBA<=10' for Lipinski. Enclose in quotes."
+
+[[tool.inputs]]
+name        = "unique"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Remove duplicate molecules (--unique [descriptor]). Default deduplicates by InChI; provide a descriptor name (e.g. cansmi) for an alternative key."
+
+[[tool.inputs]]
+name        = "sort"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Sort output molecules by a descriptor (--sort descriptor), e.g. MW, logP, TPSA. Prefix with - for descending."
+
+[[tool.inputs]]
+name        = "title"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Set the molecule title (--title string). Replaces existing titles in all output molecules."
+
+[[tool.inputs]]
+name        = "addtotitle"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Append text to each molecule title (--addtotitle string)."
+
+[[tool.inputs]]
+name        = "gen3d"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Generate 3D coordinates (--gen3d quality). Quality levels: fastest, fast (default), med, slow, slowest, dist, best. Builds initial geometry then optimizes with a force field."
+
+[[tool.inputs]]
+name        = "ff"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Force field for minimization and 3D generation (--ff name): MMFF94, MMFF94s, UFF, Ghemical, or GAFF."
+
+[[tool.inputs]]
+name        = "steps"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Number of energy minimization steps (--steps N, default 2500)."
+
+[[tool.inputs]]
+name        = "nconf"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Number of conformers to generate during conformer search (--nconf N)."
+
+[[tool.inputs]]
+name        = "partialcharge"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Partial charge model to assign (--partialcharge model): gasteiger, mmff94, qeq, qtpie, eem, none."
+
+[[tool.inputs]]
+name        = "add_descriptor"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Calculate a descriptor and add its value to the output (--add descriptor), e.g. MW, logP, TPSA, HBD, HBA, InChI."
+
+[[tool.inputs]]
+name        = "append_property"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Append an SDF property value to the molecule title (--append property_name)."
+
+[[tool.inputs]]
+name        = "delete_hydrogens"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Remove all explicit hydrogens, making them implicit (-d, boolean flag). Append -d."
+
+[[tool.inputs]]
+name        = "add_hydrogens"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Add explicit hydrogens (-h, boolean flag). Append -h. For pH-dependent protonation use pH instead."
+
+[[tool.inputs]]
+name        = "gen2d"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Generate 2D coordinates for depiction (--gen2d, boolean flag). Append --gen2d."
+
+[[tool.inputs]]
+name        = "minimize"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Perform energy minimization using the selected force field (--minimize, boolean flag). Combine with ff and steps. Append --minimize."
+
+[[tool.inputs]]
+name        = "conformer"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Perform a conformer search (--conformer, boolean flag). Combine with nconf and --weighted/--systematic/--random. Append --conformer."
+
+[[tool.inputs]]
+name        = "split"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Write each molecule to a separate numbered file (-m, boolean flag). Append -m."
+
+[[tool.inputs]]
+name        = "continue_on_error"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Continue processing after errors (-e, boolean flag). Append -e."
+
+[[tool.inputs]]
+name        = "canon"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Output canonical SMILES (--canon, boolean flag). Append --canon."
+
+[[tool.inputs]]
+name        = "addformula"
+type        = "file"
+required    = false
+cardinality = "one"
+description = "Add molecular formula to the title (--addformula, boolean flag). Append --addformula."
+
+[[tool.outputs]]
+name        = "outfile"
+type        = "file"
+required    = true
+cardinality = "one"
+description = "Output chemical file (-O). Format is determined by the file extension or by output_format. Contains the converted, filtered and/or transformed molecules."
+
+[tool.image]
+backend   = "docker"
+reference = "docker.io/openchemistry/openbabel:latest"
+
+[tool.hardware]
+cpu_cores = 2
+ram_gb    = 2.0
+disk_gb   = 2.0
+
+[tool.entrypoint]
+command       = "obabel"
+args_template = """\
+{infile} \
+-O {outfile} \
+-i {input_format} \
+-o {output_format} \
+-f {first} \
+-l {last} \
+-p {pH} \
+-s {smarts_include} \
+-v {smarts_exclude} \
+--filter {filter} \
+--unique {unique} \
+--sort {sort} \
+--title {title} \
+--addtotitle {addtotitle} \
+--gen3d {gen3d} \
+--ff {ff} \
+--steps {steps} \
+--nconf {nconf} \
+--partialcharge {partialcharge} \
+--add {add_descriptor} \
+--append {append_property}"""
+
+[tool.binaries]
+exposed = [ "obabel", "obenergy", "obfit", "obgrep", "obminimize", "obprop", "obrotate", "obrotamer", "obconformer", "obgen",]
