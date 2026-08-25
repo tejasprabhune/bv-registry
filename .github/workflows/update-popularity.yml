@@ -17,6 +17,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check out bv
+        uses: actions/checkout@v4
+        with:
+          repository: tejasprabhune/bv
+          ref: main
+          path: _bv
+
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
@@ -26,16 +33,17 @@ jobs:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
-            target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+            _bv/target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('_bv/**/Cargo.toml') }}
+          restore-keys: ${{ runner.os }}-cargo-
 
       - name: Build bv-builder
-        working-directory: ../bv
+        working-directory: _bv
         run: cargo build --release -p bv-builder
 
       - name: Recompute popularity
         run: |
-          ../bv/target/release/bv-builder pack specs/ --output popularity.json
+          _bv/target/release/bv-builder pack specs/ --output popularity.json
           echo "Top 20 packages:"
           jq -r '.packages | to_entries | sort_by(-.value) | .[0:20] | .[] | "\(.value)\t\(.key)"' popularity.json
 
